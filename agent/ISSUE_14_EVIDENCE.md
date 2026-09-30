@@ -3,7 +3,7 @@
 **Status:** `status:review`
 **Next Owner:** ChatGPT
 **Branch:** `cursor/dev-006-dev-auth-bypass-368a`
-**Commit:** (see latest push)
+**Commit:** `4d9f584`
 
 ---
 
