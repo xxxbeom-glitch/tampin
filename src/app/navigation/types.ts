@@ -11,6 +11,8 @@ export type RootStackParamList = {
   OnboardingBasicInfo: undefined;
   /** Group 02 — routine list / home boundary */
   RoutineHome: undefined;
+  /** Group 02 — routine detail boundary */
+  RoutineDetail: { routineId: string };
   /** Group 02 — routine create/edit boundary */
   RoutineEditor: undefined;
   /** Group 04 — exercise library / selection boundary */
@@ -37,6 +39,7 @@ export const PRODUCT_FLOW_ROUTE_NAMES = [
   'Auth',
   'OnboardingBasicInfo',
   'RoutineHome',
+  'RoutineDetail',
   'RoutineEditor',
   'ExerciseSelection',
   'ActiveWorkout',

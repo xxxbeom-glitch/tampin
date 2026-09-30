@@ -118,4 +118,12 @@ export const catalogEntries: CatalogEntry[] = [
     description:
       'Routine main empty state: identical quick actions with no routine folders.',
   },
+  {
+    id: '02d-routine-detail-default',
+    group: '02 루틴',
+    frameName: '02D_Routine_Detail',
+    stateLabel: 'Default',
+    description:
+      'Scrollable routine detail with summary strip, four exercise set cards, and start CTA.',
+  },
 ];

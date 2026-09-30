@@ -30,6 +30,7 @@ export type RoutineMainScreenProps = {
   folders?: RoutineMainFolderModel[];
   onQuickStartWithoutRoutine?: () => void;
   onCreateRoutine?: () => void;
+  onOpenRoutineDetail?: (routineId: string) => void;
   onOpenAnalysis?: () => void;
   onOpenSettings?: () => void;
   readOnly?: boolean;

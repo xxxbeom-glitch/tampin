@@ -15,6 +15,7 @@ describe('DEV-003 root stack configuration', () => {
       'Auth',
       'OnboardingBasicInfo',
       'RoutineHome',
+      'RoutineDetail',
       'RoutineEditor',
       'ExerciseSelection',
       'ActiveWorkout',

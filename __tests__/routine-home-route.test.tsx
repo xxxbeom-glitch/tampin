@@ -34,6 +34,14 @@ describe('DEV-010 RoutineHomeRouteScreen', () => {
     expect(mockNavigate).toHaveBeenCalledWith('RoutineEditor');
   });
 
+  it('navigates to RoutineDetail from a routine card press', async () => {
+    const { getByTestId } = await render(<RoutineHomeRouteScreen />);
+
+    await fireEvent.press(getByTestId('routine-card-push-day'));
+
+    expect(mockNavigate).toHaveBeenCalledWith('RoutineDetail', { routineId: 'push-day' });
+  });
+
   it('navigates to Analysis and Settings from bottom app bar tabs', async () => {
     const { getByTestId } = await render(<RoutineHomeRouteScreen />);
 

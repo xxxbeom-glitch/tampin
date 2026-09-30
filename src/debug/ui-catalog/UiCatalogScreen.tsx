@@ -5,11 +5,13 @@ import { CatalogList } from './components/CatalogList';
 import { BasicInfoCatalogDetail } from './components/BasicInfoCatalogDetail';
 import { DataLayerHealthDetail } from './components/DataLayerHealthDetail';
 import { LoginCatalogDetail } from './components/LoginCatalogDetail';
+import { RoutineDetailCatalogDetail } from './components/RoutineDetailCatalogDetail';
 import { RoutineMainCatalogDetail } from './components/RoutineMainCatalogDetail';
 import { SplashCatalogDetail } from './components/SplashCatalogDetail';
 import { bootstrapFake } from './fake/bootstrapFake';
 import { basicInfoCatalogPresets } from './fake/basicInfoFake';
 import { loginCatalogPresets } from './fake/loginFake';
+import { routineDetailCatalogPresets } from './fake/routineDetailFake';
 import { routineMainCatalogPresets } from './fake/routineMainFake';
 import type { CatalogEntry } from './registry';
 
@@ -49,6 +51,12 @@ export function UiCatalogScreen({ onBack }: UiCatalogScreenProps) {
           />
         ) : selected.id in routineMainCatalogPresets ? (
           <RoutineMainCatalogDetail
+            entryId={selected.id}
+            frameName={selected.frameName}
+            stateLabel={selected.stateLabel}
+          />
+        ) : selected.id in routineDetailCatalogPresets ? (
+          <RoutineDetailCatalogDetail
             entryId={selected.id}
             frameName={selected.frameName}
             stateLabel={selected.stateLabel}

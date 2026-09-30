@@ -1,49 +1,26 @@
 # Active Task Contract
 
-이 문서는 현재 Cursor 구현 작업 한 건만 유지한다.
-새 Issue를 시작할 때 이전 내용을 교체한다.
-
 ## Task / Issue
-- Issue #22 / DEV-010 — Current Routine Main component states
-- Branch: `cursor/dev-010-routine-main-368a`
+- Issue #24 / DEV-011 — Current Routine Detail and routine-card flow
+- Branch: `cursor/dev-011-routine-detail-368a`
 
 ## Goal
-Replace RoutineHome placeholder with canonical Routine Main WithRoutines/Empty states and wire non-ambiguous first actions.
+Implement scrollable 02D Routine Detail and wire Routine Main card → detail → ActiveWorkout with local fixtures.
 
 ## Required
-- Presentational RoutineMainScreen with deterministic WithRoutines/Empty matching Figma `2483:8317` / `2483:8418`
-- Quick actions: `루틴 없이 시작` → ActiveWorkout; `새 루틴 만들기` → RoutineEditor; bottom Analysis/Settings → existing boundaries
-- Routine cards visual only; no 02D detail routing
-- Local fixtures only; catalog WithRoutines/Empty; tests for rendering/routes/catalog/a11y
-- type/lint/full jest/expo config/prebuild/diff-check; update relevant 02 rows in Screen Map + evidence
+- Presentational RoutineDetailScreen matching Figma `2333:7821`
+- Typed RoutineDetail route; cards → detail; back → RoutineHome; CTA → ActiveWorkout
+- Header edit visual-only; catalog + tests; preserve DEV-010 Routine Main layout geometry
 
 ## Allowed Scope
-- `src/features/routine/*`
-- `RoutineHomeRouteScreen`, RootNavigator wiring
-- `src/debug/ui-catalog/*` routine entries
-- `__tests__/routine-*`, `agent/FIGMA_SCREEN_MAP.md` 02 rows, `agent/ISSUE_22_EVIDENCE.md`
+- `src/features/routine/*` detail files
+- Navigation route wiring, catalog, tests, screen map 02D row, evidence
 
-## Forbidden / Do Not Change
-- SQLite/Supabase/persistence/media/network
-- Routine detail 02D routing, active workout implementation, folder creation form
-- Unrelated screens/tokens/global DS components
+## Forbidden
+- Edit behavior, persistence, set mutation, real thumbnails/media, routine params
 
 ## Figma refs
-- `02A_Routine_Main` — `2483:8317` (WithRoutines)
-- `02B_Routine_Main_Empty` — `2483:8418` (Empty)
-
-## Risk
-- Android dashed border rendering differs from Figma
-- Bottom bar icon placeholders vs Iconly Pro assets
+- `02D_Routine_Detail` — `2333:7821`
 
 ## Verification
-1. `npm run typecheck`
-2. `npm run lint`
-3. `npm test -- --runInBand`
-4. `npx expo config --type public`
-5. `npx expo prebuild --platform android --no-install`
-6. `git diff --check`
-
-## Done When
-- AC satisfied; device visual QA NOT VERIFIED unless run
-- Evidence recorded; Next Owner = ChatGPT
+1. typecheck 2. lint 3. full jest 4. expo config/prebuild 5. diff-check
