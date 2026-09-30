@@ -3,7 +3,7 @@
 **Status:** `status:review`
 **Next Owner:** ChatGPT
 **Branch:** `cursor/dev-011-routine-detail-368a`
-**Commit:** _(pending)_
+**Commit:** `942d9fe`
 
 ---
 
@@ -28,7 +28,12 @@
 ## Test
 
 **Logic PASS**
-- typecheck / lint / full jest / expo config / prebuild / diff-check — pending run
+- `npm run typecheck` — PASS
+- `npm run lint` — PASS
+- `npm test -- --runInBand` — PASS (31 suites, 99 tests)
+- `npx expo config --type public` — PASS
+- `npx expo prebuild --platform android --no-install` — PASS
+- `git diff --check` — PASS
 
 **DEV-011 tests**
 - `__tests__/routine-detail-screen.test.tsx`
