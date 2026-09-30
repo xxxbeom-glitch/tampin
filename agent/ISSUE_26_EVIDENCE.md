@@ -5,7 +5,7 @@ Bundle official SUIT font and replace temporary system-font/text-glyph/gray thum
 
 ## Branch / Commit
 - Branch: `cursor/dev-012-suit-assets-368a`
-- Commit: _(filled after push)_
+- Commit: `5e7db3c`
 
 ## Exported assets (14)
 | id | Figma node | Figma name | path |
