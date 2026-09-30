@@ -2,18 +2,36 @@
 
 ## Current state
 
-- Current mode: **DEVELOPMENT ACTIVE** (Issue #16 / DEV-007) · **DESIGN / FIGMA redesign continues in parallel**
+- Current mode: **DEVELOPMENT ACTIVE** (Issue #18 / DEV-008) · **DESIGN / FIGMA redesign continues in parallel**
 - DEV-001: PASS · merged to main
 - DEV-002 Issue #6: PASS · merged to main
 - DEV-003 Issue #8: PASS · merged to main
 - DEV-004 Issue #10: PASS · merged to main
 - DEV-005 Issue #12: PASS · merged to main
 - DEV-006 Issue #14: PASS · merged to main
-- DEV-007 Issue #16: Cursor implementation → **status:review**
-- Branch: `cursor/dev-007-onboarding-basic-info-368a`
+- DEV-007 Issue #16: PASS · merged to main
+- DEV-008 Issue #18: Cursor implementation → **status:review**
+- Branch: `cursor/dev-008-login-screen-368a`
 - Next Owner: ChatGPT
 
-## DEV-007 — Issue #16 latest development handoff (2026-09-30)
+## DEV-008 — Issue #18 latest development handoff (2026-09-30)
+
+Goal: Replace Login placeholder with canonical Figma 01A Login while preserving DEV-006 dev bypass behavior.
+
+In-scope completed:
+- `LoginFormScreen` (presentational) + `LoginScreen` (auth/busy guard) + `loginFormContent`
+- 01A hierarchy: wordmark, headline/subtitle, stacked provider CTAs, inquiry, Terms/Privacy affordances
+- UI Catalog: ready/unavailable/busy/error-dialog-reference
+- Tests: hierarchy, provider parity/routing, release gating, double press, catalog
+- Logic verification PASS: typecheck / lint / test (65 tests) / expo config / prebuild / diff-check
+
+Production Readiness Review (Login UI scope):
+- Release unavailable/fail-closed preserved; no OAuth/persistence/network
+- Terms/Privacy/inquiry visual-only (deferred URL/support)
+
+NOT VERIFIED: device visual QA · real OAuth · legal URLs · inquiry backend
+
+## DEV-007 — Issue #16 development handoff (2026-09-30 · merged)
 
 Goal: Replace OnboardingBasicInfo placeholder with canonical Figma 01C Basic Info form (sex + YYYYMMDD DOB + Terms agreement).
 

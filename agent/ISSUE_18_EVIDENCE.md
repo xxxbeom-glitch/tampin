@@ -3,7 +3,7 @@
 **Status:** `status:review`
 **Next Owner:** ChatGPT
 **Branch:** `cursor/dev-008-login-screen-368a`
-**Commit:** _(filled after push)_
+**Commit:** `4aa5ff0`
 
 ---
 
