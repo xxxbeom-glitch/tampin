@@ -2,6 +2,7 @@
 
 ## Result
 - Branch: `cursor/dev-014-group04-figma-parity`
+- Commit: `2ee9ad9d3726b7b06e0e729a0f0f2d79ff2f915b`
 - Base reviewed: `92c6b76`
 - Status: Logic PASS · Visual **NOT VERIFIED** (no device/pixel compare; visual PASS 금지)
 - Runtime/Device: NOT VERIFIED
