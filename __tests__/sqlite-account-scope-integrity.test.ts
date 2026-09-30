@@ -375,4 +375,26 @@ describe('DEV-004 SQLite account-scope integrity', () => {
       );
     }).toThrow();
   });
+
+  it('rejects duplicate active set_index rows for the same routine exercise', () => {
+    const connection = createTestSqliteConnection();
+    const accountId = 'account-routine-set-index';
+    const fixture = insertAccountFixture(connection, accountId, 'routine-set-index');
+
+    expect(() => {
+      connection.run(
+        `INSERT INTO routine_set_templates (
+          id, account_id, routine_exercise_id, set_index,
+          target_weight_kg, target_reps, created_at, updated_at, sync_state
+        ) VALUES (?, ?, ?, 1, 70, 10, ?, ?, 'dirty')`,
+        [
+          'duplicate-routine-set-index',
+          accountId,
+          fixture.routineExerciseId,
+          TIMESTAMP,
+          TIMESTAMP,
+        ],
+      );
+    }).toThrow();
+  });
 });

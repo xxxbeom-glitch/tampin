@@ -185,4 +185,8 @@ WHERE status = 'active' AND deleted_at IS NULL;
 CREATE UNIQUE INDEX IF NOT EXISTS idx_set_records_unique_active_set_index
 ON set_records(session_exercise_id, set_index)
 WHERE deleted_at IS NULL;
+
+CREATE UNIQUE INDEX IF NOT EXISTS idx_routine_set_templates_unique_active_set_index
+ON routine_set_templates(routine_exercise_id, set_index)
+WHERE deleted_at IS NULL;
 `.trim();
