@@ -1,11 +1,16 @@
 import { type ReactNode } from 'react';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
+import { DataLayerProvider } from './data-layer';
 
 type AppProvidersProps = {
   children: ReactNode;
 };
 
-/** Bootstrap providers shell — no auth/data SDKs in DEV-001. */
+/** App-level providers — DEV-005 wires SQLite lifecycle behind typed repositories. */
 export function AppProviders({ children }: AppProvidersProps) {
-  return <SafeAreaProvider>{children}</SafeAreaProvider>;
+  return (
+    <SafeAreaProvider>
+      <DataLayerProvider>{children}</DataLayerProvider>
+    </SafeAreaProvider>
+  );
 }

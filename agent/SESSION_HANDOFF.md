@@ -2,15 +2,41 @@
 
 ## Current state
 
-- Current mode: **DEVELOPMENT ACTIVE** (Issue #10 / DEV-004) · **DESIGN / FIGMA redesign continues in parallel**
+- Current mode: **DEVELOPMENT ACTIVE** (Issue #12 / DEV-005) · **DESIGN / FIGMA redesign continues in parallel**
 - DEV-001: PASS · merged to main
 - DEV-002 Issue #6: PASS · merged to main
 - DEV-003 Issue #8: PASS · merged to main
-- DEV-004 Issue #10: Cursor implementation → **status:review**
-- Branch: `cursor/dev-004-sqlite-foundation-368a`
+- DEV-004 Issue #10: PASS · merged to main
+- DEV-005 Issue #12: Cursor implementation → **status:review**
+- Branch: `cursor/dev-005-data-layer-wiring-368a`
 - Next Owner: ChatGPT
 
-## DEV-004 — Issue #10 latest development handoff (2026-09-30)
+## DEV-005 — Issue #12 latest development handoff (2026-09-30)
+
+Goal: wire merged DEV-004 SQLite foundation into Expo app lifecycle with typed repository access only.
+
+In-scope completed:
+- `DataLayerProvider` in `AppProviders` — lazy production open (no import-time DB), injectable `openDatabase` for tests
+- Hooks: `useTampinDataLayer`, `useTampinRepositories`, `useTampinDataLayerHealth`
+- Dev UI Catalog entry `DEV_Data_Layer_Health` — read-only init status + schema version (no seed/delete/mutate)
+- Import boundary tests: features/navigation/debug UI do not import raw sqlite APIs
+- Logic verification PASS: typecheck / lint / test (29 tests) / expo config / prebuild / diff-check
+
+Production Readiness Review (wiring scope):
+- Scope: lifecycle provider + dev-only health observability; no product screens, no schema changes
+- Invariants: one init per process; migration before repositories; init errors surfaced without DB wipe
+- Privacy: health entry shows metadata only
+- Result: **PASS (wiring scope)** · Runtime/Device **NOT VERIFIED**
+
+Physical device smoke procedure (NOT VERIFIED): documented in `agent/ISSUE_12_EVIDENCE.md`
+
+NOT VERIFIED (unchanged from DEV-002 — do not erase):
+- EAS login / project link / identity read-back
+- Expo Doctor full PASS (19/21; pre-existing DEV-001 drift)
+- Android Gradle assembleDebug (no ANDROID_HOME / SDK in cloud agent)
+- Android device/emulator install+launch + expo-sqlite catalog health smoke
+
+## DEV-004 — Issue #10 development handoff (2026-09-30 · merged)
 
 Goal: local-first SQLite schema/repository foundation before Routine/Workout UI persistence.
 
@@ -148,7 +174,7 @@ Issue comment pending:
 ## Next
 
 Development track:
-- ChatGPT independent QA on branch `cursor/dev-004-sqlite-foundation-368a`
+- ChatGPT independent QA on branch `cursor/dev-005-data-layer-wiring-368a`
 - If PO completes EAS login + local Android smoke, record supplemental evidence on Issue #6 (DEV-002 NOT VERIFIED carryover)
 
 Design/Figma track — resume from:
