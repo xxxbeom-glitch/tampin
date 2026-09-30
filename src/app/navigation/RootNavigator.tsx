@@ -9,6 +9,7 @@ import { AuthRouteScreen } from './screens/AuthRouteScreen';
 import { SplashRouteScreen } from './screens/SplashRouteScreen';
 import { FlowBoundaryPlaceholderScreen } from './screens/FlowBoundaryPlaceholderScreen';
 import { OnboardingBasicInfoRouteScreen } from './screens/OnboardingBasicInfoRouteScreen';
+import { RoutineHomeRouteScreen } from './screens/RoutineHomeRouteScreen';
 import { UiCatalogRouteScreen } from './screens/UiCatalogRouteScreen';
 import type { RootStackParamList } from './types';
 
@@ -25,6 +26,10 @@ function renderRootScreen(name: keyof RootStackParamList) {
 
   if (name === 'OnboardingBasicInfo') {
     return OnboardingBasicInfoRouteScreen;
+  }
+
+  if (name === 'RoutineHome') {
+    return RoutineHomeRouteScreen;
   }
 
   if (name === 'UiCatalog') {
