@@ -3,7 +3,7 @@
 ## Current state
 
 - Current work: **Group 05 mock parity follow-up** after `ce581d8` (button transitions + timer mock elapsed). **No new Issue.**
-- Base: `ce581d8` · Branch: `cursor/group05-figma-parity`
+- Base: `ce581d8` · Branch: `cursor/group05-figma-parity` · Follow-up: `076a5a8`
 - Visual/device PASS and merge: **not granted**
 - Logic: type / lint / related Jest · Visual/Runtime/Device: **NOT VERIFIED**
 - PR / merge / Group 06: **대기**
