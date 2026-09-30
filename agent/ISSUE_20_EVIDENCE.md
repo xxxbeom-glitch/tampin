@@ -3,7 +3,7 @@
 **Status:** `status:review`
 **Next Owner:** ChatGPT
 **Branch:** `cursor/dev-009-splash-launch-368a`
-**Commit:** `ad002f5`
+**Commit:** `c8ef679`
 
 ---
 
