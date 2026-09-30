@@ -3,7 +3,7 @@
 **Status:** `status:review`
 **Next Owner:** ChatGPT
 **Branch:** `cursor/dev-007-onboarding-basic-info-368a`
-**Commit:** _(filled after push)_
+**Commit:** `a24f47f`
 
 ---
 
