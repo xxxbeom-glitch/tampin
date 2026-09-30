@@ -16,4 +16,12 @@ export const catalogEntries: CatalogEntry[] = [
     description:
       'Non-canonical bootstrap placeholder proving catalog shell rendering without auth/DB.',
   },
+  {
+    id: 'data-layer-health',
+    group: '00 시작',
+    frameName: 'DEV_Data_Layer_Health',
+    stateLabel: 'ReadOnly',
+    description:
+      'Read-only SQLite initialization status and schema version observability.',
+  },
 ];

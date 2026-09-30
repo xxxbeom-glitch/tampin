@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { Pressable, StyleSheet, Text, View } from 'react-native';
 import { colors } from '../../design-system/tokens';
 import { CatalogList } from './components/CatalogList';
+import { DataLayerHealthDetail } from './components/DataLayerHealthDetail';
 import { bootstrapFake } from './fake/bootstrapFake';
 import type { CatalogEntry } from './registry';
 
@@ -19,7 +20,11 @@ export function UiCatalogScreen({ onBack }: UiCatalogScreenProps) {
           <Text style={styles.link}>← Back to catalog</Text>
         </Pressable>
         <Text style={styles.title}>{selected.frameName}</Text>
-        <Text style={styles.body}>{bootstrapFake.body}</Text>
+        {selected.id === 'data-layer-health' ? (
+          <DataLayerHealthDetail />
+        ) : (
+          <Text style={styles.body}>{bootstrapFake.body}</Text>
+        )}
         <Text style={styles.meta}>
           {selected.group} / {selected.stateLabel}
         </Text>
