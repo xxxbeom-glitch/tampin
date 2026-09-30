@@ -2,12 +2,39 @@
 
 ## Current state
 
-- Current mode: DESIGN / FIGMA
-- Development: PAUSED BY PRODUCT OWNER
+- Current mode: **DEVELOPMENT ACTIVE** (Issue #6 / DEV-002 reactivated 2026-09-30) · **DESIGN / FIGMA redesign continues in parallel**
 - DEV-001: PASS · merged to main
-- DEV-002 Issue #6: PAUSED BEFORE EXECUTION
-- Active development task: NONE
-- Next Owner: ChatGPT + Product Owner
+- DEV-002 Issue #6: Cursor implementation complete → **status:review**
+- Branch: `cursor/dev-002-eas-android-smoke-368a`
+- Latest commit: see DEV-002 section below
+- Next Owner: ChatGPT
+
+## DEV-002 — Issue #6 latest development handoff (2026-09-30)
+
+Reactivation comment on Issue #6 is authoritative for DEV-002 execution scope.
+
+In-scope completed:
+- `eas.json` Android-only `development` profile (`developmentClient: true`, `distribution: internal`, `buildType: apk`)
+- Unit test `__tests__/eas-development-profile.test.ts` (development profile presence only)
+- `agent/TASK_CONTRACT.md` updated
+- Logic verification PASS: typecheck / lint / test / `expo config --type public`
+
+NOT VERIFIED (cloud agent blockers — per Reactivation instruction):
+- EAS login (`eas whoami` → Not logged in; no EXPO_TOKEN)
+- EAS project link + identity read-back
+- Expo Doctor full PASS (19/21; pre-existing DEV-001 drift)
+- Android Gradle assembleDebug (no ANDROID_HOME / SDK)
+- Android device/emulator install+launch
+- Bootstrap shell + UI Catalog runtime visual verification
+
+PO follow-up to close NOT VERIFIED:
+1. `eas login` locally (or provide EXPO_TOKEN)
+2. `eas init` / link project; read back project ID
+3. Local Android dev build smoke: bootstrap shell + Debug UI Catalog entry
+
+Issue comment pending:
+- GitHub integration could not post Issue #6 comment (`Resource not accessible by integration`).
+- ChatGPT should paste Result/Test/Commit into Issue #6 and set review state.
 
 ## Active detached redesign workspace
 
@@ -61,8 +88,7 @@
 
 ## Do not do now
 
-- do not execute Issue #6
-- do not start canonical-screen implementation
+- do not start canonical-screen implementation beyond the current scoped GitHub Issue
 - do not assume historical Group 02 Home remains the final IA
 - do not reset PO-adjusted Figma values to older assistant values
 - do not update canonical screen count before redesign promotion/remapping QA
@@ -71,7 +97,11 @@
 
 ## Next
 
-Resume from:
+Development track:
+- ChatGPT independent QA on branch `cursor/dev-002-eas-android-smoke-368a`
+- If PO completes EAS login + local Android smoke, record supplemental evidence on Issue #6
+
+Design/Figma track — resume from:
 `PROJECT_INSTRUCTIONS.md → docs/CURRENT.md → docs/ux-decisions/2026-09-22-version2-detached-redesign-workspace.md → Figma version2 2237:7614 → NEXT OPEN ITEM`
 
 Next design step:
@@ -81,4 +111,4 @@ Next design step:
 4. reconcile Home → Routine IA and other affected contracts only after the visual direction is sufficiently closed
 5. promote approved affected scope to canonical Figma
 6. run focused affected-scope QA
-7. only then refresh implementation handoff and wait for explicit PO Development resume
+7. refresh implementation handoff for any promoted scope before dependent development Issues

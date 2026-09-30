@@ -3,41 +3,61 @@
 이 문서는 현재 Cursor 구현 작업 한 건만 유지한다.
 새 Issue를 시작할 때 이전 내용을 교체한다.
 
-## Current state
-- Development authorization: PAUSED BY PRODUCT OWNER — 2026-09-22
-- Previous completed Issue: #5 / DEV-001 — PASS · merged to main
-- Paused Issue: #6 / DEV-002 — NOT EXECUTED
-- Active implementation Issue: NONE
-- Status: NO_ACTIVE_DEV_TASK
-- Current mode: DESIGN / FIGMA
-- Next Owner: ChatGPT + Product Owner
+## Task / Issue
+- Issue #6 / DEV-002 — Expo/EAS link + Android runtime smoke
+- Branch: `cursor/dev-002-eas-android-smoke-368a`
 
-## Reason
+## Goal
+DEV-001 bootstrap을 유지한 채 Expo/EAS 프로젝트 연결 준비와 Android runtime smoke evidence를 확보한다.
 
-Product Owner가 현재 canonical 디자인을 크게 수정하기 위해 Development를 일시 중단했다.
+## Required
+- DEV-001 baseline preserved
+- EAS login state verified (또는 blocker 기록)
+- Tampin EAS project link + identity read-back (또는 blocker 기록)
+- Android-only `eas.json` development profile (`developmentClient: true`)
+- Expo Doctor / equivalent 실행 및 결과 기록
+- Android package `com.lumian.tampin` 유지
+- Android local install/launch smoke (또는 Runtime/Device NOT VERIFIED)
+- type/lint/test 실행
+- commit/push + Issue evidence
 
-DEV-001의 Expo/RN/TS bootstrap은 그대로 유지한다.
-DEV-002는 실행 전 상태로 보류한다.
+## Allowed Scope
+- `eas.json` 추가
+- DEV-002 검증용 unit test
+- `agent/TASK_CONTRACT.md` 갱신
+- Issue #6 Result/Test/Commit/Not Verified 기록
 
-## Cursor rule
+## Forbidden / Do Not Change
+- canonical Figma screen 구현
+- Design System transcription
+- SQLite / Supabase / Auth / Sync
+- exercise DB / media
+- analytics / notification runtime
+- Play Store submission / production build / cloud EAS build
+- iOS work
+- DEV-001 bootstrap identity / UI catalog shell 의미 변경
 
-현재 Cursor는 production app 구현을 진행하지 않는다.
+## Figma refs
+- N/A (runtime/EAS only)
 
-금지:
-- Issue #6 실행
-- 새 implementation Issue 선행 실행
-- canonical Figma 변경 전 화면 구현
-- SQLite/Supabase/Auth/Sync 등 후속 개발 선행
+## Risk
+- Cloud Agent 환경에 EAS login token / Android SDK / emulator 없음
+- Expo Doctor가 DEV-001 baseline(`newArchEnabled`, patch version drift)에서 fail 가능
 
-재개 조건:
-1. canonical Figma redesign 완료
-2. 변경 범위 Design QA PASS
-3. 관련 implementation handoff/behavior contract 갱신 필요 시 반영
-4. Product Owner의 명시적 Development 재개 승인
+## Affected invariants / regression packs
+- DEV-001 bootstrap identity (`com.lumian.tampin`, slug `tampin`)
+- Debug UI Catalog dev-only entry (`__DEV__`)
 
-## Result
+## Verification
+1. `npm run typecheck`
+2. `npm run lint`
+3. `npm test`
+4. `npx expo-doctor`
+5. `npx eas-cli whoami` / project link read-back
+6. Android prebuild + assembleDebug or device launch when target exists
 
-- Status: PAUSED
-- Code rollback: NONE
-- DEV-001: retained
-- DEV-002: waiting
+## Done When
+- AC 충족 또는 unavailable step은 NOT VERIFIED로 명시
+- commit/push complete
+- Issue #6에 Result/Test/Commit/Risk/Not Verified 기록
+- Next Owner = ChatGPT
