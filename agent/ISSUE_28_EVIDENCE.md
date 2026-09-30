@@ -54,9 +54,9 @@ implemented Screen Map row was corrected and marked implemented.
 - `npm run typecheck` — PASS
 - `npm run lint` — PASS
 - Focused Jest (5 suites / 15 tests) — PASS
-- Full Jest — pending final run
-- `npx expo config --type public` — pending final run
-- `npx expo prebuild --platform android --no-install` — pending final run
+- Full Jest (36 suites / 114 tests) — PASS
+- `npx expo config --type public` — PASS
+- `npx expo prebuild --platform android --no-install` — PASS
 - `git diff --check` — PASS
 
 ## Known unverified evidence
