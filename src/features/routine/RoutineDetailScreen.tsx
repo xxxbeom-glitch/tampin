@@ -5,7 +5,12 @@ import {
   Text,
   View,
 } from 'react-native';
-import { colors } from '../../design-system/tokens';
+import {
+  exerciseThumbnailById,
+  figmaAssets,
+} from '../../design-system/assets';
+import { FigmaImage } from '../../design-system/components/FigmaImage';
+import { colors, fontFamily } from '../../design-system/tokens';
 import {
   ROUTINE_DETAIL_COPY,
   ROUTINE_DETAIL_LAYOUT,
@@ -18,18 +23,27 @@ import type {
 } from './routineDetailTypes';
 
 function BackIcon() {
-  return (
-    <Text accessibilityElementsHidden importantForAccessibility="no" style={styles.headerIcon}>
-      ‹
-    </Text>
-  );
+  return <FigmaImage height={24} source={figmaAssets.icons.arrowLeft} width={24} />;
 }
 
 function EditIcon() {
+  return <FigmaImage height={24} source={figmaAssets.icons.edit} width={24} />;
+}
+
+function ExerciseThumbnail({ exerciseId }: { exerciseId: string }) {
+  const source = exerciseThumbnailById[exerciseId];
+  if (!source) {
+    return <View style={styles.thumbnailPlaceholder} testID={`routine-detail-thumbnail-placeholder-${exerciseId}`} />;
+  }
+
   return (
-    <Text accessibilityElementsHidden importantForAccessibility="no" style={styles.headerIcon}>
-      ✎
-    </Text>
+    <FigmaImage
+      height={64}
+      source={source}
+      style={styles.exerciseThumbnail}
+      testID={`routine-detail-thumbnail-${exerciseId}`}
+      width={64}
+    />
   );
 }
 
@@ -80,7 +94,7 @@ function ExerciseCard({ exercise }: { exercise: RoutineDetailExercise }) {
   return (
     <View style={styles.exerciseCard} testID={`routine-detail-exercise-${exercise.id}`}>
       <View style={styles.exerciseHeader}>
-        <View style={styles.thumbnailPlaceholder} />
+        <ExerciseThumbnail exerciseId={exercise.id} />
         <View style={styles.exerciseInfo}>
           <MuscleTag
             backgroundColor={exercise.tag.backgroundColor}
@@ -251,15 +265,10 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
-  headerIcon: {
-    fontSize: 24,
-    lineHeight: 24,
-    color: colors.textPrimary,
-  },
   headerTitle: {
     flex: 1,
     fontSize: 16,
-    fontWeight: '700',
+    fontFamily: fontFamily.bold,
     lineHeight: 24,
     color: colors.textPrimary,
     textAlign: 'center',
@@ -280,13 +289,13 @@ const styles = StyleSheet.create({
   },
   summaryLabel: {
     fontSize: 12,
-    fontWeight: '500',
+    fontFamily: fontFamily.medium,
     lineHeight: 16,
     color: '#979DA9',
   },
   summaryValue: {
     fontSize: 16,
-    fontWeight: '700',
+    fontFamily: fontFamily.bold,
     lineHeight: 24,
     color: colors.textPrimary,
   },
@@ -320,6 +329,11 @@ const styles = StyleSheet.create({
     borderColor: colors.borderSubtle,
     backgroundColor: colors.subtleSurface,
   },
+  exerciseThumbnail: {
+    borderRadius: 12,
+    borderWidth: 1,
+    borderColor: colors.borderSubtle,
+  },
   exerciseInfo: {
     flex: 1,
     gap: 4,
@@ -333,12 +347,12 @@ const styles = StyleSheet.create({
   },
   muscleTagLabel: {
     fontSize: 11,
-    fontWeight: '600',
+    fontFamily: fontFamily.semiBold,
     lineHeight: 14,
   },
   exerciseName: {
     fontSize: 16,
-    fontWeight: '700',
+    fontFamily: fontFamily.bold,
     lineHeight: 24,
     color: colors.textPrimary,
   },
@@ -352,7 +366,7 @@ const styles = StyleSheet.create({
   },
   setTableHeaderText: {
     fontSize: 12,
-    fontWeight: '700',
+    fontFamily: fontFamily.bold,
     lineHeight: 16,
     color: '#979DA9',
     textAlign: 'center',
@@ -371,7 +385,7 @@ const styles = StyleSheet.create({
   },
   setNumberText: {
     fontSize: 14,
-    fontWeight: '700',
+    fontFamily: fontFamily.bold,
     lineHeight: 20,
     color: colors.textPrimary,
   },
@@ -389,7 +403,7 @@ const styles = StyleSheet.create({
   },
   setValueText: {
     fontSize: 14,
-    fontWeight: '500',
+    fontFamily: fontFamily.medium,
     lineHeight: 20,
     color: colors.textPrimary,
     textAlign: 'center',
@@ -418,7 +432,7 @@ const styles = StyleSheet.create({
   },
   startWorkoutLabel: {
     fontSize: 16,
-    fontWeight: '700',
+    fontFamily: fontFamily.bold,
     lineHeight: 24,
     color: colors.textOnBrand,
     textAlign: 'center',

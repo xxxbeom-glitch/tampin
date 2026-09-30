@@ -5,7 +5,9 @@ import {
   Text,
   View,
 } from 'react-native';
-import { colors } from '../../design-system/tokens';
+import { figmaAssets } from '../../design-system/assets';
+import { FigmaImage } from '../../design-system/components/FigmaImage';
+import { colors, fontFamily } from '../../design-system/tokens';
 import {
   ROUTINE_MAIN_BOTTOM_TABS,
   ROUTINE_MAIN_LAYOUT,
@@ -19,30 +21,21 @@ import type {
 } from './routineMainTypes';
 
 function PlusIcon() {
-  return (
-    <Text accessibilityElementsHidden importantForAccessibility="no" style={styles.plusIcon}>
-      +
-    </Text>
-  );
+  return <FigmaImage height={18} source={figmaAssets.icons.plus} width={18} />;
 }
 
 function ChevronRightIcon() {
-  return (
-    <Text accessibilityElementsHidden importantForAccessibility="no" style={styles.chevronIcon}>
-      ›
-    </Text>
-  );
+  return <FigmaImage height={18} source={figmaAssets.icons.chevronRight} width={18} />;
 }
 
 function FolderChevron({ collapsed }: { collapsed: boolean }) {
   return (
-    <Text
-      accessibilityElementsHidden
-      importantForAccessibility="no"
-      style={[styles.folderChevron, collapsed && styles.folderChevronCollapsed]}
-    >
-      ▾
-    </Text>
+    <FigmaImage
+      height={14}
+      source={figmaAssets.icons.folderChevronExpanded}
+      style={collapsed ? styles.folderChevronCollapsed : undefined}
+      width={14}
+    />
   );
 }
 
@@ -163,6 +156,16 @@ function RoutineFolderSection({
   );
 }
 
+function bottomTabIconSource(label: string) {
+  if (label === ROUTINE_MAIN_BOTTOM_TABS.routine) {
+    return figmaAssets.icons.bottomTabRoutine;
+  }
+  if (label === ROUTINE_MAIN_BOTTOM_TABS.analysis) {
+    return figmaAssets.icons.bottomTabAnalysis;
+  }
+  return figmaAssets.icons.bottomTabSettings;
+}
+
 function BottomTab({
   label,
   active,
@@ -186,18 +189,12 @@ function BottomTab({
       testID={testID}
     >
       <View style={styles.bottomTabIconWrap}>
-        <Text
-          style={[
-            styles.bottomTabIcon,
-            active ? styles.bottomTabIconActive : styles.bottomTabIconInactive,
-          ]}
-        >
-          {label === ROUTINE_MAIN_BOTTOM_TABS.routine
-            ? '#'
-            : label === ROUTINE_MAIN_BOTTOM_TABS.analysis
-              ? '◔'
-              : '⚙'}
-        </Text>
+        <FigmaImage
+          height={24}
+          source={bottomTabIconSource(label)}
+          style={active ? styles.bottomTabIconActive : styles.bottomTabIconInactive}
+          width={24}
+        />
       </View>
       <Text
         style={[
@@ -338,7 +335,7 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 27,
-    fontWeight: '700',
+    fontFamily: fontFamily.bold,
     lineHeight: 32,
     color: colors.textPrimary,
   },
@@ -361,7 +358,7 @@ const styles = StyleSheet.create({
   quickStartLabel: {
     flex: 1,
     fontSize: 16,
-    fontWeight: '700',
+    fontFamily: fontFamily.bold,
     lineHeight: 24,
     color: colors.textPrimary,
   },
@@ -373,12 +370,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
-  plusIcon: {
-    fontSize: 18,
-    fontWeight: '600',
-    lineHeight: 18,
-    color: colors.textPrimary,
-  },
   folderSection: {
     gap: 12,
   },
@@ -388,17 +379,12 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     gap: 8,
   },
-  folderChevron: {
-    fontSize: 14,
-    lineHeight: 16,
-    color: '#979DA9',
-  },
   folderChevronCollapsed: {
     transform: [{ rotate: '-90deg' }],
   },
   folderHeaderLabel: {
     fontSize: 14,
-    fontWeight: '700',
+    fontFamily: fontFamily.bold,
     lineHeight: 26,
     color: '#979DA9',
   },
@@ -431,7 +417,7 @@ const styles = StyleSheet.create({
   },
   routineCardTitle: {
     fontSize: 16,
-    fontWeight: '700',
+    fontFamily: fontFamily.bold,
     lineHeight: 24,
     color: colors.textPrimary,
   },
@@ -452,14 +438,9 @@ const styles = StyleSheet.create({
   },
   timeChipLabel: {
     fontSize: 11,
-    fontWeight: '700',
+    fontFamily: fontFamily.bold,
     lineHeight: 14,
     color: '#F05A1F',
-  },
-  chevronIcon: {
-    fontSize: 18,
-    lineHeight: 18,
-    color: colors.textSecondary,
   },
   routineTagRow: {
     flexDirection: 'row',
@@ -473,7 +454,7 @@ const styles = StyleSheet.create({
   },
   muscleTagLabel: {
     fontSize: 11,
-    fontWeight: '600',
+    fontFamily: fontFamily.semiBold,
     lineHeight: 14,
   },
   bottomBarWrap: {
@@ -505,20 +486,15 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
-  bottomTabIcon: {
-    fontSize: 20,
-    lineHeight: 24,
-    textAlign: 'center',
-  },
   bottomTabIconActive: {
-    color: colors.brandPrimary,
+    tintColor: colors.brandPrimary,
   },
   bottomTabIconInactive: {
-    color: colors.textSecondary,
+    tintColor: colors.textSecondary,
   },
   bottomTabLabel: {
     fontSize: 11,
-    fontWeight: '500',
+    fontFamily: fontFamily.medium,
     lineHeight: 14,
     textAlign: 'center',
   },
