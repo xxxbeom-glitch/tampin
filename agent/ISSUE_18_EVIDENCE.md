@@ -32,6 +32,14 @@
 - Public Terms/Privacy URL opening
 - Inquiry/support navigation and submission
 
+**Post–design-QA token alignment (pre-merge)**
+- Source: Figma `01A_Login` `40:2075` variable defs — `--fitness-colors-brand-primary` / `action/primary`
+- Source: Figma `01C_Basic_Info` `40:2138` variable defs — `action/primary` (selected tile uses `brand/primary` on same blue in frame read-back)
+- Updated existing tokens only (no new tokens):
+  - `brandPrimary`: `#218F8A` → `#2563D6`
+  - `brandAction`: `#1A7E79` → `#2563D6`
+- Applies to DEV-007 Basic Info selected/CTA and DEV-008 Login wordmark/CTA via shared `colors.ts`
+
 ---
 
 ## Test
