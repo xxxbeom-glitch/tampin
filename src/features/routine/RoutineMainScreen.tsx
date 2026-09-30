@@ -90,10 +90,21 @@ function MuscleTag({
   );
 }
 
-function RoutineCompactCard({ routine }: { routine: RoutineMainCardModel }) {
+function RoutineCompactCard({
+  routine,
+  disabled,
+  onPress,
+}: {
+  routine: RoutineMainCardModel;
+  disabled: boolean;
+  onPress?: (routineId: string) => void;
+}) {
   return (
-    <View
-      accessibilityRole="text"
+    <Pressable
+      accessibilityRole="button"
+      accessibilityState={{ disabled }}
+      disabled={disabled}
+      onPress={() => onPress?.(routine.id)}
       style={styles.routineCard}
       testID={`routine-card-${routine.id}`}
     >
@@ -119,11 +130,19 @@ function RoutineCompactCard({ routine }: { routine: RoutineMainCardModel }) {
           />
         ))}
       </View>
-    </View>
+    </Pressable>
   );
 }
 
-function RoutineFolderSection({ folder }: { folder: RoutineMainFolderModel }) {
+function RoutineFolderSection({
+  folder,
+  cardsDisabled,
+  onOpenRoutineDetail,
+}: {
+  folder: RoutineMainFolderModel;
+  cardsDisabled: boolean;
+  onOpenRoutineDetail?: (routineId: string) => void;
+}) {
   return (
     <View style={styles.folderSection} testID={`routine-folder-${folder.id}`}>
       <View style={styles.folderHeader}>
@@ -132,7 +151,12 @@ function RoutineFolderSection({ folder }: { folder: RoutineMainFolderModel }) {
       </View>
       {!folder.collapsed
         ? folder.routines.map((routine) => (
-            <RoutineCompactCard key={routine.id} routine={routine} />
+            <RoutineCompactCard
+              disabled={cardsDisabled}
+              key={routine.id}
+              onPress={onOpenRoutineDetail}
+              routine={routine}
+            />
           ))
         : null}
     </View>
@@ -229,6 +253,7 @@ export function RoutineMainScreen({
   folders = [],
   onQuickStartWithoutRoutine,
   onCreateRoutine,
+  onOpenRoutineDetail,
   onOpenAnalysis,
   onOpenSettings,
   readOnly = false,
@@ -265,7 +290,12 @@ export function RoutineMainScreen({
 
           {state === 'WithRoutines'
             ? folders.map((folder) => (
-                <RoutineFolderSection folder={folder} key={folder.id} />
+                <RoutineFolderSection
+                  cardsDisabled={!interactive}
+                  folder={folder}
+                  key={folder.id}
+                  onOpenRoutineDetail={onOpenRoutineDetail}
+                />
               ))
             : null}
         </View>

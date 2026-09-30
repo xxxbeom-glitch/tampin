@@ -25,6 +25,7 @@ Status values:
 | 01 | `01C4_Basic_Info_Disabled` | `1314:695` | 360×780 | `src/features/auth/` | IMPLEMENTED | REGISTERED | LOGIC_PASS |
 | 02 | `02A_Routine_Main` | `2483:8317` | 360×766 | `src/features/routine/` | IMPLEMENTED | REGISTERED | LOGIC_PASS |
 | 02 | `02B_Routine_Main_Empty` | `2483:8418` | 360×766 | `src/features/routine/` | IMPLEMENTED | REGISTERED | LOGIC_PASS |
+| 02 | `02D_Routine_Detail` | `2333:7821` | 360×1516 | `src/features/routine/` | IMPLEMENTED | REGISTERED | LOGIC_PASS |
 | 02 | `02D_Home_Active` | `1346:710` | 360×780 | `src/features/home/` | NOT_STARTED | NOT_REGISTERED | NOT_VERIFIED |
 | 03 | `03A_Routine_List` | `34:1401` | 360×780 | `src/features/routine/` | NOT_STARTED | NOT_REGISTERED | NOT_VERIFIED |
 | 03 | `03B_Routine_Empty` | `34:1438` | 360×780 | `src/features/routine/` | NOT_STARTED | NOT_REGISTERED | NOT_VERIFIED |

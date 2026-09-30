@@ -21,6 +21,9 @@ export function RoutineHomeRouteScreen() {
       onCreateRoutine={() => {
         navigation.navigate('RoutineEditor');
       }}
+      onOpenRoutineDetail={(routineId) => {
+        navigation.navigate('RoutineDetail', { routineId });
+      }}
       onOpenAnalysis={() => {
         navigation.navigate('Analysis');
       }}

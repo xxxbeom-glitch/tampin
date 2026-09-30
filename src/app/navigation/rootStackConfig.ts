@@ -11,6 +11,7 @@ const PRODUCT_FLOW_SCREENS: StackScreenConfig[] = [
   { name: 'Auth', title: 'Auth' },
   { name: 'OnboardingBasicInfo', title: 'Basic Info' },
   { name: 'RoutineHome', title: 'Routine Home' },
+  { name: 'RoutineDetail', title: 'Routine Detail' },
   { name: 'RoutineEditor', title: 'Routine Editor' },
   { name: 'ExerciseSelection', title: 'Exercise Selection' },
   { name: 'ActiveWorkout', title: 'Active Workout' },
