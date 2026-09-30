@@ -2,16 +2,35 @@
 
 ## Current state
 
-- Current mode: **DEVELOPMENT ACTIVE** (Issue #12 / DEV-005) · **DESIGN / FIGMA redesign continues in parallel**
+- Current mode: **DEVELOPMENT ACTIVE** (Issue #14 / DEV-006) · **DESIGN / FIGMA redesign continues in parallel**
 - DEV-001: PASS · merged to main
 - DEV-002 Issue #6: PASS · merged to main
 - DEV-003 Issue #8: PASS · merged to main
 - DEV-004 Issue #10: PASS · merged to main
-- DEV-005 Issue #12: Cursor implementation → **status:review**
-- Branch: `cursor/dev-005-data-layer-wiring-368a`
+- DEV-005 Issue #12: PASS · merged to main
+- DEV-006 Issue #14: Cursor implementation → **status:review**
+- Branch: `cursor/dev-006-dev-auth-bypass-368a`
 - Next Owner: ChatGPT
 
-## DEV-005 — Issue #12 latest development handoff (2026-09-30)
+## DEV-006 — Issue #14 latest development handoff (2026-09-30)
+
+Goal: __DEV__ Google/Kakao Login controls enter the same in-memory development local session with deterministic first-run routing; release builds fail closed.
+
+In-scope completed:
+- Typed `AuthService` + development/unavailable adapters (no OAuth/SDK/keys/network/persistence)
+- `AuthProvider` + `LoginScreen` wiring; Bootstrap dev-only **Open Login (dev)**
+- Routes: `Auth` → `OnboardingBasicInfo` (first run) or `RoutineHome` (completed profile)
+- Tests: provider parity, routing, signOut reset, release gating
+- Logic verification PASS: typecheck / lint / test (39 tests) / expo config / prebuild / diff-check
+
+Production Readiness Review (dev bypass scope):
+- Release: unavailable adapter + disabled buttons; no silent auth
+- Security: no secrets/tokens; in-memory only
+- Real Google/Kakao OAuth: **NOT VERIFIED / explicitly deferred**
+
+NOT VERIFIED (unchanged): EAS login/device · assembleDebug · real OAuth/SDK integration
+
+## DEV-005 — Issue #12 development handoff (2026-09-30 · merged)
 
 Goal: wire merged DEV-004 SQLite foundation into Expo app lifecycle with typed repository access only.
 
@@ -174,7 +193,7 @@ Issue comment pending:
 ## Next
 
 Development track:
-- ChatGPT independent QA on branch `cursor/dev-005-data-layer-wiring-368a`
+- ChatGPT independent QA on branch `cursor/dev-006-dev-auth-bypass-368a`
 - If PO completes EAS login + local Android smoke, record supplemental evidence on Issue #6 (DEV-002 NOT VERIFIED carryover)
 
 Design/Figma track — resume from:

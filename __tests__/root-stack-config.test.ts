@@ -9,6 +9,7 @@ describe('DEV-003 root stack configuration', () => {
     expect(PRODUCT_FLOW_ROUTE_NAMES).toEqual([
       'Bootstrap',
       'Auth',
+      'OnboardingBasicInfo',
       'RoutineHome',
       'RoutineEditor',
       'ExerciseSelection',

@@ -5,8 +5,10 @@ import {
   getRegisteredRootStackScreens,
   isUiCatalogRoute,
 } from './rootStackConfig';
+import { AuthRouteScreen } from './screens/AuthRouteScreen';
 import { BootstrapRouteScreen } from './screens/BootstrapRouteScreen';
 import { FlowBoundaryPlaceholderScreen } from './screens/FlowBoundaryPlaceholderScreen';
+import { OnboardingBasicInfoRouteScreen } from './screens/OnboardingBasicInfoRouteScreen';
 import { UiCatalogRouteScreen } from './screens/UiCatalogRouteScreen';
 import type { RootStackParamList } from './types';
 
@@ -15,6 +17,14 @@ const Stack = createNativeStackNavigator<RootStackParamList>();
 function renderRootScreen(name: keyof RootStackParamList) {
   if (name === 'Bootstrap') {
     return BootstrapRouteScreen;
+  }
+
+  if (name === 'Auth') {
+    return AuthRouteScreen;
+  }
+
+  if (name === 'OnboardingBasicInfo') {
+    return OnboardingBasicInfoRouteScreen;
   }
 
   if (name === 'UiCatalog') {

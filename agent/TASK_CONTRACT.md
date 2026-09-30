@@ -4,63 +4,52 @@
 새 Issue를 시작할 때 이전 내용을 교체한다.
 
 ## Task / Issue
-- Issue #12 / DEV-005 — Initialize SQLite data layer in the app lifecycle
-- Branch: `cursor/dev-005-data-layer-wiring-368a`
+- Issue #14 / DEV-006 — Development-only Google/Kakao login bypass
+- Branch: `cursor/dev-006-dev-auth-bypass-368a`
 
 ## Goal
-Merged DEV-004 SQLite foundation을 Expo app lifecycle에 안전하게 wiring한다. Future product screens는 initialized typed data layer만 사용한다.
+Google/Kakao credentials 없이 development를 계속하기 위해, __DEV__에서 두 Login provider 버튼이 동일한 local development session으로 진입하고 first-run/complete profile에 따라 deterministic routing 한다.
 
 ## Required
-- App-level `DataLayerProvider`: process당 DB 1회 open/migrate, typed repositories hook 노출
-- Dependency injection (`openDatabase` prop) for tests; no DB open on module import
-- Feature UI must not import `expo-sqlite`, `openTampinDatabase`, raw connection types
-- Dev-only UI Catalog read-only data-layer health entry (init status + schema version only)
-- Provider lifecycle, DI, import boundary, catalog health tests
-- Documented physical-device runtime smoke procedure (NOT VERIFIED until run)
-- type/lint/test + expo config + prebuild + diff-check; Android compile when SDK available
-- Production-readiness review + docs/handoff/evidence
-- commit/push + Issue #12 evidence
+- Typed auth contract + development-only in-memory adapter (no OAuth/keys/tokens/network/persistence)
+- Google/Kakao parity → same local account session
+- First-run → OnboardingBasicInfo boundary; completed profile → RoutineHome boundary
+- Release fail-closed gating (bypass unavailable, no silent auth)
+- Minimal Login UI wiring only (01A boundary); dev Bootstrap entry to Auth
+- Tests: provider parity, routing, reset, release gating
+- docs/handoff/evidence + production readiness review
+- type/lint/test/expo config/prebuild/diff-check; commit/push
 
 ## Allowed Scope
-- `src/app/providers/data-layer/*`, `AppProviders.tsx`
-- `src/debug/ui-catalog/` health entry only
-- `__tests__/data-layer-*.test.*`, catalog test updates
-- agent/docs handoff for DEV-005
+- `src/auth/*`, `src/app/providers/auth/*`
+- `src/features/auth/LoginScreen`, `OnboardingBasicInfoScreen`
+- navigation route wiring for Auth + OnboardingBasicInfo
+- Bootstrap dev-only Login entry
+- `__tests__/development-auth-*`, `login-screen.test.tsx`
 
 ## Forbidden / Do Not Change
-- Product screen visual implementation / Figma transcription
-- Routine/workout UI, auth, Supabase/sync transport, media, EAS
-- Database seed/reset/delete in catalog or provider
+- Real Google/Kakao OAuth, SDKs, credentials, Supabase Auth, tokens, persistence
+- Figma visual redesign beyond attaching provider button behavior
+- SQLite schema, EAS, sync/media, routine/workout product UI
 - DEV-002 NOT VERIFIED records, Figma version2 context
-- SQLite schema/migration changes (DEV-004 scope)
 
 ## Figma refs
-- N/A (lifecycle wiring only)
+- `01A_Login` — minimal boundary wiring only (not full transcription)
+- `01C_Basic_Info` — placeholder boundary screen
 
 ## Risk
-- Provider init failure must surface without silent DB wipe
-- Jest must not load expo-sqlite via provider default path (lazy require + DI)
-- Expo Doctor / Android SDK blockers may remain NOT VERIFIED
-
-## Affected invariants / regression packs
-- One initialized data layer per process; repositories only to consumers
-- Debug catalog dev-only; release stack excludes UiCatalog
-- Local-first migration before repository exposure
-- DEV-004 schema/repository contracts unchanged
+- Release gating must never create session on provider tap
+- In-memory session must not be mistaken for production auth
 
 ## Verification
 1. `npm ci`
 2. `npm run typecheck`
 3. `npm run lint`
 4. `npm test -- --runInBand`
-5. `npx expo-doctor`
-6. `npx expo config --type public`
-7. `npx expo prebuild --platform android --no-install`
-8. `./gradlew assembleDebug` when SDK available
-9. `git diff --check`
+5. `npx expo config --type public`
+6. `npx expo prebuild --platform android --no-install`
+7. `git diff --check`
 
 ## Done When
-- AC satisfied or blockers recorded NOT VERIFIED
-- commit/push complete
-- Issue #12 Result/Test/Commit/Risk/Not Verified recorded
-- Next Owner = ChatGPT
+- AC satisfied; real provider integration NOT VERIFIED/deferred
+- Issue #14 evidence recorded; Next Owner = ChatGPT

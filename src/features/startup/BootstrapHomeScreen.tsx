@@ -7,10 +7,12 @@ import {
 
 type BootstrapHomeScreenProps = {
   onOpenCatalog?: () => void;
+  onOpenLogin?: () => void;
 };
 
 export function BootstrapHomeScreen({
   onOpenCatalog,
+  onOpenLogin,
 }: BootstrapHomeScreenProps) {
   return (
     <View style={styles.root} testID="bootstrap-home">
@@ -18,14 +20,24 @@ export function BootstrapHomeScreen({
       <Text style={styles.subtitle}>
         DEV-001 bootstrap shell · Android package {ANDROID_PACKAGE_ID}
       </Text>
+      {onOpenLogin ? (
+        <Pressable
+          accessibilityRole="button"
+          onPress={onOpenLogin}
+          style={styles.catalogButton}
+          testID="open-login-dev"
+        >
+          <Text style={styles.catalogButtonLabel}>Open Login (dev)</Text>
+        </Pressable>
+      ) : null}
       {onOpenCatalog ? (
         <Pressable
           accessibilityRole="button"
           onPress={onOpenCatalog}
-          style={styles.catalogButton}
+          style={styles.secondaryButton}
           testID="open-ui-catalog"
         >
-          <Text style={styles.catalogButtonLabel}>Open Debug UI Catalog</Text>
+          <Text style={styles.secondaryButtonLabel}>Open Debug UI Catalog</Text>
         </Pressable>
       ) : null}
       <Text style={styles.note}>
@@ -63,6 +75,18 @@ const styles = StyleSheet.create({
   },
   catalogButtonLabel: {
     color: colors.surface,
+    fontWeight: '600',
+  },
+  secondaryButton: {
+    backgroundColor: colors.surface,
+    borderColor: colors.borderSubtle,
+    borderWidth: 1,
+    paddingHorizontal: 16,
+    paddingVertical: 12,
+    borderRadius: 12,
+  },
+  secondaryButtonLabel: {
+    color: colors.textPrimary,
     fontWeight: '600',
   },
   note: {

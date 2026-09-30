@@ -1,4 +1,6 @@
 export { AppProviders } from './AppProviders';
+export { AuthProvider, useAuth } from './auth';
+export type { AuthContextValue } from './auth';
 export {
   DataLayerProvider,
   useTampinDataLayer,

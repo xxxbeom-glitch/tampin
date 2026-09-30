@@ -8,6 +8,7 @@ type StackScreenConfig = {
 const PRODUCT_FLOW_SCREENS: StackScreenConfig[] = [
   { name: 'Bootstrap', title: 'Startup' },
   { name: 'Auth', title: 'Auth' },
+  { name: 'OnboardingBasicInfo', title: 'Basic Info' },
   { name: 'RoutineHome', title: 'Routine Home' },
   { name: 'RoutineEditor', title: 'Routine Editor' },
   { name: 'ExerciseSelection', title: 'Exercise Selection' },
