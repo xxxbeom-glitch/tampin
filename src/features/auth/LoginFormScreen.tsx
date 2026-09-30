@@ -52,7 +52,7 @@ function LoginErrorDialog({ dialogCase }: { dialogCase: LoginErrorDialogCase }) 
 
   return (
     <View pointerEvents="none" style={styles.errorOverlay} testID="login-error-dialog">
-      <View style={styles.errorDialogCard}>
+      <View style={styles.errorDialogCard} testID="login-error-dialog-card">
         <View style={styles.errorDialogTextGroup}>
           <Text style={styles.errorDialogTitle}>{copy.title}</Text>
           <Text style={styles.errorDialogBody}>{copy.body}</Text>
@@ -93,7 +93,7 @@ export function LoginFormScreen({
             source={figmaAssets.logos.tampinPrimary}
             style={styles.wordmark}
             testID="login-wordmark"
-            width={120}
+            width={139}
           />
           <Text style={styles.headline}>오늘의 운동을 기록하고{'\n'}내 변화를 확인하세요.</Text>
           <Text style={styles.subtitle}>운동 기록을 가장 빠르게 남기는 방법</Text>
@@ -270,6 +270,14 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     paddingTop: 24,
     overflow: 'hidden',
+    // Figma Elevation/Card: DROP_SHADOW offset (0,0) radius 8 spread 0 color #0000000d.
+    // RN iOS shadowRadius is a blur parameter, not the same algorithm as Figma/CSS blur.
+    // Android elevation is Material Z, not blur. Values match ConfirmDialogOverlay.
+    shadowColor: '#000000',
+    shadowOffset: { width: 0, height: 0 },
+    shadowOpacity: 0.05,
+    shadowRadius: 8,
+    elevation: 2,
   },
   errorDialogTextGroup: {
     gap: 12,

@@ -41,6 +41,20 @@ describe('DEV-011 RoutineDetailScreen', () => {
     expect(contentStyle.maxWidth).toBe(ROUTINE_DETAIL_LAYOUT.canonicalViewportWidth);
   });
 
+  it('maps 02D exercise cards to Elevation/Card radius 8', async () => {
+    const { getByTestId } = await render(
+      <RoutineDetailScreen detail={routineDetailCatalogFixture} readOnly />,
+    );
+
+    expect(
+      StyleSheet.flatten(getByTestId('routine-detail-exercise-smith-bench-press').props.style),
+    ).toMatchObject({
+      shadowRadius: 8,
+      shadowOpacity: 0.05,
+      elevation: 2,
+    });
+  });
+
   it('exposes accessibility roles for back, edit affordance, and start CTA', async () => {
     const { getByTestId } = await render(
       <RoutineDetailScreen

@@ -1,5 +1,6 @@
 import { fireEvent, render } from '@testing-library/react-native';
 import { StyleSheet } from 'react-native';
+import { figmaAssets } from '../src/design-system/assets';
 import {
   ROUTINE_MAIN_LAYOUT,
   RoutineMainScreen,
@@ -145,5 +146,52 @@ describe('DEV-010 RoutineMainScreen', () => {
     expect(
       getByTestId('routine-quickstart-without-routine').props.accessibilityState.disabled,
     ).toBe(true);
+  });
+
+  it('uses Figma 16px plus/chevron assets and Elevation/Card mapping', async () => {
+    const { getAllByTestId, getByTestId } = await render(
+      <RoutineMainScreen
+        folders={routineMainWithRoutinesFixture.folders}
+        readOnly
+        state="WithRoutines"
+      />,
+    );
+
+    const hidden = { includeHiddenElements: true } as const;
+    expect(StyleSheet.flatten(getAllByTestId('routine-main-plus-icon', hidden)[0]?.props.style)).toMatchObject({
+      width: 16,
+      height: 16,
+    });
+    expect(StyleSheet.flatten(getAllByTestId('routine-main-chevron-icon', hidden)[0]?.props.style)).toMatchObject({
+      width: 16,
+      height: 16,
+    });
+    expect(StyleSheet.flatten(getAllByTestId('routine-main-folder-chevron', hidden)[0]?.props.style)).toMatchObject({
+      width: 16,
+      height: 16,
+    });
+    expect(StyleSheet.flatten(getByTestId('routine-card-push-day').props.style)).toMatchObject({
+      shadowRadius: 8,
+      shadowOpacity: 0.05,
+      elevation: 2,
+    });
+  });
+
+  it('uses original active/inactive bottom-tab rasters without tint', async () => {
+    const { getByTestId } = await render(
+      <RoutineMainScreen
+        folders={routineMainEmptyFixture.folders}
+        readOnly
+        state="Empty"
+      />,
+    );
+
+    const hidden = { includeHiddenElements: true } as const;
+    const active = getByTestId('routine-main-tab-icon-루틴', hidden);
+    const inactive = getByTestId('routine-main-tab-icon-분석', hidden);
+    expect(active.props.source).toBe(figmaAssets.icons.bottomTabRoutineActive);
+    expect(inactive.props.source).toBe(figmaAssets.icons.bottomTabAnalysisInactive);
+    expect(StyleSheet.flatten(active.props.style).tintColor).toBeUndefined();
+    expect(StyleSheet.flatten(inactive.props.style).tintColor).toBeUndefined();
   });
 });

@@ -12,7 +12,7 @@ export function SplashScreen() {
         height={28}
         source={figmaAssets.logos.tampinWhite}
         testID="splash-wordmark"
-        width={120}
+        width={139}
       />
     </View>
   );

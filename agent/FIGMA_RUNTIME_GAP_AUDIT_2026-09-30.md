@@ -6,7 +6,7 @@
 **Method:** Code read + Figma `get_design_context` / variable defs. No device capture.  
 **Rule:** Actionable findings only. No speculative UI was added in this audit.
 
-**RETRY 2026-09-30:** The 10 FIX rows below remain **follow-up only**. Issue #30 RETRY did not implement them.
+**FIX pass 2026-09-30 (after RETRY 2 `3b7882e`):** The 10 FIX rows below were implemented in source. Visual/device PASS is **not** claimed. ACCEPT rows were **not** auto-closed; see `agent/FIGMA_ACCEPT_BACKLOG_2026-09-30.md`.
 
 ---
 
@@ -14,16 +14,16 @@
 
 | # | Screen | Figma node / name | Code location | Exact mismatch | Judgment |
 |---|--------|-------------------|---------------|----------------|----------|
-| 1 | 00 Splash | `1961:8909` / `00_Splash` · `1961:8910` `TampinLogo_White` | `src/features/startup/SplashScreen.tsx` · `FigmaImage` (`width={120}` `height={28}`) | Wordmark rendered **120×28**; Figma asset slot **139×28** | **FIX** |
-| 2 | 01A Login | `40:2075` / `01A_Login` · `43:3053` `AppLogo` | `src/features/auth/LoginFormScreen.tsx` · `styles.wordmark` + `FigmaImage` (`120×28`) | Primary wordmark rendered **120×28**; Figma **139×28** | **FIX** |
-| 3 | 01A Login (error overlay) | `1296:643` / `01A1_Login_Error_Overlay_Cases` · dialog card | `src/features/auth/LoginFormScreen.tsx` · `styles.errorDialogCard` | Figma card elevation `0 0 8px rgba(0,0,0,0.05)`; code card is border-only | **FIX** |
-| 4 | 01C Basic Info (disabled DOB) | `1314:695` / `01C4_Basic_Info_Disabled` · `InputBox` | `src/features/auth/BasicInfoFormScreen.tsx` · `styles.dobInputDisabled` | Figma applies opacity 0.3 to the whole 52px field; code applies 0.3 to input text only | **FIX** |
-| 5 | 02A/02B Routine Main | `2483:8317` · `2483:8336` `icon/plus` | `src/features/routine/RoutineMainScreen.tsx` · `PlusIcon` (`18×18`) | Plus icon **18×18**; Figma **16×16** inside 36px circle | **FIX** |
-| 6 | 02A/02B Routine Main | `2483:8317` · `2483:8368` `icon/chevron-right` | `src/features/routine/RoutineMainScreen.tsx` · `ChevronRightIcon` (`18×18`) | Chevron **18×18**; Figma **16×16** | **FIX** |
-| 7 | 02A/02B Routine Main | `2483:8317` · `2333:7701` `icon/folder-chevron-expanded` | `src/features/routine/RoutineMainScreen.tsx` · `FolderChevron` (`14×14`) | Folder chevron **14×14**; Figma **16×16** | **FIX** |
-| 8 | 02A/02B Routine Main | `2483:8317` · `2078:2401` `BottomAppBar` | `src/features/routine/RoutineMainScreen.tsx` · `bottomTabIconActive` / `Inactive` | Full-color Iconly PNGs are re-tinted at runtime; active/inactive color fidelity is unverified | **FIX** |
-| 9 | 02A/02B Routine Main | `2483:8317` · routine cards | `src/features/routine/RoutineMainScreen.tsx` · `cardShadow` | Code shadow offset `(0,0)` blur 4 / 5%; Figma elevation radius **8** | **FIX** |
-| 10 | 02D Routine Detail | `2333:7821` · exercise cards | `src/features/routine/RoutineDetailScreen.tsx` · `cardShadow` | Same card elevation mismatch as #9 | **FIX** |
+| 1 | 00 Splash | `1961:8909` / `00_Splash` · `1961:8910` `TampinLogo_White` | `src/features/startup/SplashScreen.tsx` · `FigmaImage` (`width={139}` `height={28}`) | Wordmark was **120×28**; Figma **139×28**. Source updated. Visual NOT VERIFIED | **FIXED in source** |
+| 2 | 01A Login | `40:2075` / `01A_Login` · `43:3053` `AppLogo` | `src/features/auth/LoginFormScreen.tsx` · `FigmaImage` (`139×28`) | Wordmark was **120×28**. Source updated. Visual NOT VERIFIED | **FIXED in source** |
+| 3 | 01A Login (error overlay) | `1296:643` / `01A1` · DialogCard `1296:667` | `src/features/auth/LoginFormScreen.tsx` · `styles.errorDialogCard` | Elevation/Card mapped; Figma blur ≠ RN shadowRadius. Visual NOT VERIFIED | **FIXED in source** |
+| 4 | 01C Basic Info (disabled DOB) | `1314:695` / `01C4` · InputBox `1314:708` | `src/features/auth/BasicInfoFormScreen.tsx` · `dobFieldDisabled` | Whole 52px field wrapper opacity 0.3. Visual NOT VERIFIED | **FIXED in source** |
+| 5 | 02A/02B Routine Main | `2483:8317` · plus 16×16 | `RoutineMainScreen.tsx` · `PlusIcon` (`16×16`) | Was 18×18. Source updated. Visual NOT VERIFIED | **FIXED in source** |
+| 6 | 02A/02B Routine Main | `2483:8317` · chevron 16×16 | `RoutineMainScreen.tsx` · `ChevronRightIcon` (`16×16`) | Was 18×18. Source updated. Visual NOT VERIFIED | **FIXED in source** |
+| 7 | 02A/02B Routine Main | `2483:8317` · folder chevron 16×16 | `RoutineMainScreen.tsx` · `FolderChevron` (`16×16`) | Was 14×14. Source updated. Visual NOT VERIFIED | **FIXED in source** |
+| 8 | 02A/02B Routine Main | `2078:2208` BottomAppBar | `RoutineMainScreen.tsx` · state rasters, no tint | Active/inactive PNGs from Figma variants. Visual NOT VERIFIED | **FIXED in source** |
+| 9 | 02A/02B Routine Main | `2483:8317` · routine cards | `RoutineMainScreen.tsx` · `cardShadow` radius 8 | Was radius 4. Mapping documented. Visual NOT VERIFIED | **FIXED in source** |
+| 10 | 02D Routine Detail | `2333:7846` · exercise cards | `RoutineDetailScreen.tsx` · `cardShadow` radius 8 | Was radius 4. Mapping documented. Visual NOT VERIFIED | **FIXED in source** |
 
 ---
 

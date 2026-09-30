@@ -38,23 +38,44 @@
       "usedBy": ["02A/02B Routine Main folder headers"]
     },
     {
-      "id": "bottom-tab-routine",
+      "id": "bottom-tab-routine-active",
       "figmaNodeId": "2078:2189",
-      "figmaName": "bottom-tab/routine",
+      "figmaName": "bottom-tab/routine Active=루틴",
       "path": "assets/figma/icons/bottom-tab-routine.png",
       "usedBy": ["02A/02B Routine Main bottom bar"]
     },
     {
-      "id": "bottom-tab-analysis",
+      "id": "bottom-tab-routine-inactive",
+      "figmaNodeId": "2078:2285",
+      "figmaName": "bottom-tab/routine Active=분석",
+      "path": "assets/figma/icons/bottom-tab-routine-inactive.png",
+      "usedBy": ["02A/02B Routine Main bottom bar"]
+    },
+    {
+      "id": "bottom-tab-analysis-active",
+      "figmaNodeId": "2078:2293",
+      "figmaName": "bottom-tab/analysis Active=분석",
+      "path": "assets/figma/icons/bottom-tab-analysis-active.png",
+      "usedBy": ["02A/02B Routine Main bottom bar"]
+    },
+    {
+      "id": "bottom-tab-analysis-inactive",
       "figmaNodeId": "2078:2197",
-      "figmaName": "bottom-tab/analysis",
+      "figmaName": "bottom-tab/analysis Active=루틴",
       "path": "assets/figma/icons/bottom-tab-analysis.png",
       "usedBy": ["02A/02B Routine Main bottom bar"]
     },
     {
-      "id": "bottom-tab-settings",
+      "id": "bottom-tab-settings-active",
+      "figmaNodeId": "2078:2396",
+      "figmaName": "bottom-tab/settings Active=설정",
+      "path": "assets/figma/icons/bottom-tab-settings-active.png",
+      "usedBy": ["02A/02B Routine Main bottom bar"]
+    },
+    {
+      "id": "bottom-tab-settings-inactive",
       "figmaNodeId": "2078:2204",
-      "figmaName": "bottom-tab/settings",
+      "figmaName": "bottom-tab/settings Active=루틴",
       "path": "assets/figma/icons/bottom-tab-settings.png",
       "usedBy": ["02A/02B Routine Main bottom bar"]
     },

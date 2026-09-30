@@ -21,20 +21,35 @@ import type {
 } from './routineMainTypes';
 
 function PlusIcon() {
-  return <FigmaImage height={18} source={figmaAssets.icons.plus} width={18} />;
+  return (
+    <FigmaImage
+      height={16}
+      source={figmaAssets.icons.plus}
+      testID="routine-main-plus-icon"
+      width={16}
+    />
+  );
 }
 
 function ChevronRightIcon() {
-  return <FigmaImage height={18} source={figmaAssets.icons.chevronRight} width={18} />;
+  return (
+    <FigmaImage
+      height={16}
+      source={figmaAssets.icons.chevronRight}
+      testID="routine-main-chevron-icon"
+      width={16}
+    />
+  );
 }
 
 function FolderChevron({ collapsed }: { collapsed: boolean }) {
   return (
     <FigmaImage
-      height={14}
+      height={16}
       source={figmaAssets.icons.folderChevronExpanded}
       style={collapsed ? styles.folderChevronCollapsed : undefined}
-      width={14}
+      testID="routine-main-folder-chevron"
+      width={16}
     />
   );
 }
@@ -156,14 +171,20 @@ function RoutineFolderSection({
   );
 }
 
-function bottomTabIconSource(label: string) {
+function bottomTabIconSource(label: string, active: boolean) {
   if (label === ROUTINE_MAIN_BOTTOM_TABS.routine) {
-    return figmaAssets.icons.bottomTabRoutine;
+    return active
+      ? figmaAssets.icons.bottomTabRoutineActive
+      : figmaAssets.icons.bottomTabRoutineInactive;
   }
   if (label === ROUTINE_MAIN_BOTTOM_TABS.analysis) {
-    return figmaAssets.icons.bottomTabAnalysis;
+    return active
+      ? figmaAssets.icons.bottomTabAnalysisActive
+      : figmaAssets.icons.bottomTabAnalysisInactive;
   }
-  return figmaAssets.icons.bottomTabSettings;
+  return active
+    ? figmaAssets.icons.bottomTabSettingsActive
+    : figmaAssets.icons.bottomTabSettingsInactive;
 }
 
 function BottomTab({
@@ -191,8 +212,8 @@ function BottomTab({
       <View style={styles.bottomTabIconWrap}>
         <FigmaImage
           height={24}
-          source={bottomTabIconSource(label)}
-          style={active ? styles.bottomTabIconActive : styles.bottomTabIconInactive}
+          source={bottomTabIconSource(label, active)}
+          testID={`routine-main-tab-icon-${label}`}
           width={24}
         />
       </View>
@@ -307,11 +328,14 @@ export function RoutineMainScreen({
   );
 }
 
+// Figma Elevation/Card: DROP_SHADOW offset (0,0) radius 8 spread 0 color #0000000d.
+// MCP CSS sometimes emits drop-shadow 4px for the same effect; the Figma effect radius is 8.
+// RN shadowRadius is not the same blur as Figma/CSS. Android elevation is Material Z.
 const cardShadow = {
   shadowColor: '#000000',
   shadowOffset: { width: 0, height: 0 },
   shadowOpacity: 0.05,
-  shadowRadius: 4,
+  shadowRadius: 8,
   elevation: 2,
 };
 
@@ -485,12 +509,6 @@ const styles = StyleSheet.create({
     height: 36,
     alignItems: 'center',
     justifyContent: 'center',
-  },
-  bottomTabIconActive: {
-    tintColor: colors.brandPrimary,
-  },
-  bottomTabIconInactive: {
-    tintColor: colors.textSecondary,
   },
   bottomTabLabel: {
     fontSize: 11,

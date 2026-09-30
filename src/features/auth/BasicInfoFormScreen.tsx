@@ -150,25 +150,29 @@ export function BasicInfoFormScreen({
         <View style={styles.section}>
           <Text style={styles.sectionLabel}>생년월일</Text>
           <View style={styles.dobField}>
-            <TextInput
-              accessibilityLabel="생년월일"
-              editable={interactive && !resolvedPresentation.dobInputDisabled}
-              keyboardType="number-pad"
-              maxLength={8}
-              onBlur={onDobBlur}
-              onChangeText={onDobChange}
-              onFocus={onDobFocus}
-              placeholder={DOB_PLACEHOLDER}
-              placeholderTextColor={colors.textSecondary}
-              style={[
-                styles.dobInput,
-                resolvedPresentation.dobFocused && styles.dobInputFocused,
-                showDobError && styles.dobInputError,
-                resolvedPresentation.dobInputDisabled && styles.dobInputDisabled,
-              ]}
-              testID="basic-info-dob-input"
-              value={dobDisplayValue}
-            />
+            <View
+              style={resolvedPresentation.dobInputDisabled ? styles.dobFieldDisabled : undefined}
+              testID="basic-info-dob-field"
+            >
+              <TextInput
+                accessibilityLabel="생년월일"
+                editable={interactive && !resolvedPresentation.dobInputDisabled}
+                keyboardType="number-pad"
+                maxLength={8}
+                onBlur={onDobBlur}
+                onChangeText={onDobChange}
+                onFocus={onDobFocus}
+                placeholder={DOB_PLACEHOLDER}
+                placeholderTextColor={colors.textSecondary}
+                style={[
+                  styles.dobInput,
+                  resolvedPresentation.dobFocused && styles.dobInputFocused,
+                  showDobError && styles.dobInputError,
+                ]}
+                testID="basic-info-dob-input"
+                value={dobDisplayValue}
+              />
+            </View>
             {showDobError ? (
               <View style={styles.errorRow} testID="basic-info-dob-error">
                 <Text style={styles.errorIcon}>!</Text>
@@ -329,7 +333,7 @@ const styles = StyleSheet.create({
   dobInputError: {
     borderColor: colors.danger,
   },
-  dobInputDisabled: {
+  dobFieldDisabled: {
     opacity: 0.3,
   },
   errorRow: {

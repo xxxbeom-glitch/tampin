@@ -1,4 +1,76 @@
-# Issue #30 / DEV-014 Evidence — RETRY 2
+# Issue #30 / DEV-014 Evidence — FIX 10
+
+## Result
+- Branch: `cursor/dev-014-group04-figma-parity`
+- Base: `3b7882e`
+- Status: Logic PASS · Visual **NOT VERIFIED** (no device/pixel compare; visual PASS 금지)
+- Runtime/Device: NOT VERIFIED · device install not run
+- Next Owner: ChatGPT
+- PR / merge / Group 05: **대기**
+
+## FIX 10 — before → after (reconfirmed Figma 2026-09-30)
+
+| # | Location | Before | Figma now | After |
+|---|----------|--------|-----------|-------|
+| 1 | `SplashScreen` wordmark | 120×28 | `1961:8910` 139×28 | 139×28 |
+| 2 | `LoginFormScreen` wordmark | 120×28 | `43:3053` 139×28 | 139×28 |
+| 3 | login `errorDialogCard` | border only | `1296:667` Elevation/Card 0/0/8/`#0000000d` | same mapping as `ConfirmDialogOverlay` |
+| 4 | 01C disabled DOB | `opacity: 0.3` on `TextInput` | `1314:708` InputBox whole-field `opacity-30` | wrapper `basic-info-dob-field` opacity 0.3 |
+| 5 | plus | 18×18 | 16×16 in 36 circle | 16×16 |
+| 6 | chevron-right | 18×18 | 16×16 | 16×16 |
+| 7 | folder chevron | 14×14 | 16×16 | 16×16 |
+| 8 | bottom-tab | one PNG + `tintColor` | Active=루틴/분석/설정 baked colors `#2563D6` / `#626866` | state rasters, no tint |
+| 9 | 02A `cardShadow` | radius 4 / elev 2 | Elevation/Card radius **8**; MCP CSS also showed `drop-shadow` 4px | radius 8 / elev 2 |
+| 10 | 02D `cardShadow` | radius 4 / elev 2 | same Elevation/Card radius 8 | radius 8 / elev 2 |
+
+## Shadow platform mapping (not equated)
+
+Figma `Elevation/Card` on DialogCard / RoutineCompactCard / ExerciseCard / BottomAppBar:
+
+- Effect: `DROP_SHADOW` offset `(0, 0)` radius `8` spread `0` color `effect/card-shadow` = `#0000000d` (~5% black)
+- `get_variable_defs` `1296:667` confirmed `#0000000d`
+- MCP Tailwind sometimes emitted `drop-shadow-[0px_0px_4px_…]` for the same nodes. That is a CSS translation, not a second Figma effect. Source of truth = Elevation/Card radius 8.
+
+RN mapping used (same as existing `ConfirmDialogOverlay`):
+
+- iOS: `shadowOffset {0,0}` + `shadowOpacity 0.05` + `shadowRadius: 8`. `shadowRadius` is UIKit blur, **not** guaranteed equal to Figma/CSS blur.
+- Android: `elevation: 2` is Material Z-depth, **not** a blur radius. Not a 1:1 of Figma 8.
+- Pixel identity of the shadow halo is **NOT VERIFIED**.
+
+## Bottom-tab assets
+
+Kept existing 48×48 rasters (Active=루틴 bake):
+
+- `bottom-tab-routine.png` `2078:2189` active `#2563D6`
+- `bottom-tab-analysis.png` `2078:2197` inactive `#626866`
+- `bottom-tab-settings.png` `2078:2204` inactive `#626866`
+
+Added 48×48 @2x:
+
+- `bottom-tab-routine-inactive.png` `2078:2285`
+- `bottom-tab-analysis-active.png` `2078:2293`
+- `bottom-tab-settings-active.png` `2078:2396`
+
+Runtime tint removed.
+
+## ACCEPT / canvas
+
+- ACCEPT rows were not auto-closed. Backlog: `agent/FIGMA_ACCEPT_BACKLOG_2026-09-30.md`
+- Canvas `#F6F7F7` vs `#F7F8FA` unresolved. Docs: `docs/CURRENT.md`, `docs/ux-decisions/2026-09-17-light-color-system-po-approval.md`
+
+## Screenshot compare
+
+**Not possible in this environment.** RNTL/Jest does not emit pixels. No Android SDK / emulator. User forbade device install. Figma `get_design_context` screenshots were used to reconfirm numbers only — not a runtime overlay. Visual PASS not claimed.
+
+## Verification
+- `npm run typecheck` — PASS
+- `npm run lint` — PASS
+- Related Jest — PASS (`splash-screen`, `splash-catalog`, `login-form-screen`, `login-catalog`, `basic-info-catalog`, `routine-main-screen`, `routine-detail-screen`, `bundled-assets-fonts`)
+- `git diff --check` — PASS
+
+---
+
+# RETRY 2 record (historical, `3b7882e`)
 
 ## Result
 - Branch: `cursor/dev-014-group04-figma-parity`

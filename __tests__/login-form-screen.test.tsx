@@ -1,4 +1,5 @@
 import { fireEvent, render } from '@testing-library/react-native';
+import { StyleSheet } from 'react-native';
 import { LoginFormScreen } from '../src/features/auth/LoginFormScreen';
 
 describe('DEV-008 LoginFormScreen presentation', () => {
@@ -30,5 +31,25 @@ describe('DEV-008 LoginFormScreen presentation', () => {
 
     await fireEvent.press(getByTestId('login-provider-kakao'));
     expect(onProviderPress).toHaveBeenCalledWith('kakao');
+  });
+
+  it('renders the Figma 139x28 wordmark slot', async () => {
+    const { getByTestId } = await render(<LoginFormScreen providerState="ready" readOnly />);
+    expect(StyleSheet.flatten(getByTestId('login-wordmark').props.style)).toMatchObject({
+      width: 139,
+      height: 28,
+    });
+  });
+
+  it('applies Elevation/Card mapping on the login error dialog card', async () => {
+    const { getByTestId } = await render(
+      <LoginFormScreen errorDialogCase="general" providerState="ready" readOnly />,
+    );
+    expect(StyleSheet.flatten(getByTestId('login-error-dialog-card').props.style)).toMatchObject({
+      shadowOffset: { width: 0, height: 0 },
+      shadowOpacity: 0.05,
+      shadowRadius: 8,
+      elevation: 2,
+    });
   });
 });

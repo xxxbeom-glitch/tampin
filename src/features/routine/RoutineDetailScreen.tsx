@@ -235,11 +235,14 @@ export function RoutineDetailScreen({
   );
 }
 
+// Figma Elevation/Card: DROP_SHADOW offset (0,0) radius 8 spread 0 color #0000000d.
+// MCP CSS sometimes emits drop-shadow 4px for the same effect; the Figma effect radius is 8.
+// RN shadowRadius is not the same blur as Figma/CSS. Android elevation is Material Z.
 const cardShadow = {
   shadowColor: '#000000',
   shadowOffset: { width: 0, height: 0 },
   shadowOpacity: 0.05,
-  shadowRadius: 4,
+  shadowRadius: 8,
   elevation: 2,
 };
 
