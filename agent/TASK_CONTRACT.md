@@ -4,60 +4,59 @@
 새 Issue를 시작할 때 이전 내용을 교체한다.
 
 ## Task / Issue
-- Issue #6 / DEV-002 — Expo/EAS link + Android runtime smoke
-- Branch: `cursor/dev-002-eas-android-smoke-368a`
+- Issue #8 / DEV-003 — Typed navigation + development UI Catalog foundation
+- Branch: `cursor/dev-003-typed-navigation-368a`
 
 ## Goal
-DEV-001 bootstrap을 유지한 채 Expo/EAS 프로젝트 연결 준비와 Android runtime smoke evidence를 확보한다.
+DEV-001 local state switch를 제거하고, MVP flow boundary typed React Navigation foundation + __DEV__ UI Catalog reachability를 확보한다.
 
 ## Required
-- DEV-001 baseline preserved
-- EAS login state verified (또는 blocker 기록)
-- Tampin EAS project link + identity read-back (또는 blocker 기록)
-- Android-only `eas.json` development profile (`developmentClient: true`)
-- Expo Doctor / equivalent 실행 및 결과 기록
-- Android package `com.lumian.tampin` 유지
-- Android local install/launch smoke (또는 Runtime/Device NOT VERIFIED)
-- type/lint/test 실행
-- commit/push + Issue evidence
+- React Navigation native stack + NavigationContainer
+- Typed `RootStackParamList` for MVP flow boundaries
+- Bootstrap initial route preserved
+- UI Catalog __DEV__ only, excluded from release stack registration
+- Android back handling tests (component level)
+- type/lint/test + expo config verification
+- Android prebuild/assembleDebug or blocker record
+- docs/CURRENT + handoff update (Figma parallel context preserved)
+- commit/push + Issue #8 evidence
 
 ## Allowed Scope
-- `eas.json` 추가
-- DEV-002 검증용 unit test
-- `agent/TASK_CONTRACT.md` 갱신
-- Issue #6 Result/Test/Commit/Not Verified 기록
+- `@react-navigation/*`, `react-native-screens`, `react-native-safe-area-context`
+- navigation modules, placeholder boundary screens, jest setup for nav tests
+- `@testing-library/react-native` dev dependency
+- TASK_CONTRACT / SESSION_HANDOFF / CURRENT updates
 
 ## Forbidden / Do Not Change
-- canonical Figma screen 구현
-- Design System transcription
-- SQLite / Supabase / Auth / Sync
-- exercise DB / media
-- analytics / notification runtime
-- Play Store submission / production build / cloud EAS build
-- iOS work
-- DEV-001 bootstrap identity / UI catalog shell 의미 변경
+- canonical Figma screens / design-token transcription
+- SQLite / Supabase / Auth / Sync / media / analytics / notifications
+- DEV-002 `eas.json` / EAS NOT VERIFIED records
+- Figma redesign checkpoint deletion or canonical/detached relationship changes
+- cloud EAS build / production release / iOS
 
 ## Figma refs
-- N/A (runtime/EAS only)
+- N/A (navigation foundation only; parallel version2 redesign unchanged)
 
 ## Risk
-- Cloud Agent 환경에 EAS login token / Android SDK / emulator 없음
-- Expo Doctor가 DEV-001 baseline(`newArchEnabled`, patch version drift)에서 fail 가능
+- Native stack jest mocking required for component tests
+- Expo Doctor / Android SDK blockers may remain NOT VERIFIED in cloud agent
 
 ## Affected invariants / regression packs
-- DEV-001 bootstrap identity (`com.lumian.tampin`, slug `tampin`)
-- Debug UI Catalog dev-only entry (`__DEV__`)
+- `com.lumian.tampin` package identity
+- DEV-001 bootstrap shell + UI Catalog dev-only semantics
+- DEV-002 eas.json development profile
 
 ## Verification
 1. `npm run typecheck`
 2. `npm run lint`
 3. `npm test`
 4. `npx expo-doctor`
-5. `npx eas-cli whoami` / project link read-back
-6. Android prebuild + assembleDebug or device launch when target exists
+5. `npx expo config --type public`
+6. `npx expo prebuild --platform android --no-install`
+7. `./gradlew assembleDebug` when SDK available
 
 ## Done When
-- AC 충족 또는 unavailable step은 NOT VERIFIED로 명시
+- AC satisfied or blockers recorded NOT VERIFIED
 - commit/push complete
-- Issue #6에 Result/Test/Commit/Risk/Not Verified 기록
+- Issue #8 Result/Test/Commit/Risk/Not Verified recorded
 - Next Owner = ChatGPT
