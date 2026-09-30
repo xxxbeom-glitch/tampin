@@ -40,7 +40,6 @@ jest.mock('@react-navigation/native-stack', () => {
   let routeStack: string[] = [];
   let initialRouteName = 'Bootstrap';
   const subscribers = new Set<() => void>();
-  let hardwareBackHandler: (() => boolean) | null = null;
 
   const notify = () => {
     subscribers.forEach((listener) => listener());
@@ -100,27 +99,6 @@ jest.mock('@react-navigation/native-stack', () => {
           };
         }, []);
 
-        React.useEffect(() => {
-          hardwareBackHandler = () => {
-            if (routeStack.length <= 1) {
-              return false;
-            }
-            routeStack = routeStack.slice(0, -1);
-            notify();
-            return true;
-          };
-
-          const { BackHandler } = require('react-native');
-          const subscription = BackHandler.addEventListener(
-            'hardwareBackPress',
-            hardwareBackHandler,
-          );
-          return () => {
-            subscription.remove();
-            hardwareBackHandler = null;
-          };
-        }, []);
-
         const activeRoute = routeStack[routeStack.length - 1];
         const ActiveComponent = activeRoute
           ? screenComponents.get(activeRoute)
@@ -159,14 +137,5 @@ jest.mock('@react-navigation/native-stack', () => {
 
       return { Navigator, Screen };
     },
-    __resetMockStackForTests: () => {
-      routeStack = [];
-      screenComponents.clear();
-      subscribers.clear();
-      initialRouteName = 'Bootstrap';
-      hardwareBackHandler = null;
-    },
-    __getMockStackForTests: () => [...routeStack],
-    __invokeHardwareBackForTests: () => hardwareBackHandler?.() ?? false,
   };
 });

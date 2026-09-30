@@ -1,9 +1,9 @@
 # Issue #8 / DEV-003 — Cursor Evidence (paste to GitHub if integration blocked)
 
-**Status:** `status:review`  
-**Next Owner:** ChatGPT  
-**Branch:** `cursor/dev-003-typed-navigation-368a`  
-**Commit:** `bfecfc0`
+**Status:** `status:review`
+**Next Owner:** ChatGPT
+**Branch:** `cursor/dev-003-typed-navigation-368a`
+**Commit:** (see latest push)
 
 ---
 
@@ -12,7 +12,7 @@
 | AC | Status | Evidence |
 |---|---|---|
 | One typed navigation mechanism; no ad-hoc route state | PASS | Removed `RootShell` useState switch; `RootNavigator` + `RootStackParamList` |
-| Root navigation + Android back deterministic | PASS (Logic) | Component tests: in-app back + hardware-back handler pop catalog → bootstrap; root back returns false |
+| Root navigation deterministic at component level | PASS (Logic) | Component test: UI Catalog in-app back → `navigation.goBack()` → Bootstrap |
 | Route contracts cover MVP flow boundaries | PASS | 10 product routes + dev-only `UiCatalog` in `types.ts` / `rootStackConfig.ts` |
 | Bootstrap shell initial product route | PASS | `initialRouteName='Bootstrap'`; `BootstrapHomeScreen` unchanged |
 | UI Catalog __DEV__ reachable, excluded from release nav | PASS | `getRegisteredRootStackScreens(false)` omits `UiCatalog`; dev button navigates to catalog |
@@ -33,12 +33,12 @@
 **Logic PASS**
 - `npm run typecheck` — PASS
 - `npm run lint` — PASS
-- `npm test` — PASS (5 suites / 9 tests)
+- `npm test` — PASS
 - `npx expo config --type public` — PASS (`com.lumian.tampin`)
 
-**Navigation tests**
+**Navigation tests (component level only)**
 - `__tests__/root-stack-config.test.ts` — route contracts + dev/release catalog registration
-- `__tests__/navigation-back.test.tsx` — catalog back + hardware-back pop + root no-exit
+- `__tests__/navigation-catalog-goback.test.tsx` — UI Catalog `← Back to bootstrap` triggers `goBack()` and restores Bootstrap
 
 **Expo Doctor — PARTIAL (pre-existing DEV-001 drift)**
 - 19/21 passed; `newArchEnabled` schema + dependency version mismatch (unchanged baseline)
@@ -49,23 +49,24 @@
 
 **Runtime/Device — NOT VERIFIED**
 - No emulator/device; navigation not verified on hardware
+- Android hardware-back behavior on device/emulator not verified (component goBack only)
 
 ---
 
 ## Commit
 
-- `bfecfc0` — DEV-003: add typed React Navigation foundation (Issue #8)
+See latest commit on branch `cursor/dev-003-typed-navigation-368a`.
 
 **Key files**
 - `src/app/navigation/` — types, RootNavigator, placeholders, route screens
-- `jest.setup.ts` — test mocks for native stack / safe area
+- `jest.setup.ts` — jest-only native stack / safe area mocks for component tests
 - `package.json` — React Navigation deps + testing-library devDep
 
 ---
 
 ## Risk
 
-- Low product risk (placeholders only). Navigation behavior validated at component-test level; device QA remains for ChatGPT/PO.
+- Low product risk (placeholders only). Navigation pop verified via in-app Catalog back action at component-test level; device QA remains for ChatGPT/PO.
 - Parallel Figma redesign may later remap Routine-as-main IA; route names are boundary contracts, not final screen IDs.
 
 ---
@@ -76,3 +77,4 @@
 - Expo Doctor full PASS
 - Android assembleDebug
 - Android device/emulator navigation smoke
+- Android hardware-back on device/emulator

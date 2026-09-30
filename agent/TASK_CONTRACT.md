@@ -15,7 +15,7 @@ DEV-001 local state switch를 제거하고, MVP flow boundary typed React Naviga
 - Typed `RootStackParamList` for MVP flow boundaries
 - Bootstrap initial route preserved
 - UI Catalog __DEV__ only, excluded from release stack registration
-- Android back handling tests (component level)
+- UI Catalog → Bootstrap goBack component test (not device hardware back)
 - type/lint/test + expo config verification
 - Android prebuild/assembleDebug or blocker record
 - docs/CURRENT + handoff update (Figma parallel context preserved)

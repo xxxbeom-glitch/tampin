@@ -7,9 +7,9 @@ export type RootStackParamList = {
   Bootstrap: undefined;
   /** Group 01 — auth / first-run boundary */
   Auth: undefined;
-  /** Group 03 — routine list / home boundary */
+  /** Group 02 — routine list / home boundary */
   RoutineHome: undefined;
-  /** Group 03 — routine create/edit boundary */
+  /** Group 02 — routine create/edit boundary */
   RoutineEditor: undefined;
   /** Group 04 — exercise library / selection boundary */
   ExerciseSelection: undefined;
