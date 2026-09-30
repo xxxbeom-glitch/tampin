@@ -67,7 +67,7 @@ export function ConfirmDialogOverlay({
 
 const styles = StyleSheet.create({
   overlay: {
-    ...StyleSheet.absoluteFillObject,
+    ...StyleSheet.absoluteFill,
     backgroundColor: 'rgba(0, 0, 0, 0.52)',
     alignItems: 'center',
     justifyContent: 'center',

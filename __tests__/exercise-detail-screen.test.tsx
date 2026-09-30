@@ -15,14 +15,14 @@ describe('DEV-014 ExerciseDetailScreen', () => {
   });
 
   it('renders native weight+reps history without inventing extra units', async () => {
-    const { getByText } = await render(
+    const { getByText, getAllByText } = await render(
       <ExerciseDetailScreen model={resolveExerciseDetail('bench-press')} tab="history" />,
     );
 
     expect(getByText('7월 12일')).toBeTruthy();
     expect(getByText('70kg')).toBeTruthy();
-    expect(getByText('중량')).toBeTruthy();
-    expect(getByText('횟수')).toBeTruthy();
+    expect(getAllByText('중량').length).toBeGreaterThan(0);
+    expect(getAllByText('횟수').length).toBeGreaterThan(0);
   });
 
   it('renders empty history and insufficient growth states', async () => {

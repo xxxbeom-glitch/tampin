@@ -1,4 +1,5 @@
-import { Pressable, StyleSheet, Text, View, type ReactNode } from 'react-native';
+import type { ReactNode } from 'react';
+import { Pressable, StyleSheet, Text, View } from 'react-native';
 import { figmaAssets } from '../../design-system/assets';
 import { FigmaImage } from '../../design-system/components/FigmaImage';
 import { colors, fontFamily } from '../../design-system/tokens';

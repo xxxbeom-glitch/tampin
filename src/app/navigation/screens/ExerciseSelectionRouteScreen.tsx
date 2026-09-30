@@ -80,7 +80,6 @@ export function ExerciseSelectionRouteScreen() {
     onCreate: () => {
       setCustomDraft(emptyCustomDraftFixture);
       setCustomBaseline(emptyCustomDraftFixture);
-      setHistoryLocked(false);
       setView('customCreate');
     },
     onOpenEquipmentFilter: () => setView('equipmentFilter'),
