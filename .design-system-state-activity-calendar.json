@@ -1,0 +1,44 @@
+{
+  "runId": "activity-calendar-2026-09-27",
+  "phase": "complete",
+  "step": "07A-month-navigation-and-calendar-routing-qa-passed",
+  "entities": {
+    "pages": {
+      "commonComponents": "1313:8699",
+      "analysisHome": "887:936"
+    },
+    "variables": {
+      "bg/surface": "VariableID:278:920",
+      "action/primary": "VariableID:1678:6533",
+      "brand/soft": "VariableID:1678:6534",
+      "text/primary": "VariableID:278:942",
+      "text/secondary": "VariableID:278:943",
+      "text/tertiary": "VariableID:278:944",
+      "border/default": "VariableID:278:921",
+      "radius/lg": "VariableID:278:909",
+      "radius/md": "VariableID:278:910",
+      "spacing/16": "VariableID:278:895",
+      "spacing/20": "VariableID:278:897",
+      "spacing/24": "VariableID:278:898"
+    },
+    "styles": {
+      "Elevation/Card": "S:6222c4ec73846429ef824c8e07b9444b4bcab2ce,"
+    },
+    "components": {
+      "ActivityCalendarDay": "2610:8548",
+      "MonthlyActivityCalendar": "2611:8540",
+      "MonthlyActivityCalendarDocumentation": "2611:8632",
+      "07A_MonthlyActivityCalendarInstance": "2612:8570",
+      "07C_DateFilteredHistory": "2641:8232"
+    }
+  },
+  "scope": [
+    "ActivityCalendarDay: Empty, Workout, Today, TodayWorkout",
+    "MonthlyActivityCalendar: month, summary, 7-column activity grid",
+    "07A instance positioned between PeriodTabs and OverviewSection",
+    "07A calendar month navigation uses existing chevron icons",
+    "Active calendar dates route to 07D; multi-workout date routes to a date-filtered 07C state"
+  ],
+  "completedSteps": ["P0.a", "P0.b", "P0.c", "P0.d", "P0.e", "P0.f", "P1.a", "P1.b", "P1.c", "P2.a", "P2.b", "P2.c", "P3.a", "P3.b", "P3.c", "P3.d", "P3.e", "P4.a", "P4.b", "P4.c", "P4.d"],
+  "pendingValidations": []
+}

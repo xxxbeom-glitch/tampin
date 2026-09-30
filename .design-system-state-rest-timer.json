@@ -1,0 +1,32 @@
+{
+  "runId": "rest-timer-library-2026-09-27",
+  "phase": "complete",
+  "step": "P4.d",
+  "entities": {
+    "pages": { "common": "1313:8699", "mvp": "34:1076" },
+    "components": {
+      "ctaButton": "635:793",
+      "plusIcon": "635:856",
+      "restTimerDurationControl": "2578:8906",
+      "restTimerProgress": "2579:8914"
+    },
+    "variables": {
+      "brandPrimary": "VariableID:278:923",
+      "brandSoft": "VariableID:1678:6534",
+      "surfaceTrack": "VariableID:1678:6536",
+      "textPrimary": "VariableID:278:942",
+      "borderDefault": "VariableID:278:921",
+      "spacing8": "VariableID:278:905",
+      "spacing16": "VariableID:278:895",
+      "radiusFull": "VariableID:278:908"
+    }
+  },
+  "plan": {
+    "restTimerProgress": ["State=Running"],
+    "restTimerDurationControl": ["State=Default", "State=DecreasePressed", "State=IncreasePressed", "State=Disabled"],
+    "skipAction": "reuse CTA Button: Type=Secondary, State=Default|Pressed|Disabled, Shape=Pill"
+  },
+  "instances": { "running": "2582:8432" },
+  "completedSteps": ["P0.a", "P0.b", "P0.c", "P0.d", "P1.a", "P1.b", "P1.c", "P2.a", "P2.b", "P2.c", "P3.a", "P3.b", "P3.c", "P3.d", "P3.e", "P4.a", "P4.b", "P4.c", "P4.d"],
+  "pendingValidations": []
+}
