@@ -1,5 +1,10 @@
 export { RootNavigator } from './RootNavigator';
 export {
+  DEV_INITIAL_ROUTE_ENV_KEY,
+  isDevInjectableInitialRouteName,
+  resolveInitialRootRouteName,
+} from './devInitialRoute';
+export {
   getInitialRootRouteName,
   getRegisteredRootStackScreens,
 } from './rootStackConfig';

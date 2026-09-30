@@ -4,39 +4,37 @@
 새 Issue를 시작할 때 이전 내용을 교체한다.
 
 ## Task / Issue
-- Issue #18 / DEV-008 — Canonical Login screen with dev auth behavior
-- Branch: `cursor/dev-008-login-screen-368a`
+- Issue #20 / DEV-009 — Canonical Splash launch and Login transition
+- Branch: `cursor/dev-009-splash-launch-368a`
 
 ## Goal
-Replace Login placeholder with canonical Figma 01A Login hierarchy while preserving DEV-006 development-only Google/Kakao bypass behavior.
+Replace DEV bootstrap landing with canonical 00 Splash and connect cold launch flow `Splash → Auth (Login)`.
 
 ## Required
-- 01A hierarchy: wordmark, headline/subtitle, stacked Google/Kakao CTAs, inquiry, Terms/Privacy affordances
-- __DEV__ provider parity: first-run → OnboardingBasicInfo; complete → RoutineHome; busy/disabled double-press guard
-- Release fail-closed: unavailable CTAs, no OAuth/SDK/keys/network/persistence
-- Terms/Privacy visual-only; inquiry visual-only (deferred navigation)
-- UI Catalog: ready/unavailable/busy/error-dialog-reference states
-- Screen rendering separate from auth/navigation; tests + Screen Map + verification
+- Visual only: brand-primary blue `#2563D6` + white Tampin wordmark; no spinner/loading/debug/CTA/tab bar
+- Deterministic presentation delay (document chosen ms); timer clears on unmount; exactly one `replace` to Auth
+- No session restore invented; UI Catalog remains registered in dev infrastructure without Splash debug controls
+- Catalog splash state; tests for visual, one transition, unmount cancellation
+- type/lint/test/expo config/prebuild/diff-check; Screen Map 00 row only
 
 ## Allowed Scope
-- `src/features/auth/LoginFormScreen.tsx`, `LoginScreen.tsx`, `loginFormContent.ts`
-- `src/debug/ui-catalog/*` login entries
-- `__tests__/login-*`, `ui-catalog-shell.test.ts`
-- `agent/FIGMA_SCREEN_MAP.md` 01A rows only
+- `src/features/startup/SplashScreen.tsx`, `splashTiming.ts`
+- `src/app/navigation/screens/SplashRouteScreen.tsx`, root stack Bootstrap→Splash
+- `src/debug/ui-catalog/*` splash entry
+- Remove user-facing Bootstrap landing route/screen
+- `__tests__/splash-*`, navigation/root-stack/ui-catalog test updates
 
 ## Forbidden / Do Not Change
-- Real OAuth/SDK/keys/network/token persistence/Supabase/SQLite
-- Expanding production auth bypass
-- Legal URL hosting, inquiry backend/navigation
-- Unrelated screens/EAS/sync/workout UI
+- Auth/OAuth/persistence/SQLite/Supabase/session restore
+- Animation assets, device QA claims
+- Unrelated screens/colors/tokens beyond splash usage
 
 ## Figma refs
-- `01A_Login` — `40:2075`
-- `01A1_Login_Error_Overlay_Cases` — `1296:643` (component state, not route)
+- `00_Splash` — `1961:8909`
 
 ## Risk
-- Double-press during dev sign-in must not duplicate session/navigation
-- Release must remain visually unavailable + fail closed
+- Duplicate navigation if timer not guarded/cleared
+- Accidental dev controls on Splash
 
 ## Verification
 1. `npm run typecheck`

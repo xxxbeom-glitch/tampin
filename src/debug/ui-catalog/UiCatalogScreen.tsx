@@ -5,6 +5,7 @@ import { CatalogList } from './components/CatalogList';
 import { BasicInfoCatalogDetail } from './components/BasicInfoCatalogDetail';
 import { DataLayerHealthDetail } from './components/DataLayerHealthDetail';
 import { LoginCatalogDetail } from './components/LoginCatalogDetail';
+import { SplashCatalogDetail } from './components/SplashCatalogDetail';
 import { bootstrapFake } from './fake/bootstrapFake';
 import { basicInfoCatalogPresets } from './fake/basicInfoFake';
 import { loginCatalogPresets } from './fake/loginFake';
@@ -26,6 +27,12 @@ export function UiCatalogScreen({ onBack }: UiCatalogScreenProps) {
         <Text style={styles.title}>{selected.frameName}</Text>
         {selected.id === 'data-layer-health' ? (
           <DataLayerHealthDetail />
+        ) : selected.id === '00-splash-default' ? (
+          <SplashCatalogDetail
+            entryId={selected.id}
+            frameName={selected.frameName}
+            stateLabel={selected.stateLabel}
+          />
         ) : selected.id in loginCatalogPresets ? (
           <LoginCatalogDetail
             entryId={selected.id}
@@ -51,7 +58,7 @@ export function UiCatalogScreen({ onBack }: UiCatalogScreenProps) {
   return (
     <View style={styles.root} testID="ui-catalog">
       <Pressable accessibilityRole="button" onPress={onBack}>
-        <Text style={styles.link}>← Back to bootstrap</Text>
+        <Text style={styles.link}>← Back</Text>
       </Pressable>
       <Text style={styles.title}>Tampin UI Catalog</Text>
       <Text style={styles.body}>

@@ -3,8 +3,8 @@
  * Screens are placeholders until scoped product Issues implement them.
  */
 export type RootStackParamList = {
-  /** DEV-001 bootstrap / startup entry — initial product route */
-  Bootstrap: undefined;
+  /** Group 00 — cold launch splash */
+  Splash: undefined;
   /** Group 01 — auth / first-run boundary */
   Auth: undefined;
   /** Group 01 — basic info / onboarding boundary */
@@ -33,7 +33,7 @@ export type RootStackParamList = {
 export type ProductFlowRouteName = Exclude<keyof RootStackParamList, 'UiCatalog'>;
 
 export const PRODUCT_FLOW_ROUTE_NAMES = [
-  'Bootstrap',
+  'Splash',
   'Auth',
   'OnboardingBasicInfo',
   'RoutineHome',
