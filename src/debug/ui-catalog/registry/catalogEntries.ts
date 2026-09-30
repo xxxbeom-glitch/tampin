@@ -17,6 +17,14 @@ export const catalogEntries: CatalogEntry[] = [
       'Non-canonical bootstrap placeholder proving catalog shell rendering without auth/DB.',
   },
   {
+    id: '00-splash-default',
+    group: '00 시작',
+    frameName: '00_Splash',
+    stateLabel: 'Default',
+    description:
+      'Canonical splash: brand-primary background and centered white Tampin wordmark only.',
+  },
+  {
     id: 'data-layer-health',
     group: '00 시작',
     frameName: 'DEV_Data_Layer_Health',

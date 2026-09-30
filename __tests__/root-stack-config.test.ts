@@ -7,7 +7,7 @@ import { PRODUCT_FLOW_ROUTE_NAMES } from '../src/app/navigation/types';
 describe('DEV-003 root stack configuration', () => {
   it('covers all MVP product flow boundaries in typed route contracts', () => {
     expect(PRODUCT_FLOW_ROUTE_NAMES).toEqual([
-      'Bootstrap',
+      'Splash',
       'Auth',
       'OnboardingBasicInfo',
       'RoutineHome',
@@ -21,8 +21,8 @@ describe('DEV-003 root stack configuration', () => {
     ]);
   });
 
-  it('uses Bootstrap as the initial product route', () => {
-    expect(getInitialRootRouteName()).toBe('Bootstrap');
+  it('uses Splash as the initial product route', () => {
+    expect(getInitialRootRouteName()).toBe('Splash');
   });
 
   it('registers UiCatalog only in development builds', () => {

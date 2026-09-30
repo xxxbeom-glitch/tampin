@@ -2,7 +2,7 @@
 
 ## Current state
 
-- Current mode: **DEVELOPMENT ACTIVE** (Issue #18 / DEV-008) · **DESIGN / FIGMA redesign continues in parallel**
+- Current mode: **DEVELOPMENT ACTIVE** (Issue #20 / DEV-009) · **DESIGN / FIGMA redesign continues in parallel**
 - DEV-001: PASS · merged to main
 - DEV-002 Issue #6: PASS · merged to main
 - DEV-003 Issue #8: PASS · merged to main
@@ -10,11 +10,27 @@
 - DEV-005 Issue #12: PASS · merged to main
 - DEV-006 Issue #14: PASS · merged to main
 - DEV-007 Issue #16: PASS · merged to main
-- DEV-008 Issue #18: Cursor implementation → **status:review**
-- Branch: `cursor/dev-008-login-screen-368a`
+- DEV-008 Issue #18: PASS · merged to main
+- DEV-009 Issue #20: Cursor implementation → **status:review**
+- Branch: `cursor/dev-009-splash-launch-368a`
 - Next Owner: ChatGPT
 
-## DEV-008 — Issue #18 latest development handoff (2026-09-30)
+## DEV-009 — Issue #20 latest development handoff (2026-09-30)
+
+Goal: Replace DEV bootstrap landing with canonical 00 Splash and connect `Splash → Auth (Login)`.
+
+In-scope completed:
+- `SplashScreen` (presentational) + `SplashRouteScreen` (600ms delay, `replace('Auth')`, unmount cleanup)
+- Removed user-facing Bootstrap landing route/screen; initial route `Splash`
+- UI Catalog: `00-splash-default`; dev catalog infrastructure preserved without Splash debug controls
+- Tests: visual structure, one transition, unmount cancellation, catalog preset
+- Logic verification PASS: typecheck / lint / test / expo config / prebuild / diff-check
+
+Presentation delay: **600ms** (`splashTiming.ts`) — Figma unspecified; smallest deliberate perceptible frame.
+
+NOT VERIFIED: device visual QA · session restoration
+
+## DEV-008 — Issue #18 development handoff (2026-09-30 · merged)
 
 Goal: Replace Login placeholder with canonical Figma 01A Login while preserving DEV-006 dev bypass behavior.
 

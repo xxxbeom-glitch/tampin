@@ -6,7 +6,7 @@ import {
   isUiCatalogRoute,
 } from './rootStackConfig';
 import { AuthRouteScreen } from './screens/AuthRouteScreen';
-import { BootstrapRouteScreen } from './screens/BootstrapRouteScreen';
+import { SplashRouteScreen } from './screens/SplashRouteScreen';
 import { FlowBoundaryPlaceholderScreen } from './screens/FlowBoundaryPlaceholderScreen';
 import { OnboardingBasicInfoRouteScreen } from './screens/OnboardingBasicInfoRouteScreen';
 import { UiCatalogRouteScreen } from './screens/UiCatalogRouteScreen';
@@ -15,8 +15,8 @@ import type { RootStackParamList } from './types';
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
 function renderRootScreen(name: keyof RootStackParamList) {
-  if (name === 'Bootstrap') {
-    return BootstrapRouteScreen;
+  if (name === 'Splash') {
+    return SplashRouteScreen;
   }
 
   if (name === 'Auth') {
@@ -53,6 +53,7 @@ export function RootNavigator() {
             component={renderRootScreen(name)}
             options={{
               title,
+              ...(name === 'Splash' ? { animation: 'none' } : {}),
               ...(isUiCatalogRoute(name) ? { animation: 'slide_from_right' } : {}),
             }}
           />

@@ -6,7 +6,7 @@ type StackScreenConfig = {
 };
 
 const PRODUCT_FLOW_SCREENS: StackScreenConfig[] = [
-  { name: 'Bootstrap', title: 'Startup' },
+  { name: 'Splash', title: 'Splash' },
   { name: 'Auth', title: 'Auth' },
   { name: 'OnboardingBasicInfo', title: 'Basic Info' },
   { name: 'RoutineHome', title: 'Routine Home' },
@@ -42,5 +42,5 @@ export function isUiCatalogRoute(
 }
 
 export function getInitialRootRouteName(): keyof RootStackParamList {
-  return 'Bootstrap';
+  return 'Splash';
 }
