@@ -2,14 +2,44 @@
 
 ## Current state
 
-- Current mode: **DEVELOPMENT ACTIVE** (Issue #8 / DEV-003) · **DESIGN / FIGMA redesign continues in parallel**
+- Current mode: **DEVELOPMENT ACTIVE** (Issue #10 / DEV-004) · **DESIGN / FIGMA redesign continues in parallel**
 - DEV-001: PASS · merged to main
 - DEV-002 Issue #6: PASS · merged to main
-- DEV-003 Issue #8: Cursor implementation → **status:review**
-- Branch: `cursor/dev-003-typed-navigation-368a`
+- DEV-003 Issue #8: PASS · merged to main
+- DEV-004 Issue #10: Cursor implementation → **status:review**
+- Branch: `cursor/dev-004-sqlite-foundation-368a`
 - Next Owner: ChatGPT
 
-## DEV-003 — Issue #8 latest development handoff (2026-09-30)
+## DEV-004 — Issue #10 latest development handoff (2026-09-30)
+
+Goal: local-first SQLite schema/repository foundation before Routine/Workout UI persistence.
+
+In-scope completed:
+- `expo-sqlite` dependency + Expo plugin; `openTampinDatabase()` entry point
+- Add-only migration 001 + `schema_migrations` ledger; FK enforced on every connection
+- Account-scoped schema: routines, routine exercises/set templates, workout sessions/exercises/set records, completed-workout snapshot tables, sync_outbox metadata
+- Typed repository interfaces + SQLite implementations + `createDataLayer()` factory
+- `completeWorkout` transaction writes immutable snapshot rows independent of mutable routine names
+- Jest uses `sql.js` WASM test adapter under `__tests__/adapters/` (not in production sqlite tree)
+- Logic verification PASS: typecheck / lint / test (15 tests) / `expo config --type public` / prebuild / `git diff --check`
+
+Production Readiness Review (foundation scope):
+- Scope: schema v1, migration ledger, typed repositories, outbox metadata only — no UI wiring, no sync transport
+- Invariants: local-first durable storage; stable client IDs; account scope; completed-workout snapshots; add-only migrations
+- Security/Privacy: no auth secrets in SQLite; no workout PII in logs; test DB in-memory
+- Dependencies: `expo-sqlite` production; `sql.js` dev/test only (no native build; Windows-friendly `npm ci`)
+- Result: **PASS (foundation scope)** · Runtime/Device **NOT VERIFIED**
+
+NOT VERIFIED (unchanged from DEV-002 — do not erase):
+- EAS login / project link / identity read-back
+- Expo Doctor full PASS (19/21; pre-existing DEV-001 drift)
+- Android Gradle assembleDebug (no ANDROID_HOME / SDK in cloud agent)
+- Android device/emulator install+launch
+- expo-sqlite runtime on physical device (Jest adapter only)
+
+Out of scope (deferred): Supabase/Auth/sync transport, UI SQLite wiring, exercise catalog seeding, background sync worker.
+
+## DEV-003 — Issue #8 development handoff (2026-09-30 · merged)
 
 Goal: replace DEV-001 `RootShell` state switch with typed React Navigation native stack.
 
@@ -118,7 +148,7 @@ Issue comment pending:
 ## Next
 
 Development track:
-- ChatGPT independent QA on branch `cursor/dev-003-typed-navigation-368a`
+- ChatGPT independent QA on branch `cursor/dev-004-sqlite-foundation-368a`
 - If PO completes EAS login + local Android smoke, record supplemental evidence on Issue #6 (DEV-002 NOT VERIFIED carryover)
 
 Design/Figma track — resume from:
