@@ -1,5 +1,6 @@
 import { Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
 import { colors, fontFamily } from '../../design-system/tokens';
+import { ExerciseGrowthChart, GrowthPersonalBest } from './ExerciseGrowthChart';
 import { ExerciseScreenChrome } from './ExerciseScreenChrome';
 import type { ExerciseDetailModel, ExerciseDetailTab, RecordingType } from './types';
 
@@ -164,25 +165,16 @@ function GrowthTab({ model }: { model: ExerciseDetailModel }) {
   if (model.history.length === 0) {
     return (
       <View style={styles.empty} testID="exercise-detail-growth-empty">
-        <Text style={styles.emptyTitle}>아직 성장 데이터가 없어요</Text>
-        <Text style={styles.emptyBody}>기록이 쌓이면 여기에 표시돼요.</Text>
+        <Text style={styles.emptyTitle}>아직 성장 기록이 없어요</Text>
+        <Text style={styles.emptyBody}>운동을 완료하면 변화 추이가 여기에 표시돼요.</Text>
       </View>
     );
   }
 
   return (
     <ScrollView contentContainerStyle={styles.growthContent} style={styles.scroll}>
-      <View style={styles.prCard} testID="exercise-detail-growth-pr">
-        <Text style={styles.prLabel}>{model.growth.prLabel}</Text>
-        <Text style={styles.prValue}>{model.growth.prValue}</Text>
-      </View>
-      {model.growth.insufficient ? (
-        <Text style={styles.growthHint} testID="exercise-detail-growth-insufficient">
-          추이를 보려면 비교 가능한 기록이 2회 이상 필요해요.
-        </Text>
-      ) : model.growth.trend ? (
-        <Text style={styles.growthHint}>{model.growth.trend}</Text>
-      ) : null}
+      <ExerciseGrowthChart model={model.growth} />
+      <GrowthPersonalBest rows={model.growth.personalBest} />
     </ScrollView>
   );
 }
@@ -361,36 +353,9 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
   growthContent: {
-    padding: 20,
-    gap: 16,
-  },
-  prCard: {
-    backgroundColor: colors.surface,
-    borderRadius: 20,
-    padding: 20,
-    shadowColor: '#000000',
-    shadowOffset: { width: 0, height: 0 },
-    shadowOpacity: 0.05,
-    shadowRadius: 8,
-    elevation: 2,
-  },
-  prLabel: {
-    fontFamily: fontFamily.medium,
-    fontSize: 13,
-    lineHeight: 18,
-    color: colors.textSecondary,
-  },
-  prValue: {
-    marginTop: 8,
-    fontFamily: fontFamily.bold,
-    fontSize: 24,
-    lineHeight: 32,
-    color: colors.textPrimary,
-  },
-  growthHint: {
-    fontFamily: fontFamily.medium,
-    fontSize: 14,
-    lineHeight: 20,
-    color: colors.textSecondary,
+    paddingHorizontal: 20,
+    paddingTop: 20,
+    paddingBottom: 32,
+    gap: 32,
   },
 });

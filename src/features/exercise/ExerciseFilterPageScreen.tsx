@@ -1,4 +1,6 @@
 import { Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
+import { figmaAssets } from '../../design-system/assets';
+import { FigmaImage } from '../../design-system/components/FigmaImage';
 import { colors, fontFamily } from '../../design-system/tokens';
 import { ExerciseScreenChrome } from './ExerciseScreenChrome';
 
@@ -47,7 +49,9 @@ export function ExerciseFilterPageScreen({
                   <Text style={[styles.label, isSelected && styles.labelSelected]}>
                     {option}
                   </Text>
-                  {isSelected ? <Text style={styles.check}>✓</Text> : null}
+                  {isSelected ? (
+                    <FigmaImage height={24} source={figmaAssets.icons.check} width={24} />
+                  ) : null}
                 </Pressable>
                 {index < options.length - 1 ? <View style={styles.divider} /> : null}
               </View>
@@ -87,11 +91,6 @@ const styles = StyleSheet.create({
   },
   labelSelected: {
     fontFamily: fontFamily.bold,
-    color: colors.brandPrimary,
-  },
-  check: {
-    fontFamily: fontFamily.bold,
-    fontSize: 16,
     color: colors.brandPrimary,
   },
   divider: {

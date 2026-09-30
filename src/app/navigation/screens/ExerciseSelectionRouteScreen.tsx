@@ -25,6 +25,11 @@ import {
   type ExerciseCatalogItem,
   type ExerciseDetailTab,
 } from '../../../features/exercise';
+import {
+  getRoutineCreateDraftExercises,
+  setRoutineCreateDraftExercises,
+  toRoutineCreateDraftExercise,
+} from '../../../features/routine';
 import type { RootStackParamList } from '../types';
 
 type ExerciseSelectionNavigation = NativeStackNavigationProp<
@@ -52,7 +57,9 @@ export function ExerciseSelectionRouteScreen() {
   const [query, setQuery] = useState('');
   const [equipmentFilter, setEquipmentFilter] = useState('전체');
   const [bodyPartFilter, setBodyPartFilter] = useState('전체');
-  const [selectedIds, setSelectedIds] = useState<string[]>([]);
+  const [selectedIds, setSelectedIds] = useState<string[]>(() =>
+    getRoutineCreateDraftExercises().map((item) => item.id),
+  );
   const [catalog, setCatalog] = useState<ExerciseCatalogItem[]>(exerciseCatalogFixture);
   const [detailId, setDetailId] = useState('bench-press');
   const [detailTab, setDetailTab] = useState<ExerciseDetailTab>('info');
@@ -103,7 +110,14 @@ export function ExerciseSelectionRouteScreen() {
     onRemoveSelected: (id: string) => {
       setSelectedIds((current) => current.filter((value) => value !== id));
     },
-    onConfirm: () => navigation.goBack(),
+    onConfirm: () => {
+      const selected = selectedIds
+        .map((id) => catalog.find((item) => item.id === id))
+        .filter((item): item is ExerciseCatalogItem => Boolean(item))
+        .map(toRoutineCreateDraftExercise);
+      setRoutineCreateDraftExercises(selected);
+      navigation.goBack();
+    },
   };
 
   const leaveCustom = () => {

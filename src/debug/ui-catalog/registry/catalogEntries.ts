@@ -204,7 +204,7 @@ export const catalogEntries: CatalogEntry[] = [
     group: '04 운동',
     frameName: '04D_Exercise_Detail_Growth',
     stateLabel: 'GrowthWeightReps',
-    description: 'Weight+reps growth tab with PR and comparable trend.',
+    description: 'Weight+reps growth with Figma trend chart and personal-best table.',
   },
   {
     id: '04d-detail-history-reps',
@@ -218,7 +218,7 @@ export const catalogEntries: CatalogEntry[] = [
     group: '04 운동',
     frameName: '04D_Exercise_Detail_Growth_Reps',
     stateLabel: 'GrowthReps',
-    description: 'Reps-only growth with native repetition PR.',
+    description: 'Reps-only growth chart (반복 변화) and max-rep personal best.',
   },
   {
     id: '04d-detail-history-duration',
@@ -232,7 +232,7 @@ export const catalogEntries: CatalogEntry[] = [
     group: '04 운동',
     frameName: '04D_Exercise_Detail_Growth_Duration',
     stateLabel: 'GrowthDuration',
-    description: 'Duration growth with native longest-time PR.',
+    description: 'Duration growth chart (시간 변화) and longest-time personal best.',
   },
   {
     id: '04d-detail-history-assisted',
@@ -246,7 +246,7 @@ export const catalogEntries: CatalogEntry[] = [
     group: '04 운동',
     frameName: '04D_Exercise_Detail_Growth_Assisted',
     stateLabel: 'GrowthAssisted',
-    description: 'Assisted growth; lower assistance is the harder PR.',
+    description: 'Assisted growth chart (보조중량 변화); lower assistance is harder.',
   },
   {
     id: '04d-detail-history-empty',
@@ -267,7 +267,7 @@ export const catalogEntries: CatalogEntry[] = [
     group: '04 운동',
     frameName: '04D_Exercise_Detail_Growth_Insufficient',
     stateLabel: 'GrowthInsufficient',
-    description: 'PR shown while trend remains insufficient.',
+    description: 'Chart card empty-in-card copy plus personal-best rows.',
   },
   {
     id: '04e-custom-create',
@@ -309,7 +309,7 @@ export const catalogEntries: CatalogEntry[] = [
     group: '04 운동',
     frameName: '04H_Custom_Attachment_Input',
     stateLabel: 'DirectInput',
-    description: 'Direct attachment text-entry overlay; no media remapping.',
+    description: 'Figma attachment input: 목록에 없는 손잡이 이름 / 사용하기.',
   },
   {
     id: '04i-custom-equipment',
@@ -329,8 +329,8 @@ export const catalogEntries: CatalogEntry[] = [
     id: '04k-custom-secondary-muscle',
     group: '04 운동',
     frameName: '04K_Custom_SecondaryMuscle_Select',
-    stateLabel: 'NoneSelected',
-    description: 'Custom-exercise secondary muscle picker including 선택 안 함.',
+    stateLabel: 'BicepsSelected',
+    description: 'Custom-exercise secondary muscle picker with 이두 selected.',
   },
   {
     id: '04l-custom-recording-type',

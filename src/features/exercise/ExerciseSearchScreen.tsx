@@ -36,12 +36,7 @@ function thumbnailFor(item: ExerciseCatalogItem) {
 }
 
 function SearchIcon() {
-  return (
-    <View accessibilityElementsHidden style={styles.searchIcon}>
-      <View style={styles.searchCircle} />
-      <View style={styles.searchHandle} />
-    </View>
-  );
+  return <FigmaImage height={20} source={figmaAssets.icons.search} width={20} />;
 }
 
 export function ExerciseSearchScreen({
@@ -169,7 +164,7 @@ export function ExerciseSearchScreen({
                     <Text numberOfLines={1} style={styles.chipLabel}>
                       {item.name}
                     </Text>
-                    <Text style={styles.chipClose}>×</Text>
+                    <FigmaImage height={16} source={figmaAssets.icons.close} width={16} />
                   </Pressable>
                 ))}
               </View>
@@ -329,28 +324,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     gap: 8,
   },
-  searchIcon: {
-    width: 20,
-    height: 20,
-  },
-  searchCircle: {
-    width: 12,
-    height: 12,
-    borderRadius: 6,
-    borderWidth: 1.5,
-    borderColor: colors.textSecondary,
-    marginTop: 2,
-    marginLeft: 1,
-  },
-  searchHandle: {
-    position: 'absolute',
-    width: 7,
-    height: 1.5,
-    backgroundColor: colors.textSecondary,
-    right: 2,
-    bottom: 3,
-    transform: [{ rotate: '45deg' }],
-  },
   searchInput: {
     flex: 1,
     fontFamily: fontFamily.medium,
@@ -400,27 +373,22 @@ const styles = StyleSheet.create({
     gap: 8,
   },
   chip: {
-    height: 36,
     borderRadius: 999,
     borderWidth: 1,
     borderColor: colors.borderDefault,
     backgroundColor: colors.surface,
-    paddingHorizontal: 12,
+    paddingLeft: 12,
+    paddingRight: 8,
+    paddingVertical: 8,
     flexDirection: 'row',
     alignItems: 'center',
-    gap: 6,
+    gap: 4,
   },
   chipLabel: {
-    maxWidth: 140,
-    fontFamily: fontFamily.medium,
+    fontFamily: fontFamily.bold,
     fontSize: 12,
     lineHeight: 16,
     color: colors.textPrimary,
-  },
-  chipClose: {
-    fontFamily: fontFamily.medium,
-    fontSize: 14,
-    color: colors.textSecondary,
   },
   row: {
     height: 72,

@@ -1,5 +1,9 @@
 import { fireEvent, render } from '@testing-library/react-native';
 import { ExerciseSelectionRouteScreen } from '../src/app/navigation/screens/ExerciseSelectionRouteScreen';
+import {
+  clearRoutineCreateDraftExercises,
+  getRoutineCreateDraftExercises,
+} from '../src/features/routine';
 
 const mockGoBack = jest.fn();
 
@@ -16,6 +20,7 @@ jest.mock('@react-navigation/native', () => {
 describe('DEV-014 ExerciseSelectionRouteScreen', () => {
   beforeEach(() => {
     mockGoBack.mockClear();
+    clearRoutineCreateDraftExercises();
   });
 
   it('opens equipment filter and returns with the selected value applied', async () => {
@@ -63,11 +68,28 @@ describe('DEV-014 ExerciseSelectionRouteScreen', () => {
     expect(getByText('1개 운동 추가')).toBeTruthy();
   });
 
-  it('confirms selection by leaving the ExerciseSelection flow', async () => {
+  it('renders Figma attachment-input copy when 직접 입력 is chosen', async () => {
+    const { getByTestId, getByText } = await render(<ExerciseSelectionRouteScreen />);
+
+    await fireEvent.press(getByTestId('exercise-row-toggle-lat-pulldown'));
+    await fireEvent.press(getByTestId('exercise-attachment-option-직접 입력'));
+
+    expect(getByText('손잡이 직접 입력')).toBeTruthy();
+    expect(getByText('목록에 없는 손잡이 이름을 입력하세요.')).toBeTruthy();
+    expect(getByText('사용하기')).toBeTruthy();
+    expect(getByTestId('exercise-attachment-input').props.placeholder).toBe(
+      '예: 뉴트럴 그립 바',
+    );
+  });
+
+  it('confirms selection into the RoutineCreate mock draft and leaves the flow', async () => {
     const { getByTestId } = await render(<ExerciseSelectionRouteScreen />);
 
     await fireEvent.press(getByTestId('exercise-row-toggle-bench-press'));
     await fireEvent.press(getByTestId('exercise-search-confirm'));
     expect(mockGoBack).toHaveBeenCalledTimes(1);
+    expect(getRoutineCreateDraftExercises().map((item) => item.id)).toEqual([
+      'bench-press',
+    ]);
   });
 });

@@ -2,7 +2,16 @@ import type {
   CustomExerciseDraft,
   ExerciseCatalogItem,
   ExerciseDetailModel,
+  ExerciseGrowthModel,
 } from './types';
+
+const GROWTH_X_LABELS = ['3주 전', '2주 전', '지난주', '이번주'] as const;
+
+function growthChart(
+  partial: Omit<ExerciseGrowthModel, 'xLabels'>,
+): ExerciseGrowthModel {
+  return { ...partial, xLabels: GROWTH_X_LABELS };
+}
 
 export const exerciseCatalogFixture: ExerciseCatalogItem[] = [
   {
@@ -189,12 +198,19 @@ export const exerciseDetailById: Record<string, ExerciseDetailModel> = {
       '2. 팔꿈치를 과도하게 벌리지 않습니다.',
     ],
     history: weightRepsHistory,
-    growth: {
-      prLabel: '최고 중량',
-      prValue: '70kg',
-      trend: '7월 7일 65kg → 7월 12일 70kg',
+    growth: growthChart({
+      title: '중량 변화',
+      unit: 'kg',
+      yLabels: ['82.5', '80', '77.5', '75'],
+      values: [77.5, 77.5, 80, 80],
+      yMin: 75,
+      yMax: 82.5,
+      personalBest: [
+        { label: '최고 중량', value: '80kg × 10회' },
+        { label: '최대 반복', value: '70kg × 12회' },
+      ],
       insufficient: false,
-    },
+    }),
   },
   crunch: {
     id: 'crunch',
@@ -209,17 +225,41 @@ export const exerciseDetailById: Record<string, ExerciseDetailModel> = {
       {
         dateLabel: '7월 12일',
         sets: [
+          { set: 1, primary: '20', secondary: '' },
+          { set: 2, primary: '18', secondary: '' },
+          { set: 3, primary: '16', secondary: '' },
+          { set: 4, primary: '15', secondary: '' },
+        ],
+      },
+      {
+        dateLabel: '7월 10일',
+        sets: [
+          { set: 1, primary: '18', secondary: '' },
+          { set: 2, primary: '18', secondary: '' },
+          { set: 3, primary: '15', secondary: '' },
+          { set: 4, primary: '14', secondary: '' },
+        ],
+      },
+      {
+        dateLabel: '7월 7일',
+        sets: [
           { set: 1, primary: '15', secondary: '' },
-          { set: 2, primary: '12', secondary: '' },
+          { set: 2, primary: '15', secondary: '' },
+          { set: 3, primary: '12', secondary: '' },
+          { set: 4, primary: '12', secondary: '' },
         ],
       },
     ],
-    growth: {
-      prLabel: '최고 횟수',
-      prValue: '15회',
-      trend: '최근 최고 15회',
+    growth: growthChart({
+      title: '반복 변화',
+      unit: '회',
+      yLabels: ['24', '20', '16', '12'],
+      values: [16, 16, 20, 20],
+      yMin: 12,
+      yMax: 24,
+      personalBest: [{ label: '최대 반복', value: '24회' }],
       insufficient: false,
-    },
+    }),
   },
   plank: {
     id: 'plank',
@@ -234,17 +274,41 @@ export const exerciseDetailById: Record<string, ExerciseDetailModel> = {
       {
         dateLabel: '7월 12일',
         sets: [
-          { set: 1, primary: '00:45', secondary: '' },
-          { set: 2, primary: '00:40', secondary: '' },
+          { set: 1, primary: '60초', secondary: '' },
+          { set: 2, primary: '55초', secondary: '' },
+          { set: 3, primary: '50초', secondary: '' },
+          { set: 4, primary: '45초', secondary: '' },
+        ],
+      },
+      {
+        dateLabel: '7월 10일',
+        sets: [
+          { set: 1, primary: '50초', secondary: '' },
+          { set: 2, primary: '45초', secondary: '' },
+          { set: 3, primary: '45초', secondary: '' },
+          { set: 4, primary: '40초', secondary: '' },
+        ],
+      },
+      {
+        dateLabel: '7월 7일',
+        sets: [
+          { set: 1, primary: '40초', secondary: '' },
+          { set: 2, primary: '40초', secondary: '' },
+          { set: 3, primary: '35초', secondary: '' },
+          { set: 4, primary: '30초', secondary: '' },
         ],
       },
     ],
-    growth: {
-      prLabel: '최장 시간',
-      prValue: '00:45',
-      trend: '최근 최장 00:45',
+    growth: growthChart({
+      title: '시간 변화',
+      unit: '초',
+      yLabels: ['60', '45', '30', '15'],
+      values: [30, 30, 45, 45],
+      yMin: 15,
+      yMax: 60,
+      personalBest: [{ label: '최장 시간', value: '60초' }],
       insufficient: false,
-    },
+    }),
   },
   'assisted-pull-up': {
     id: 'assisted-pull-up',
@@ -259,17 +323,41 @@ export const exerciseDetailById: Record<string, ExerciseDetailModel> = {
       {
         dateLabel: '7월 12일',
         sets: [
-          { set: 1, primary: '20kg', secondary: '8' },
+          { set: 1, primary: '25kg', secondary: '8' },
           { set: 2, primary: '25kg', secondary: '8' },
+          { set: 3, primary: '30kg', secondary: '10' },
+          { set: 4, primary: '30kg', secondary: '8' },
+        ],
+      },
+      {
+        dateLabel: '7월 10일',
+        sets: [
+          { set: 1, primary: '30kg', secondary: '8' },
+          { set: 2, primary: '30kg', secondary: '8' },
+          { set: 3, primary: '35kg', secondary: '10' },
+          { set: 4, primary: '35kg', secondary: '8' },
+        ],
+      },
+      {
+        dateLabel: '7월 7일',
+        sets: [
+          { set: 1, primary: '35kg', secondary: '8' },
+          { set: 2, primary: '35kg', secondary: '8' },
+          { set: 3, primary: '40kg', secondary: '10' },
+          { set: 4, primary: '40kg', secondary: '8' },
         ],
       },
     ],
-    growth: {
-      prLabel: '최저 보조중량',
-      prValue: '20kg',
-      trend: '보조중량이 낮을수록 더 어려운 기록입니다.',
+    growth: growthChart({
+      title: '보조중량 변화',
+      unit: 'kg',
+      yLabels: ['40', '35', '30', '25'],
+      values: [35, 35, 30, 25],
+      yMin: 25,
+      yMax: 40,
+      personalBest: [],
       insufficient: false,
-    },
+    }),
   },
   'hack-squat': {
     id: 'hack-squat',
@@ -281,12 +369,45 @@ export const exerciseDetailById: Record<string, ExerciseDetailModel> = {
     method: ['1. 어깨 패드에 밀착합니다.', '2. 무릎을 발끝 방향으로 굽힙니다.'],
     checkpoints: ['1. 무릎이 안쪽으로 모이지 않게 합니다.'],
     history: [],
-    growth: {
-      prLabel: '최고 중량',
-      prValue: '-',
-      trend: null,
+    growth: growthChart({
+      title: '중량 변화',
+      unit: 'kg',
+      yLabels: ['82.5', '80', '77.5', '75'],
+      values: [],
+      yMin: 75,
+      yMax: 82.5,
+      personalBest: [],
       insufficient: false,
-    },
+    }),
+  },
+  'bench-press-insufficient': {
+    id: 'bench-press-insufficient',
+    name: '벤치프레스',
+    equipment: '바벨',
+    primaryMuscle: '대흉근',
+    secondaryMuscles: '삼두근 · 전면 삼각근',
+    recordingType: 'weight_reps',
+    method: [],
+    checkpoints: [],
+    history: [
+      {
+        dateLabel: '7월 12일',
+        sets: [{ set: 1, primary: '70kg', secondary: '8' }],
+      },
+    ],
+    growth: growthChart({
+      title: '중량 변화',
+      unit: 'kg',
+      yLabels: ['82.5', '80', '77.5', '75'],
+      values: [70],
+      yMin: 75,
+      yMax: 82.5,
+      personalBest: [
+        { label: '최고 중량', value: '70kg × 8회' },
+        { label: '최대 반복', value: '65kg × 10회' },
+      ],
+      insufficient: true,
+    }),
   },
   'push-up': {
     id: 'push-up',
@@ -303,12 +424,16 @@ export const exerciseDetailById: Record<string, ExerciseDetailModel> = {
         sets: [{ set: 1, primary: '12', secondary: '' }],
       },
     ],
-    growth: {
-      prLabel: '최고 횟수',
-      prValue: '12회',
-      trend: null,
+    growth: growthChart({
+      title: '반복 변화',
+      unit: '회',
+      yLabels: ['24', '20', '16', '12'],
+      values: [12],
+      yMin: 12,
+      yMax: 24,
+      personalBest: [{ label: '최대 반복', value: '12회' }],
       insufficient: true,
-    },
+    }),
   },
 };
 
@@ -354,11 +479,15 @@ export function resolveExerciseDetail(id: string): ExerciseDetailModel {
     method: [],
     checkpoints: [],
     history: [],
-    growth: {
-      prLabel: '최고 기록',
-      prValue: '-',
-      trend: null,
+    growth: growthChart({
+      title: '중량 변화',
+      unit: 'kg',
+      yLabels: ['82.5', '80', '77.5', '75'],
+      values: [],
+      yMin: 75,
+      yMax: 82.5,
+      personalBest: [],
       insufficient: false,
-    },
+    }),
   };
 }

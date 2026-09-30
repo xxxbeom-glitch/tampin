@@ -73,6 +73,48 @@
       "usedBy": ["02D Routine Detail header"]
     },
     {
+      "id": "icon-search",
+      "figmaNodeId": "638:3295",
+      "figmaName": "icon/search",
+      "path": "assets/figma/icons/icon-search.png",
+      "usedBy": ["04A Search field"]
+    },
+    {
+      "id": "icon-check",
+      "figmaNodeId": "636:895",
+      "figmaName": "icon/check",
+      "path": "assets/figma/icons/icon-check.png",
+      "usedBy": ["04A/04I–04L OptionItem selected"]
+    },
+    {
+      "id": "icon-close",
+      "figmaNodeId": "569:1337",
+      "figmaName": "Icon/Close",
+      "path": "assets/figma/icons/icon-close.png",
+      "usedBy": ["04B selected exercise chips"]
+    },
+    {
+      "id": "icon-hint",
+      "figmaNodeId": "1916:8897",
+      "figmaName": "icon/hint State=Info",
+      "path": "assets/figma/icons/icon-hint.png",
+      "usedBy": ["04F Custom Edit HistoryLocked"]
+    },
+    {
+      "id": "icon-trash",
+      "figmaNodeId": "706:959",
+      "figmaName": "icon/trash",
+      "path": "assets/figma/icons/icon-trash.png",
+      "usedBy": ["04F Custom Edit header"]
+    },
+    {
+      "id": "icon-add-toggle-selected",
+      "figmaNodeId": "2513:8871",
+      "figmaName": "ExerciseAddToggle State=Selected",
+      "path": "assets/figma/icons/icon-add-toggle-selected.png",
+      "usedBy": ["04B Search selected add toggle"]
+    },
+    {
       "id": "exercise-smith-bench-press",
       "figmaNodeId": "2333:7848",
       "figmaName": "exercise-thumbnail",

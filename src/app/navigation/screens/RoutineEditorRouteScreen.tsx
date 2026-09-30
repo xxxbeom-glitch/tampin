@@ -1,11 +1,13 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { View } from 'react-native';
 import {
   RoutineCreateScreen,
   RoutineFolderEntryScreen,
+  getRoutineCreateDraftExercises,
   routineFolderEntryDefaultFixture,
+  type RoutineCreateDraftExercise,
 } from '../../../features/routine';
 import type { RootStackParamList } from '../types';
 
@@ -16,6 +18,16 @@ type RoutineEditorNavigation = NativeStackNavigationProp<
 
 type CreationStep = 'folder' | 'create';
 
+function sameDraftExercises(
+  current: readonly RoutineCreateDraftExercise[],
+  next: readonly RoutineCreateDraftExercise[],
+): boolean {
+  return (
+    current.length === next.length &&
+    current.every((item, index) => item.id === next[index]?.id)
+  );
+}
+
 export function RoutineEditorRouteScreen() {
   const navigation = useNavigation<RoutineEditorNavigation>();
   const [step, setStep] = useState<CreationStep>('folder');
@@ -23,6 +35,16 @@ export function RoutineEditorRouteScreen() {
   const [newFolderName, setNewFolderName] = useState('');
   const [resolvedFolderName, setResolvedFolderName] = useState('');
   const [routineName, setRoutineName] = useState('');
+  const [draftExercises, setDraftExercises] = useState<RoutineCreateDraftExercise[]>(
+    () => getRoutineCreateDraftExercises(),
+  );
+
+  useEffect(() => {
+    return navigation.addListener('focus', () => {
+      const next = getRoutineCreateDraftExercises();
+      setDraftExercises((current) => (sameDraftExercises(current, next) ? current : next));
+    });
+  }, [navigation]);
 
   const handleContinue = () => {
     const selectedFolder = routineFolderEntryDefaultFixture.folders.find(
@@ -58,6 +80,7 @@ export function RoutineEditorRouteScreen() {
         />
       ) : (
         <RoutineCreateScreen
+          exercises={draftExercises}
           folderName={resolvedFolderName}
           onAddExercise={() => navigation.navigate('ExerciseSelection')}
           onBack={() => setStep('folder')}

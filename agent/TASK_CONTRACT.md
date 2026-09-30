@@ -3,35 +3,37 @@
 ## Task / Issue
 - Issue #30 / DEV-014 — Figma parity audit and Group 04 exercise flow
 - Branch: `cursor/dev-014-group04-figma-parity`
+- Review: RETRY (first delivery `a60a537`)
 
 ## Goal
-Record a focused 01–03 Figma/runtime parity audit, then implement every
-canonical Group 04 top-level state as deterministic Android mock screens.
+Keep the 01–03 FIX 10 audit as follow-up, then close the RETRY gaps:
+Growth chart/sparkline, Figma icon export/reuse, and RoutineCreate mock
+draft display of confirmed selection.
 
 ## Required
-- Inspect current named Group 04 Figma frames; historical IDs are not authority
-- Audit 01–03 for tokens/font/color/radius/shadow/spacing/icon/copy/extra UI
-- Record only actionable findings in `agent/FIGMA_RUNTIME_GAP_AUDIT_2026-09-30.md`
-- Implement search, filters, selected/empty add, detail tabs, custom
-  create/edit/history-lock, attachment overlays, and confirm dialogs
-- Keep render screens, route orchestration, and fixtures separate
-- Register each implemented state in the dev-only Catalog
-- Wire Routine-create → ExerciseSelection → return
+- Inspect remaining Group 04 states with `get_design_context` + screenshot
+- Implement Growth graph/sparkline to current Figma (no PR-card substitute)
+- Replace search/check/hint/trash/close/add-toggle stand-ins with Figma exports
+- Pass confirmed selected exercises into RoutineCreate mock draft (no SQLite)
+- Record per-screen token mapping, confirmed nodes, diffs, unverified
+- Keep 01–03 FIX 10 as follow-up only
 - Focused + full Jest, typecheck, lint, Expo config/prebuild, diff-check
 
 ## Allowed Scope
-- `src/features/exercise/` presentation, fixtures, and types
-- `ExerciseSelection` route orchestration and Routine-create entry
-- Dev-only Catalog entries/presets
+- `src/features/exercise/` presentation, fixtures, types
+- `src/features/routine/` create draft display + in-memory mock holder
+- ExerciseSelection / RoutineEditor route orchestration
+- Dev-only Catalog descriptions/presets
+- `assets/figma/` exported icons + manifest
 - Implemented Screen Map rows, Issue evidence, TASK_CONTRACT
-- 01–03 audit document only (no speculative 01–03 UI edits)
 
 ## Forbidden
 - SQLite writes/persistence
 - Real Supabase/Auth/sync/storage/network/uploads/notifications
-- New global design-system tokens or invented visual primitives
+- New global design-system tokens
+- Implementing the 01–03 FIX 10 audit items
 - Group 05+ implementation
-- Guessing UI not present in current Figma
+- PR / merge / next group
 
 ## Figma refs
 - File `W3lZurXCXbThP67rF2xk2b`
@@ -46,10 +48,9 @@ canonical Group 04 top-level state as deterministic Android mock screens.
 ## Verification
 1. typecheck 2. lint 3. focused/full Jest 4. Expo config/prebuild
 5. diff-check
+6. Figma screenshot vs implementation structure — no visual PASS without evidence
 
 ## Done When
-- 01–03 audit committed with actionable findings only
-- All 29 Group 04 top-level states render in Catalog
-- Routine-create can enter and return from Group 04
-- Intentional Figma differences documented
+- RETRY items 1–4 recorded honestly
 - Commit pushed; no PR created
+- Next Owner = ChatGPT

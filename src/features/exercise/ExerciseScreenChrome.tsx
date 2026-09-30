@@ -44,18 +44,20 @@ export function ExerciseScreenChrome({
 }
 
 export function AddToggle({ selected }: { selected: boolean }) {
+  if (selected) {
+    return (
+      <FigmaImage
+        height={26}
+        source={figmaAssets.icons.addToggleSelected}
+        width={26}
+      />
+    );
+  }
+
   return (
-    <View
-      style={[styles.toggle, selected ? styles.toggleSelected : styles.toggleIdle]}
-    >
-      {selected ? (
-        <Text style={styles.toggleCheck}>✓</Text>
-      ) : (
-        <>
-          <View style={styles.plusHorizontal} />
-          <View style={styles.plusVertical} />
-        </>
-      )}
+    <View style={[styles.toggle, styles.toggleIdle]}>
+      <View style={styles.plusHorizontal} />
+      <View style={styles.plusVertical} />
     </View>
   );
 }
@@ -99,15 +101,6 @@ const styles = StyleSheet.create({
   },
   toggleIdle: {
     backgroundColor: colors.subtleSurface,
-  },
-  toggleSelected: {
-    backgroundColor: colors.brandPrimary,
-  },
-  toggleCheck: {
-    color: colors.textOnBrand,
-    fontFamily: fontFamily.bold,
-    fontSize: 13,
-    lineHeight: 16,
   },
   plusHorizontal: {
     position: 'absolute',

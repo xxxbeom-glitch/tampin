@@ -70,7 +70,7 @@ export const exerciseCatalogPresets = {
     kind: 'filter' as const,
     title: '보조 타겟 근육 선택',
     options: SECONDARY_MUSCLE_OPTIONS,
-    selected: '선택 안 함',
+    selected: '이두',
     testID: 'catalog-custom-secondary',
   },
   '04l-custom-recording-type': {
@@ -138,7 +138,7 @@ export const exerciseCatalogPresets = {
   '04d-detail-growth-insufficient': {
     kind: 'detail' as const,
     tab: 'growth' as const,
-    model: resolveExerciseDetail('push-up'),
+    model: resolveExerciseDetail('bench-press-insufficient'),
   },
   '04e-custom-create': {
     kind: 'custom' as const,
@@ -196,7 +196,7 @@ export const exerciseCatalogPresets = {
   '04h-attachment-input': {
     kind: 'attachment' as const,
     mode: 'input' as const,
-    customAttachment: '커스텀 랫바',
+    customAttachment: '',
   },
 };
 

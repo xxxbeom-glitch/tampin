@@ -23,6 +23,7 @@ export { ConfirmDialogOverlay, DELETE_CONFIRM_COPY, UNSAVED_CONFIRM_COPY } from 
 export { CustomExerciseFormScreen, isCustomDraftValid } from './CustomExerciseFormScreen';
 export { ExerciseAttachmentSheet } from './ExerciseAttachmentSheet';
 export { ExerciseDetailScreen } from './ExerciseDetailScreen';
+export { ExerciseGrowthChart, GrowthPersonalBest } from './ExerciseGrowthChart';
 export { ExerciseFilterPageScreen } from './ExerciseFilterPageScreen';
 export { ExerciseSearchScreen } from './ExerciseSearchScreen';
 export type { CustomExerciseFormScreenProps } from './CustomExerciseFormScreen';
@@ -36,5 +37,7 @@ export type {
   ExerciseCatalogItem,
   ExerciseDetailModel,
   ExerciseDetailTab,
+  ExerciseGrowthModel,
+  GrowthPersonalBestRow,
   RecordingType,
 } from './types';

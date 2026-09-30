@@ -31,8 +31,10 @@ export function ExerciseAttachmentSheet({
           <View style={styles.handle} />
           {mode === 'select' ? (
             <>
-              <Text style={styles.title}>손잡이 선택</Text>
-              <Text style={styles.body}>{exerciseName}에서 사용할 손잡이를 선택하세요.</Text>
+              <View>
+                <Text style={styles.title}>손잡이 선택</Text>
+                <Text style={styles.body}>{exerciseName}에서 사용할 손잡이를 선택하세요.</Text>
+              </View>
               <View style={styles.list}>
                 {ATTACHMENT_OPTIONS.map((option, index) => (
                   <View key={option}>
@@ -54,17 +56,23 @@ export function ExerciseAttachmentSheet({
             </>
           ) : (
             <>
-              <Text style={styles.title}>손잡이 직접 입력</Text>
-              <TextInput
-                accessibilityLabel="손잡이 이름"
-                editable={interactive}
-                onChangeText={onCustomAttachmentChange}
-                placeholder="손잡이 이름"
-                placeholderTextColor={colors.textSecondary}
-                style={styles.input}
-                testID="exercise-attachment-input"
-                value={customAttachment}
-              />
+              <View>
+                <Text style={styles.title}>손잡이 직접 입력</Text>
+                <Text style={styles.inputBody}>목록에 없는 손잡이 이름을 입력하세요.</Text>
+              </View>
+              <View style={styles.inputField}>
+                <Text style={styles.inputLabel}>손잡이 이름</Text>
+                <TextInput
+                  accessibilityLabel="손잡이 이름"
+                  editable={interactive}
+                  onChangeText={onCustomAttachmentChange}
+                  placeholder="예: 뉴트럴 그립 바"
+                  placeholderTextColor={colors.textSecondary}
+                  style={styles.input}
+                  testID="exercise-attachment-input"
+                  value={customAttachment}
+                />
+              </View>
               <Pressable
                 accessibilityRole="button"
                 disabled={!interactive || customAttachment.trim().length === 0}
@@ -72,7 +80,7 @@ export function ExerciseAttachmentSheet({
                 style={styles.confirm}
                 testID="exercise-attachment-input-confirm"
               >
-                <Text style={styles.confirmLabel}>확인</Text>
+                <Text style={styles.confirmLabel}>사용하기</Text>
               </Pressable>
             </>
           )}
@@ -93,19 +101,19 @@ const styles = StyleSheet.create({
   },
   sheet: {
     backgroundColor: colors.surface,
-    borderTopLeftRadius: 20,
-    borderTopRightRadius: 20,
+    borderTopLeftRadius: 32,
+    borderTopRightRadius: 32,
     paddingHorizontal: 20,
-    paddingTop: 12,
-    paddingBottom: 24,
+    paddingTop: 20,
+    paddingBottom: 40,
+    gap: 24,
   },
   handle: {
     alignSelf: 'center',
     width: 36,
     height: 4,
-    borderRadius: 2,
-    backgroundColor: colors.borderDefault,
-    marginBottom: 16,
+    borderRadius: 999,
+    backgroundColor: '#929A98',
   },
   title: {
     fontFamily: fontFamily.bold,
@@ -115,10 +123,25 @@ const styles = StyleSheet.create({
   },
   body: {
     marginTop: 4,
-    marginBottom: 16,
     fontFamily: fontFamily.medium,
     fontSize: 14,
     lineHeight: 20,
+    color: colors.textSecondary,
+  },
+  inputBody: {
+    fontFamily: fontFamily.medium,
+    fontSize: 12,
+    lineHeight: 16,
+    color: colors.textSecondary,
+  },
+  inputField: {
+    width: '100%',
+    gap: 8,
+  },
+  inputLabel: {
+    fontFamily: fontFamily.bold,
+    fontSize: 12,
+    lineHeight: 16,
     color: colors.textSecondary,
   },
   list: {
@@ -139,20 +162,19 @@ const styles = StyleSheet.create({
     backgroundColor: colors.borderDefault,
   },
   input: {
-    marginTop: 16,
     height: 52,
     borderRadius: 12,
     borderWidth: 1,
     borderColor: colors.borderDefault,
-    backgroundColor: colors.canvas,
+    backgroundColor: colors.surface,
     paddingHorizontal: 16,
     fontFamily: fontFamily.medium,
     fontSize: 14,
+    lineHeight: 20,
     color: colors.textPrimary,
   },
   confirm: {
-    marginTop: 16,
-    height: 52,
+    height: 58,
     borderRadius: 999,
     backgroundColor: colors.brandAction,
     alignItems: 'center',
@@ -161,6 +183,7 @@ const styles = StyleSheet.create({
   confirmLabel: {
     fontFamily: fontFamily.bold,
     fontSize: 16,
+    lineHeight: 24,
     color: colors.textOnBrand,
   },
 });

@@ -36,12 +36,24 @@ export type ExerciseDetailModel = {
   method: string[];
   checkpoints: string[];
   history: HistorySession[];
-  growth: {
-    prLabel: string;
-    prValue: string;
-    trend: string | null;
-    insufficient: boolean;
-  };
+  growth: ExerciseGrowthModel;
+};
+
+export type GrowthPersonalBestRow = {
+  label: string;
+  value: string;
+};
+
+export type ExerciseGrowthModel = {
+  title: string;
+  unit: string;
+  yLabels: readonly [string, string, string, string];
+  xLabels: readonly [string, string, string, string];
+  values: readonly number[];
+  yMin: number;
+  yMax: number;
+  personalBest: readonly GrowthPersonalBestRow[];
+  insufficient: boolean;
 };
 
 export type CustomExerciseDraft = {

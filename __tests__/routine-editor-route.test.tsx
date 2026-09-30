@@ -1,17 +1,24 @@
 import { fireEvent, render } from '@testing-library/react-native';
 import { RoutineEditorRouteScreen } from '../src/app/navigation/screens/RoutineEditorRouteScreen';
+import {
+  clearRoutineCreateDraftExercises,
+  setRoutineCreateDraftExercises,
+} from '../src/features/routine';
 
 const mockGoBack = jest.fn();
 const mockNavigate = jest.fn();
+const mockAddListener = jest.fn(() => () => undefined);
+const mockNavigation = {
+  goBack: mockGoBack,
+  navigate: mockNavigate,
+  addListener: mockAddListener,
+};
 
 jest.mock('@react-navigation/native', () => {
   const actual = jest.requireActual('@react-navigation/native');
   return {
     ...actual,
-    useNavigation: () => ({
-      goBack: mockGoBack,
-      navigate: mockNavigate,
-    }),
+    useNavigation: () => mockNavigation,
   };
 });
 
@@ -19,6 +26,8 @@ describe('DEV-013 RoutineEditorRouteScreen', () => {
   beforeEach(() => {
     mockGoBack.mockClear();
     mockNavigate.mockClear();
+    mockAddListener.mockClear();
+    clearRoutineCreateDraftExercises();
   });
 
   it('moves from an existing folder selection directly into routine create', async () => {
@@ -68,5 +77,26 @@ describe('DEV-013 RoutineEditorRouteScreen', () => {
     await fireEvent.press(getByTestId('routine-create-add-exercise'));
 
     expect(mockNavigate).toHaveBeenCalledWith('ExerciseSelection');
+  });
+
+  it('shows confirmed ExerciseSelection results on the create draft', async () => {
+    setRoutineCreateDraftExercises([
+      {
+        id: 'bench-press',
+        name: '벤치프레스',
+        equipment: '바벨',
+        primaryMuscle: '대흉근',
+        thumbnailKey: 'smithBenchPress',
+      },
+    ]);
+
+    const { getByTestId, getByText } = await render(<RoutineEditorRouteScreen />);
+
+    await fireEvent.press(getByTestId('routine-folder-option-ppl-routine'));
+    await fireEvent.press(getByTestId('routine-folder-entry-continue'));
+
+    expect(getByTestId('routine-create-draft-exercises')).toBeTruthy();
+    expect(getByText('선택한 운동 (1개)')).toBeTruthy();
+    expect(getByText('벤치프레스')).toBeTruthy();
   });
 });

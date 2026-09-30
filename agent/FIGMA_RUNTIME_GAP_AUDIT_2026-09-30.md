@@ -6,6 +6,8 @@
 **Method:** Code read + Figma `get_design_context` / variable defs. No device capture.  
 **Rule:** Actionable findings only. No speculative UI was added in this audit.
 
+**RETRY 2026-09-30:** The 10 FIX rows below remain **follow-up only**. Issue #30 RETRY did not implement them.
+
 ---
 
 ## FIX — later visual/runtime work

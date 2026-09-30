@@ -36,4 +36,30 @@ describe('DEV-013 RoutineCreateScreen', () => {
 
     expect(onRoutineNameChange).toHaveBeenCalledWith('상체 루틴');
   });
+
+  it('shows confirmed mock draft exercises without claiming persistence', async () => {
+    const { getByTestId, getByText } = await render(
+      <RoutineCreateScreen
+        exercises={[
+          {
+            id: 'bench-press',
+            name: '벤치프레스',
+            equipment: '바벨',
+            primaryMuscle: '대흉근',
+            thumbnailKey: 'smithBenchPress',
+          },
+        ]}
+        folderName="PPL Routine"
+        routineName=""
+      />,
+    );
+
+    expect(getByTestId('routine-create-draft-exercises')).toBeTruthy();
+    expect(getByText('선택한 운동 (1개)')).toBeTruthy();
+    expect(getByTestId('routine-create-draft-bench-press')).toBeTruthy();
+    expect(getByText('대흉근 · 바벨')).toBeTruthy();
+    expect(getByTestId('routine-create-save').props.accessibilityState).toMatchObject({
+      disabled: true,
+    });
+  });
 });

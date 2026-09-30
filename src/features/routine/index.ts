@@ -1,4 +1,11 @@
 export { RoutineCreateScreen } from './RoutineCreateScreen';
+export {
+  clearRoutineCreateDraftExercises,
+  getRoutineCreateDraftExercises,
+  setRoutineCreateDraftExercises,
+  toRoutineCreateDraftExercise,
+} from './routineCreateDraft';
+export type { RoutineCreateDraftExercise } from './routineCreateDraft';
 export { RoutineDetailScreen } from './RoutineDetailScreen';
 export {
   RoutineFolderEntryScreen,

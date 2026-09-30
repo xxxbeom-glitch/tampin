@@ -1,5 +1,6 @@
 import {
   Pressable,
+  ScrollView,
   StyleSheet,
   Text,
   TextInput,
@@ -8,10 +9,12 @@ import {
 import { figmaAssets } from '../../design-system/assets';
 import { FigmaImage } from '../../design-system/components/FigmaImage';
 import { colors, fontFamily } from '../../design-system/tokens';
+import type { RoutineCreateDraftExercise } from './routineCreateDraft';
 
 export type RoutineCreateScreenProps = {
   folderName: string;
   routineName: string;
+  exercises?: readonly RoutineCreateDraftExercise[];
   onBack?: () => void;
   onRoutineNameChange?: (name: string) => void;
   onAddExercise?: () => void;
@@ -21,6 +24,7 @@ export type RoutineCreateScreenProps = {
 export function RoutineCreateScreen({
   folderName,
   routineName,
+  exercises = [],
   onBack,
   onRoutineNameChange,
   onAddExercise,
@@ -52,7 +56,7 @@ export function RoutineCreateScreen({
         <View style={styles.headerSide} />
       </View>
 
-      <View style={styles.form}>
+      <ScrollView contentContainerStyle={styles.form} style={styles.formScroll}>
         <View style={styles.inputSection}>
           <Text style={styles.label}>폴더 이름</Text>
           <TextInput
@@ -88,7 +92,31 @@ export function RoutineCreateScreen({
         >
           <Text style={styles.addExerciseLabel}>운동 추가</Text>
         </Pressable>
-      </View>
+
+        {exercises.length > 0 ? (
+          <View style={styles.draftList} testID="routine-create-draft-exercises">
+            <Text style={styles.draftLabel}>선택한 운동 ({exercises.length}개)</Text>
+            {exercises.map((item) => (
+              <View key={item.id} style={styles.draftRow} testID={`routine-create-draft-${item.id}`}>
+                <FigmaImage
+                  height={52}
+                  source={figmaAssets.thumbnails[item.thumbnailKey]}
+                  style={styles.draftThumbnail}
+                  width={52}
+                />
+                <View style={styles.draftCopy}>
+                  <Text numberOfLines={1} style={styles.draftTitle}>
+                    {item.name}
+                  </Text>
+                  <Text numberOfLines={1} style={styles.draftMeta}>
+                    {item.primaryMuscle} · {item.equipment}
+                  </Text>
+                </View>
+              </View>
+            ))}
+          </View>
+        ) : null}
+      </ScrollView>
 
       <View style={styles.footer}>
         <View
@@ -134,10 +162,51 @@ const styles = StyleSheet.create({
     color: colors.textPrimary,
     textAlign: 'center',
   },
+  formScroll: {
+    flex: 1,
+  },
   form: {
-    height: 564,
     padding: 20,
+    paddingBottom: 120,
     gap: 24,
+  },
+  draftList: {
+    gap: 8,
+  },
+  draftLabel: {
+    fontFamily: fontFamily.medium,
+    fontSize: 14,
+    lineHeight: 20,
+    color: '#929A98',
+  },
+  draftRow: {
+    minHeight: 72,
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 12,
+  },
+  draftThumbnail: {
+    width: 52,
+    height: 52,
+    borderRadius: 8,
+    borderWidth: 1,
+    borderColor: colors.borderSubtle,
+  },
+  draftCopy: {
+    flex: 1,
+    gap: 4,
+  },
+  draftTitle: {
+    fontFamily: fontFamily.bold,
+    fontSize: 14,
+    lineHeight: 20,
+    color: colors.textPrimary,
+  },
+  draftMeta: {
+    fontFamily: fontFamily.medium,
+    fontSize: 11,
+    lineHeight: 14,
+    color: colors.textSecondary,
   },
   inputSection: {
     gap: 8,

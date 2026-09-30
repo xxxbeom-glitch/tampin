@@ -60,10 +60,7 @@ export function CustomExerciseFormScreen({
             onPress={onDelete}
             testID="custom-exercise-delete"
           >
-            <View accessibilityElementsHidden style={styles.trashIcon}>
-              <View style={styles.trashLid} />
-              <View style={styles.trashBody} />
-            </View>
+            <FigmaImage height={24} source={figmaAssets.icons.trash} width={24} />
           </Pressable>
         ) : null
       }
@@ -129,7 +126,7 @@ export function CustomExerciseFormScreen({
           </View>
           {historyLocked ? (
             <View style={styles.hint} testID="custom-exercise-history-lock-hint">
-              <Text style={styles.hintIcon}>ⓘ</Text>
+              <FigmaImage height={16} source={figmaAssets.icons.hint} width={16} />
               <Text style={styles.hintText}>
                 기록이 있는 운동은 기록 방식을 변경할 수 없어요.
               </Text>
@@ -273,35 +270,12 @@ const styles = StyleSheet.create({
     gap: 4,
     minHeight: 18,
   },
-  hintIcon: {
-    fontSize: 13,
-    color: colors.textSecondary,
-  },
   hintText: {
     flex: 1,
     fontFamily: fontFamily.medium,
     fontSize: 13,
     lineHeight: 18,
     color: colors.textSecondary,
-  },
-  trashIcon: {
-    width: 20,
-    height: 22,
-    alignItems: 'center',
-  },
-  trashLid: {
-    width: 16,
-    height: 2,
-    borderRadius: 1,
-    backgroundColor: colors.textPrimary,
-    marginBottom: 2,
-  },
-  trashBody: {
-    width: 14,
-    height: 16,
-    borderRadius: 2,
-    borderWidth: 1.5,
-    borderColor: colors.textPrimary,
   },
   footer: {
     position: 'absolute',
