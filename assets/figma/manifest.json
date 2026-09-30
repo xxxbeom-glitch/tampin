@@ -1,0 +1,116 @@
+{
+  "figmaFileKey": "W3lZurXCXbThP67rF2xk2b",
+  "figmaPage": "MVP_전체_와이어프레임",
+  "exported": [
+    {
+      "id": "tampin-logo-white",
+      "figmaNodeId": "1961:8910",
+      "figmaName": "TampinLogo_White",
+      "path": "assets/figma/logos/tampin-logo-white.png",
+      "usedBy": ["00 Splash"]
+    },
+    {
+      "id": "tampin-logo-primary",
+      "figmaNodeId": "43:3053",
+      "figmaName": "AppLogo",
+      "path": "assets/figma/logos/tampin-logo-primary.png",
+      "usedBy": ["01A Login"]
+    },
+    {
+      "id": "icon-plus",
+      "figmaNodeId": "2483:8336",
+      "figmaName": "icon/plus",
+      "path": "assets/figma/icons/icon-plus.png",
+      "usedBy": ["02A/02B Routine Main quick actions"]
+    },
+    {
+      "id": "icon-chevron-right",
+      "figmaNodeId": "2483:8368",
+      "figmaName": "icon/chevron-right",
+      "path": "assets/figma/icons/icon-chevron-right.png",
+      "usedBy": ["02A/02B Routine Main routine cards"]
+    },
+    {
+      "id": "icon-folder-chevron-expanded",
+      "figmaNodeId": "2333:7701",
+      "figmaName": "icon/folder-chevron-expanded",
+      "path": "assets/figma/icons/icon-folder-chevron-expanded.png",
+      "usedBy": ["02A/02B Routine Main folder headers"]
+    },
+    {
+      "id": "bottom-tab-routine",
+      "figmaNodeId": "2078:2189",
+      "figmaName": "bottom-tab/routine",
+      "path": "assets/figma/icons/bottom-tab-routine.png",
+      "usedBy": ["02A/02B Routine Main bottom bar"]
+    },
+    {
+      "id": "bottom-tab-analysis",
+      "figmaNodeId": "2078:2197",
+      "figmaName": "bottom-tab/analysis",
+      "path": "assets/figma/icons/bottom-tab-analysis.png",
+      "usedBy": ["02A/02B Routine Main bottom bar"]
+    },
+    {
+      "id": "bottom-tab-settings",
+      "figmaNodeId": "2078:2204",
+      "figmaName": "bottom-tab/settings",
+      "path": "assets/figma/icons/bottom-tab-settings.png",
+      "usedBy": ["02A/02B Routine Main bottom bar"]
+    },
+    {
+      "id": "icon-arrow-left",
+      "figmaNodeId": "2333:7825",
+      "figmaName": "icon/arrow-left",
+      "path": "assets/figma/icons/icon-arrow-left.png",
+      "usedBy": ["01C Basic Info back", "02D Routine Detail back"]
+    },
+    {
+      "id": "icon-edit",
+      "figmaNodeId": "2333:7829",
+      "figmaName": "icon/edit",
+      "path": "assets/figma/icons/icon-edit.png",
+      "usedBy": ["02D Routine Detail header"]
+    },
+    {
+      "id": "exercise-smith-bench-press",
+      "figmaNodeId": "2333:7848",
+      "figmaName": "exercise-thumbnail",
+      "path": "assets/figma/thumbnails/exercise-smith-bench-press.png",
+      "usedBy": ["02D Routine Detail exercise card 1"]
+    },
+    {
+      "id": "exercise-romanian-deadlift",
+      "figmaNodeId": "2333:7894",
+      "figmaName": "exercise-thumbnail",
+      "path": "assets/figma/thumbnails/exercise-romanian-deadlift.png",
+      "usedBy": ["02D Routine Detail exercise card 2"]
+    },
+    {
+      "id": "exercise-standing-calf-raise",
+      "figmaNodeId": "2333:7941",
+      "figmaName": "exercise-thumbnail",
+      "path": "assets/figma/thumbnails/exercise-standing-calf-raise.png",
+      "usedBy": ["02D Routine Detail exercise card 3"]
+    },
+    {
+      "id": "exercise-lateral-raise",
+      "figmaNodeId": "2333:7989",
+      "figmaName": "exercise-thumbnail",
+      "path": "assets/figma/thumbnails/exercise-lateral-raise.png",
+      "usedBy": ["02D Routine Detail exercise card 4"]
+    }
+  ],
+  "notExported": [
+    {
+      "figmaNodeId": "2483:8355",
+      "figmaName": "RoutineIcon_Placeholder",
+      "reason": "Figma uses a gray rounded rectangle only; no distinct exportable routine icon asset in current frames."
+    },
+    {
+      "figmaNodeId": "2333:7702",
+      "figmaName": "icon/folder-chevron-collapsed",
+      "reason": "Separate collapsed chevron node not exported; runtime uses rotation of icon-folder-chevron-expanded."
+    }
+  ]
+}

@@ -1,7 +1,8 @@
 import { Pressable, StyleSheet, Text, View } from 'react-native';
 import type { AuthProviderId } from '../../auth/contracts/types';
-import { colors } from '../../design-system/tokens';
-import { APP_DISPLAY_NAME } from '../../platform';
+import { figmaAssets } from '../../design-system/assets';
+import { FigmaImage } from '../../design-system/components/FigmaImage';
+import { colors, fontFamily } from '../../design-system/tokens';
 import {
   LOGIN_ERROR_DIALOG_COPY,
   LOGIN_PROVIDER_LABELS,
@@ -85,9 +86,15 @@ export function LoginFormScreen({
 
       <View style={styles.content}>
         <View style={styles.hero}>
-          <Text accessibilityRole="header" style={styles.wordmark}>
-            {APP_DISPLAY_NAME.toUpperCase()}
-          </Text>
+          <FigmaImage
+            accessibilityLabel="Tampin"
+            decorative={false}
+            height={28}
+            source={figmaAssets.logos.tampinPrimary}
+            style={styles.wordmark}
+            testID="login-wordmark"
+            width={120}
+          />
           <Text style={styles.headline}>오늘의 운동을 기록하고{'\n'}내 변화를 확인하세요.</Text>
           <Text style={styles.subtitle}>운동 기록을 가장 빠르게 남기는 방법</Text>
         </View>
@@ -159,21 +166,17 @@ const styles = StyleSheet.create({
     maxWidth: 320,
   },
   wordmark: {
-    fontSize: 28,
-    fontWeight: '700',
-    lineHeight: 28,
-    color: colors.brandPrimary,
-    letterSpacing: 0.5,
+    alignSelf: 'flex-start',
   },
   headline: {
     fontSize: 20,
-    fontWeight: '700',
+    fontFamily: fontFamily.bold,
     lineHeight: 28,
     color: colors.textPrimary,
   },
   subtitle: {
     fontSize: 13,
-    fontWeight: '500',
+    fontFamily: fontFamily.medium,
     lineHeight: 18,
     color: colors.textSecondary,
   },
@@ -202,7 +205,7 @@ const styles = StyleSheet.create({
   },
   providerButtonLabel: {
     fontSize: 16,
-    fontWeight: '700',
+    fontFamily: fontFamily.bold,
     lineHeight: 24,
     color: colors.textOnBrand,
     textAlign: 'center',
@@ -218,13 +221,13 @@ const styles = StyleSheet.create({
   },
   inquiryPrompt: {
     fontSize: 11,
-    fontWeight: '500',
+    fontFamily: fontFamily.medium,
     lineHeight: 14,
     color: colors.textSecondary,
   },
   inquiryLink: {
     fontSize: 11,
-    fontWeight: '500',
+    fontFamily: fontFamily.medium,
     lineHeight: 14,
     color: colors.textPrimary,
     textDecorationLine: 'underline',
@@ -240,14 +243,14 @@ const styles = StyleSheet.create({
   },
   legalLink: {
     fontSize: 11,
-    fontWeight: '500',
+    fontFamily: fontFamily.medium,
     lineHeight: 14,
     color: colors.textSecondary,
     textDecorationLine: 'underline',
   },
   legalSeparator: {
     fontSize: 11,
-    fontWeight: '500',
+    fontFamily: fontFamily.medium,
     lineHeight: 14,
     color: colors.textSecondary,
   },
@@ -276,14 +279,14 @@ const styles = StyleSheet.create({
   },
   errorDialogTitle: {
     fontSize: 17,
-    fontWeight: '600',
+    fontFamily: fontFamily.semiBold,
     lineHeight: 24,
     color: colors.textPrimary,
     textAlign: 'center',
   },
   errorDialogBody: {
     fontSize: 14,
-    fontWeight: '500',
+    fontFamily: fontFamily.medium,
     lineHeight: 20,
     color: colors.textSecondary,
     textAlign: 'center',
@@ -305,12 +308,12 @@ const styles = StyleSheet.create({
   },
   errorDialogSecondaryAction: {
     fontSize: 15,
-    fontWeight: '500',
+    fontFamily: fontFamily.medium,
     color: colors.textPrimary,
   },
   errorDialogPrimaryAction: {
     fontSize: 15,
-    fontWeight: '700',
+    fontFamily: fontFamily.bold,
     color: colors.brandAction,
   },
 });

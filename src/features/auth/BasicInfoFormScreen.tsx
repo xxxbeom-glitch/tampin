@@ -5,7 +5,9 @@ import {
   TextInput,
   View,
 } from 'react-native';
-import { colors } from '../../design-system/tokens';
+import { figmaAssets } from '../../design-system/assets';
+import { FigmaImage } from '../../design-system/components/FigmaImage';
+import { colors, fontFamily } from '../../design-system/tokens';
 import {
   DOB_PLACEHOLDER,
   type BasicInfoSex,
@@ -111,7 +113,12 @@ export function BasicInfoFormScreen({
           style={styles.headerSide}
           testID="basic-info-back"
         >
-          <Text style={styles.backIcon}>‹</Text>
+          <FigmaImage
+            height={24}
+            source={figmaAssets.icons.arrowLeft}
+            testID="basic-info-back-icon"
+            width={24}
+          />
         </Pressable>
         <Text style={styles.headerTitle}>기본정보</Text>
         <View style={styles.headerSide} />
@@ -240,16 +247,10 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
-  backIcon: {
-    fontSize: 28,
-    lineHeight: 32,
-    color: colors.textPrimary,
-    fontWeight: '600',
-  },
   headerTitle: {
     flex: 1,
     fontSize: 16,
-    fontWeight: '700',
+    fontFamily: fontFamily.bold,
     lineHeight: 24,
     color: colors.textPrimary,
     textAlign: 'center',
@@ -263,7 +264,7 @@ const styles = StyleSheet.create({
   },
   introTitle: {
     fontSize: 20,
-    fontWeight: '700',
+    fontFamily: fontFamily.bold,
     lineHeight: 28,
     color: colors.textPrimary,
   },
@@ -272,7 +273,7 @@ const styles = StyleSheet.create({
   },
   sectionLabel: {
     fontSize: 14,
-    fontWeight: '700',
+    fontFamily: fontFamily.bold,
     lineHeight: 20,
     color: colors.textPrimary,
   },
@@ -298,7 +299,7 @@ const styles = StyleSheet.create({
   },
   sexOptionLabel: {
     fontSize: 14,
-    fontWeight: '700',
+    fontFamily: fontFamily.bold,
     lineHeight: 20,
   },
   sexOptionLabelDefault: {
@@ -318,7 +319,7 @@ const styles = StyleSheet.create({
     backgroundColor: colors.surface,
     paddingHorizontal: 16,
     fontSize: 14,
-    fontWeight: '500',
+    fontFamily: fontFamily.medium,
     lineHeight: 20,
     color: colors.textPrimary,
   },
@@ -344,14 +345,14 @@ const styles = StyleSheet.create({
     borderColor: colors.danger,
     color: colors.danger,
     fontSize: 11,
-    fontWeight: '700',
+    fontFamily: fontFamily.bold,
     textAlign: 'center',
     lineHeight: 14,
   },
   errorText: {
     flex: 1,
     fontSize: 13,
-    fontWeight: '500',
+    fontFamily: fontFamily.medium,
     lineHeight: 18,
     color: colors.danger,
   },
@@ -374,7 +375,7 @@ const styles = StyleSheet.create({
   },
   termsCheckmark: {
     fontSize: 14,
-    fontWeight: '700',
+    fontFamily: fontFamily.bold,
     color: colors.textSecondary,
   },
   termsCheckmarkAgreed: {
@@ -382,7 +383,7 @@ const styles = StyleSheet.create({
   },
   termsLabel: {
     fontSize: 14,
-    fontWeight: '500',
+    fontFamily: fontFamily.medium,
     lineHeight: 20,
     color: colors.textPrimary,
   },
@@ -401,7 +402,7 @@ const styles = StyleSheet.create({
   },
   submitButtonLabel: {
     fontSize: 16,
-    fontWeight: '700',
+    fontFamily: fontFamily.bold,
     lineHeight: 24,
     color: colors.textOnBrand,
   },

@@ -3,7 +3,7 @@ import { SplashScreen } from '../src/features/startup/SplashScreen';
 import { colors } from '../src/design-system/tokens';
 
 describe('DEV-009 SplashScreen', () => {
-  it('renders only brand-primary background and white Tampin wordmark', async () => {
+  it('renders brand-primary background and bundled white Tampin wordmark image', async () => {
     const { getByTestId, queryByRole } = await render(<SplashScreen />);
 
     const root = getByTestId('splash-screen');
@@ -12,10 +12,8 @@ describe('DEV-009 SplashScreen', () => {
     });
 
     const wordmark = getByTestId('splash-wordmark');
-    expect(wordmark.props.children).toBe('TAMPIN');
-    expect(wordmark.props.style).toMatchObject({
-      color: colors.textOnBrand,
-    });
+    expect(wordmark.props.source).toBeTruthy();
+    expect(wordmark.props.children).toBeUndefined();
 
     expect(queryByRole('button')).toBeNull();
     expect(queryByRole('progressbar')).toBeNull();
