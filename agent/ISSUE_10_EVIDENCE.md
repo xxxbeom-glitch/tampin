@@ -66,7 +66,7 @@ See latest commit on branch `cursor/dev-004-sqlite-foundation-368a`.
 - `src/data/contracts/` — IDs, domain types, repository interfaces
 - `src/data/sqlite/` — connection adapters, migrations, repositories, `openTampinDatabase`, `createDataLayer`
 - `__tests__/sqlite-*.test.ts`, `__tests__/helpers/sqlite-test-harness.ts`
-- `package.json` / `app.json` — `expo-sqlite` + dev `better-sqlite3`
+- `package.json` / `app.json` — `expo-sqlite` + dev `sql.js` (Jest-only, under `__tests__/`)
 
 ---
 
@@ -81,8 +81,8 @@ See latest commit on branch `cursor/dev-004-sqlite-foundation-368a`.
 - **Local Data:** FK enforced; migrations transactional; soft-delete columns present for future sync
 - **Network/Auth/Sync:** Out of scope — outbox schema only, no transport
 - **Android Runtime:** Not in scope; expo-sqlite plugin registered for future dev build
-- **Dependencies:** `expo-sqlite` production; `better-sqlite3` dev/test only (not exported from public sqlite index)
-- **Tests:** Logic PASS — migrations, FK, repositories deterministic via better-sqlite3 adapter
+- **Dependencies:** `expo-sqlite` production; `sql.js` dev/test only (WASM, no native build; not in `src/`)
+- **Tests:** Logic PASS — migrations, FK, transaction rollback, repositories via sql.js adapter; bundle-boundary test guards production tree
 - **Runtime Evidence:** NOT VERIFIED — no device expo-sqlite smoke
 - **Known Risks:** First production migration path must stay add-only; UI wiring deferred to future Issues
 - **Result:** PASS (foundation scope) · Runtime/Device NOT VERIFIED
@@ -103,4 +103,4 @@ See latest commit on branch `cursor/dev-004-sqlite-foundation-368a`.
 - Expo Doctor full PASS
 - Android assembleDebug
 - Android device/emulator expo-sqlite runtime smoke
-- expo-sqlite on physical device (adapter tested via better-sqlite3 in Jest only)
+- expo-sqlite on physical device (Jest uses sql.js WASM adapter only)

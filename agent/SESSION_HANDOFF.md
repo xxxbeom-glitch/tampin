@@ -20,14 +20,14 @@ In-scope completed:
 - Account-scoped schema: routines, routine exercises/set templates, workout sessions/exercises/set records, completed-workout snapshot tables, sync_outbox metadata
 - Typed repository interfaces + SQLite implementations + `createDataLayer()` factory
 - `completeWorkout` transaction writes immutable snapshot rows independent of mutable routine names
-- Jest uses `better-sqlite3` test adapter (not exported from production sqlite index)
+- Jest uses `sql.js` WASM test adapter under `__tests__/adapters/` (not in production sqlite tree)
 - Logic verification PASS: typecheck / lint / test (15 tests) / `expo config --type public` / prebuild / `git diff --check`
 
 Production Readiness Review (foundation scope):
 - Scope: schema v1, migration ledger, typed repositories, outbox metadata only — no UI wiring, no sync transport
 - Invariants: local-first durable storage; stable client IDs; account scope; completed-workout snapshots; add-only migrations
 - Security/Privacy: no auth secrets in SQLite; no workout PII in logs; test DB in-memory
-- Dependencies: `expo-sqlite` production; `better-sqlite3` dev/test only
+- Dependencies: `expo-sqlite` production; `sql.js` dev/test only (no native build; Windows-friendly `npm ci`)
 - Result: **PASS (foundation scope)** · Runtime/Device **NOT VERIFIED**
 
 NOT VERIFIED (unchanged from DEV-002 — do not erase):

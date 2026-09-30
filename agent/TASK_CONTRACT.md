@@ -22,7 +22,7 @@ Routine/Workout UI가 real records를 persist하기 전에 필요한 local-first
   - sync_outbox metadata (no transport worker)
 - Historical exercise labels/snapshots independent from mutable routine names
 - Narrow typed repository interfaces + transaction boundaries (no UI raw SQL)
-- Testable adapter (`better-sqlite3` in Jest) + deterministic migration/repository tests
+- Testable adapter (`sql.js` WASM in Jest, under `__tests__/`) + deterministic migration/repository tests
 - type/lint/test + expo config + prebuild + diff-check; Android compile when SDK available
 - Production-readiness review in handoff/evidence
 - docs/CURRENT + TASK_CONTRACT + SESSION_HANDOFF update (Figma + DEV-002 NOT VERIFIED preserved)
@@ -50,7 +50,7 @@ Routine/Workout UI가 real records를 persist하기 전에 필요한 local-first
 
 ## Risk
 - Migration ledger edge case on first open (handled: ledger table existence check)
-- `better-sqlite3` is dev/test-only; production uses expo-sqlite adapter
+- `sql.js` is dev/test-only under `__tests__/`; production uses expo-sqlite adapter only
 - Expo Doctor / Android SDK blockers may remain NOT VERIFIED in cloud agent
 
 ## Affected invariants / regression packs

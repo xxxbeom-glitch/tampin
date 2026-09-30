@@ -1,10 +1,10 @@
 import { CURRENT_SCHEMA_VERSION } from '../src/data/sqlite/migrations/registry';
 import { assertForeignKeysEnabled, runMigrations } from '../src/data/sqlite/migrate';
-import { createBetterSqliteConnection } from '../src/data/sqlite/adapters/better-sqlite-connection';
+import { createSqlJsSqliteConnection } from './adapters/sqljs-sqlite-connection';
 
 describe('DEV-004 SQLite migrations', () => {
   it('applies the current schema version deterministically on a fresh database', () => {
-    const connection = createBetterSqliteConnection(':memory:');
+    const connection = createSqlJsSqliteConnection();
 
     const appliedCount = runMigrations(connection);
     assertForeignKeysEnabled(connection);
@@ -18,7 +18,7 @@ describe('DEV-004 SQLite migrations', () => {
   });
 
   it('records each migration exactly once on re-open/upgrade', () => {
-    const connection = createBetterSqliteConnection(':memory:');
+    const connection = createSqlJsSqliteConnection();
 
     expect(runMigrations(connection)).toBe(CURRENT_SCHEMA_VERSION);
     expect(runMigrations(connection)).toBe(0);
@@ -32,7 +32,7 @@ describe('DEV-004 SQLite migrations', () => {
   });
 
   it('enforces foreign keys on every opened connection', () => {
-    const connection = createBetterSqliteConnection(':memory:');
+    const connection = createSqlJsSqliteConnection();
     runMigrations(connection);
 
     expect(() => {
@@ -54,5 +54,46 @@ describe('DEV-004 SQLite migrations', () => {
         ],
       );
     }).toThrow();
+  });
+
+  it('rolls back failed transactional writes', () => {
+    const connection = createSqlJsSqliteConnection();
+    runMigrations(connection);
+
+    connection.run(
+      `INSERT INTO routines (
+        id, account_id, name, sort_order, created_at, updated_at, sync_state
+      ) VALUES (?, ?, ?, ?, ?, ?, 'dirty')`,
+      [
+        'routine-keep',
+        'acct-1',
+        'Keep Me',
+        0,
+        '2026-09-30T00:00:00.000Z',
+        '2026-09-30T00:00:00.000Z',
+      ],
+    );
+
+    expect(() => {
+      connection.withTransaction(() => {
+        connection.run(
+          `INSERT INTO routines (
+            id, account_id, name, sort_order, created_at, updated_at, sync_state
+          ) VALUES (?, ?, ?, ?, ?, ?, 'dirty')`,
+          [
+            'routine-rollback',
+            'acct-1',
+            'Should Roll Back',
+            1,
+            '2026-09-30T00:00:00.000Z',
+            '2026-09-30T00:00:00.000Z',
+          ],
+        );
+        throw new Error('force rollback');
+      });
+    }).toThrow('force rollback');
+
+    const rows = connection.getAll<{ id: string }>('SELECT id FROM routines ORDER BY id ASC');
+    expect(rows.map((row) => row.id)).toEqual(['routine-keep']);
   });
 });
