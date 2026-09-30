@@ -3,7 +3,7 @@
 **Status:** `status:review`
 **Next Owner:** ChatGPT
 **Branch:** `cursor/dev-005-data-layer-wiring-368a`
-**Commit:** (see latest push)
+**Commit:** `dae4531`
 
 ---
 

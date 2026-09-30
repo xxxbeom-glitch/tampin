@@ -1,6 +1,7 @@
-import { render, screen, waitFor } from '@testing-library/react-native';
+import { act, render, screen, waitFor } from '@testing-library/react-native';
 import { Text } from 'react-native';
 import { CURRENT_SCHEMA_VERSION } from '../src/data/sqlite/migrations/registry';
+import { resetDataLayerProcessForTests } from './helpers/data-layer-process-test-utils';
 import { createTestSqliteConnection } from './helpers/sqlite-test-harness';
 import { DataLayerProvider } from '../src/app/providers/data-layer/DataLayerProvider';
 import { useTampinDataLayer } from '../src/app/providers/data-layer/useTampinDataLayer';
@@ -50,6 +51,10 @@ function createOpenedTestDatabase() {
 }
 
 describe('DEV-005 DataLayerProvider', () => {
+  beforeEach(() => {
+    resetDataLayerProcessForTests();
+  });
+
   it('opens and migrates the database once, then exposes typed repositories', async () => {
     const openDatabase = jest.fn(createOpenedTestDatabase);
 
@@ -63,6 +68,36 @@ describe('DEV-005 DataLayerProvider', () => {
     await waitFor(() => {
       expect(screen.getByTestId('data-layer-status')).toHaveTextContent('ready:1');
       expect(screen.getByTestId('repository-probe')).toHaveTextContent('repositories-ready');
+    });
+
+    expect(openDatabase).toHaveBeenCalledTimes(1);
+  });
+
+  it('reuses the process snapshot after provider unmount and remount', async () => {
+    const openDatabase = jest.fn(createOpenedTestDatabase);
+
+    const { unmount } = await render(
+      <DataLayerProvider openDatabase={openDatabase}>
+        <DataLayerProbe />
+      </DataLayerProvider>,
+    );
+
+    await waitFor(() => {
+      expect(screen.getByTestId('data-layer-status')).toHaveTextContent('ready:1');
+    });
+
+    await act(async () => {
+      unmount();
+    });
+
+    await render(
+      <DataLayerProvider openDatabase={openDatabase}>
+        <DataLayerProbe />
+      </DataLayerProvider>,
+    );
+
+    await waitFor(() => {
+      expect(screen.getByTestId('data-layer-status')).toHaveTextContent('ready:1');
     });
 
     expect(openDatabase).toHaveBeenCalledTimes(1);
@@ -88,4 +123,39 @@ describe('DEV-005 DataLayerProvider', () => {
     expect(openDatabase).toHaveBeenCalledTimes(1);
   });
 
+  it('reuses cached init errors on remount without retrying openDatabase', async () => {
+    const openDatabase = jest.fn(() => {
+      throw new Error('migration failed');
+    });
+
+    const { unmount } = await render(
+      <DataLayerProvider openDatabase={openDatabase}>
+        <DataLayerProbe />
+      </DataLayerProvider>,
+    );
+
+    await waitFor(() => {
+      expect(screen.getByTestId('data-layer-status')).toHaveTextContent(
+        'error:migration failed',
+      );
+    });
+
+    await act(async () => {
+      unmount();
+    });
+
+    await render(
+      <DataLayerProvider openDatabase={openDatabase}>
+        <DataLayerProbe />
+      </DataLayerProvider>,
+    );
+
+    await waitFor(() => {
+      expect(screen.getByTestId('data-layer-status')).toHaveTextContent(
+        'error:migration failed',
+      );
+    });
+
+    expect(openDatabase).toHaveBeenCalledTimes(1);
+  });
 });

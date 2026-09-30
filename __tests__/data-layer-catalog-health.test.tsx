@@ -2,9 +2,14 @@ import { act, fireEvent, render, waitFor } from '@testing-library/react-native';
 import { DataLayerProvider } from '../src/app/providers/data-layer/DataLayerProvider';
 import { UiCatalogScreen } from '../src/debug/ui-catalog/UiCatalogScreen';
 import { CURRENT_SCHEMA_VERSION } from '../src/data/sqlite/migrations/registry';
+import { resetDataLayerProcessForTests } from './helpers/data-layer-process-test-utils';
 import { createTestSqliteConnection } from './helpers/sqlite-test-harness';
 
 describe('DEV-005 UI Catalog data-layer health entry', () => {
+  beforeEach(() => {
+    resetDataLayerProcessForTests();
+  });
+
   it('shows read-only initialization status and schema version in development catalog', async () => {
     const openDatabase = jest.fn(() => {
       const connection = createTestSqliteConnection();
