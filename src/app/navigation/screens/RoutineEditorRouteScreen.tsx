@@ -59,6 +59,7 @@ export function RoutineEditorRouteScreen() {
       ) : (
         <RoutineCreateScreen
           folderName={resolvedFolderName}
+          onAddExercise={() => navigation.navigate('ExerciseSelection')}
           onBack={() => setStep('folder')}
           onRoutineNameChange={setRoutineName}
           routineName={routineName}

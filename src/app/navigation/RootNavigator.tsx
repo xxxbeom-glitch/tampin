@@ -10,6 +10,7 @@ import { SplashRouteScreen } from './screens/SplashRouteScreen';
 import { FlowBoundaryPlaceholderScreen } from './screens/FlowBoundaryPlaceholderScreen';
 import { OnboardingBasicInfoRouteScreen } from './screens/OnboardingBasicInfoRouteScreen';
 import { RoutineDetailRouteScreen } from './screens/RoutineDetailRouteScreen';
+import { ExerciseSelectionRouteScreen } from './screens/ExerciseSelectionRouteScreen';
 import { RoutineEditorRouteScreen } from './screens/RoutineEditorRouteScreen';
 import { RoutineHomeRouteScreen } from './screens/RoutineHomeRouteScreen';
 import { UiCatalogRouteScreen } from './screens/UiCatalogRouteScreen';
@@ -40,6 +41,10 @@ function renderRootScreen(name: keyof RootStackParamList) {
 
   if (name === 'RoutineEditor') {
     return RoutineEditorRouteScreen;
+  }
+
+  if (name === 'ExerciseSelection') {
+    return ExerciseSelectionRouteScreen;
   }
 
   if (name === 'UiCatalog') {

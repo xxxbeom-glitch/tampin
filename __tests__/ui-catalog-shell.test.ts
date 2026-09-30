@@ -2,7 +2,7 @@ import { catalogEntries } from '../src/debug/ui-catalog/registry/catalogEntries'
 
 describe('DEV-001 debug UI catalog shell', () => {
   it('exposes bootstrap, data-layer health, and registered 01C Basic Info entries', () => {
-    expect(catalogEntries).toHaveLength(18);
+    expect(catalogEntries).toHaveLength(47);
     expect(catalogEntries[0]?.id).toBe('bootstrap-shell');
     expect(catalogEntries.some((entry) => entry.id === 'data-layer-health')).toBe(true);
     expect(
@@ -11,5 +11,8 @@ describe('DEV-001 debug UI catalog shell', () => {
     expect(
       catalogEntries.filter((entry) => entry.group === '02 루틴'),
     ).toHaveLength(6);
+    expect(
+      catalogEntries.filter((entry) => entry.group === '04 운동'),
+    ).toHaveLength(29);
   });
 });

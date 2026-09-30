@@ -1,43 +1,55 @@
 # Active Task Contract
 
 ## Task / Issue
-- Issue #28 / DEV-013 — Folder-first routine creation entry
-- Branch: `cursor/dev-013-folder-first-368a`
+- Issue #30 / DEV-014 — Figma parity audit and Group 04 exercise flow
+- Branch: `cursor/dev-014-group04-figma-parity`
 
 ## Goal
-Replace the Routine Main `새 루틴 만들기` stop state with deterministic
-folder-first selection/naming followed immediately by the current routine-create
-state.
+Record a focused 01–03 Figma/runtime parity audit, then implement every
+canonical Group 04 top-level state as deterministic Android mock screens.
 
 ## Required
-- Inspect current named Group 03 Figma frames; historical IDs are not authority
+- Inspect current named Group 04 Figma frames; historical IDs are not authority
+- Audit 01–03 for tokens/font/color/radius/shadow/spacing/icon/copy/extra UI
+- Record only actionable findings in `agent/FIGMA_RUNTIME_GAP_AUDIT_2026-09-30.md`
+- Implement search, filters, selected/empty add, detail tabs, custom
+  create/edit/history-lock, attachment overlays, and confirm dialogs
 - Keep render screens, route orchestration, and fixtures separate
-- Existing-folder selection and new-folder naming precede routine create
-- Register each deterministic state in the dev-only Catalog
-- Add focused route/state tests and document intentional Figma differences
+- Register each implemented state in the dev-only Catalog
+- Wire Routine-create → ExerciseSelection → return
+- Focused + full Jest, typecheck, lint, Expo config/prebuild, diff-check
 
 ## Allowed Scope
-- Routine creation screens, local fixtures, and `RoutineEditor` route orchestration
+- `src/features/exercise/` presentation, fixtures, and types
+- `ExerciseSelection` route orchestration and Routine-create entry
 - Dev-only Catalog entries/presets
-- Focused tests, implemented Screen Map row, Issue evidence
+- Implemented Screen Map rows, Issue evidence, TASK_CONTRACT
+- 01–03 audit document only (no speculative 01–03 UI edits)
 
 ## Forbidden
 - SQLite writes/persistence
-- Exercise selection, set editing, save behavior, folder CRUD semantics
-- Auth/sync/backend
-- New global design-system primitives
+- Real Supabase/Auth/sync/storage/network/uploads/notifications
+- New global design-system tokens or invented visual primitives
+- Group 05+ implementation
+- Guessing UI not present in current Figma
 
 ## Figma refs
 - File `W3lZurXCXbThP67rF2xk2b`
-- Current `02E_Routine_Create` — `34:1457`
-- Current Group 03 editing/reference frames inspected via Figma design context
+- Page `MVP_전체_와이어프레임` — `34:1076`
+- Current Group 04 frames listed in `agent/FIGMA_SCREEN_MAP.md`
+
+## Affected invariants / regression packs
+- Canonical Figma is visual authority
+- Deterministic mock data; no backend from screens
+- Navigation routes, UI Catalog, Group 02 routine-create path
 
 ## Verification
 1. typecheck 2. lint 3. focused/full Jest 4. Expo config/prebuild
 5. diff-check
 
 ## Done When
-- Folder-first route ordering is explicit and tested
-- All implemented deterministic states are Catalog-accessible
-- Only implemented Screen Map rows change
+- 01–03 audit committed with actionable findings only
+- All 29 Group 04 top-level states render in Catalog
+- Routine-create can enter and return from Group 04
+- Intentional Figma differences documented
 - Commit pushed; no PR created

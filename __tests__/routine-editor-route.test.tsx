@@ -2,6 +2,7 @@ import { fireEvent, render } from '@testing-library/react-native';
 import { RoutineEditorRouteScreen } from '../src/app/navigation/screens/RoutineEditorRouteScreen';
 
 const mockGoBack = jest.fn();
+const mockNavigate = jest.fn();
 
 jest.mock('@react-navigation/native', () => {
   const actual = jest.requireActual('@react-navigation/native');
@@ -9,6 +10,7 @@ jest.mock('@react-navigation/native', () => {
     ...actual,
     useNavigation: () => ({
       goBack: mockGoBack,
+      navigate: mockNavigate,
     }),
   };
 });
@@ -16,6 +18,7 @@ jest.mock('@react-navigation/native', () => {
 describe('DEV-013 RoutineEditorRouteScreen', () => {
   beforeEach(() => {
     mockGoBack.mockClear();
+    mockNavigate.mockClear();
   });
 
   it('moves from an existing folder selection directly into routine create', async () => {
@@ -55,5 +58,15 @@ describe('DEV-013 RoutineEditorRouteScreen', () => {
     await fireEvent.press(getByTestId('routine-folder-entry-back'));
 
     expect(mockGoBack).toHaveBeenCalledTimes(1);
+  });
+
+  it('enters the Group 04 selection flow from routine-create 운동 추가', async () => {
+    const { getByTestId } = await render(<RoutineEditorRouteScreen />);
+
+    await fireEvent.press(getByTestId('routine-folder-option-ppl-routine'));
+    await fireEvent.press(getByTestId('routine-folder-entry-continue'));
+    await fireEvent.press(getByTestId('routine-create-add-exercise'));
+
+    expect(mockNavigate).toHaveBeenCalledWith('ExerciseSelection');
   });
 });
