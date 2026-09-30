@@ -1,32 +1,43 @@
 # Active Task Contract
 
 ## Task / Issue
-- Issue #26 / DEV-012 — Bundle SUIT and replace implemented-screen Figma assets
-- Branch: `cursor/dev-012-suit-assets-368a`
+- Issue #28 / DEV-013 — Folder-first routine creation entry
+- Branch: `cursor/dev-013-folder-first-368a`
 
 ## Goal
-Replace temporary system-font/text-glyph/gray-placeholder treatment in implemented 00–02 runtime screens with source-controlled SUIT font and Figma-derived local assets.
+Replace the Routine Main `새 루틴 만들기` stop state with deterministic
+folder-first selection/naming followed immediately by the current routine-create
+state.
 
 ## Required
-- Official SUIT TTF (OFL-1.1) + license attribution; Expo font load before UI
-- Typography tokens/styles applied to Splash, Login, BasicInfo, RoutineMain, RoutineDetail
-- Figma asset manifest with node/name metadata; replace glyphs/thumbnails only where exported
-- Tests for manifest existence and no runtime network font dependency
-- typecheck / lint / full jest / expo config / prebuild / diff-check
+- Inspect current named Group 03 Figma frames; historical IDs are not authority
+- Keep render screens, route orchestration, and fixtures separate
+- Existing-folder selection and new-folder naming precede routine create
+- Register each deterministic state in the dev-only Catalog
+- Add focused route/state tests and document intentional Figma differences
 
 ## Allowed Scope
-- `assets/fonts`, `assets/figma`, `assets/licenses`
-- `src/design-system/{tokens,fonts,assets,components}`
-- Implemented 00–02 screen files and related tests/evidence
+- Routine creation screens, local fixtures, and `RoutineEditor` route orchestration
+- Dev-only Catalog entries/presets
+- Focused tests, implemented Screen Map row, Issue evidence
 
 ## Forbidden
-- Bulk Gym Visual catalog, R2, persistence, unimplemented Group 03–08 screens, third-party icon libraries, runtime network fonts
+- SQLite writes/persistence
+- Exercise selection, set editing, save behavior, folder CRUD semantics
+- Auth/sync/backend
+- New global design-system primitives
 
 ## Figma refs
-- File `W3lZurXCXbThP67rF2xk2b` — 00 Splash, 01A Login, 01C Basic Info, 02A/02B Routine Main, 02D Routine Detail
+- File `W3lZurXCXbThP67rF2xk2b`
+- Current `02E_Routine_Create` — `34:1457`
+- Current Group 03 editing/reference frames inspected via Figma design context
 
 ## Verification
-1. typecheck 2. lint 3. full jest 4. expo config/prebuild 5. diff-check 6. production-readiness (bundled assets/licensing)
+1. typecheck 2. lint 3. focused/full Jest 4. Expo config/prebuild
+5. diff-check
 
 ## Done When
-- AC satisfied; NOT EXPORTED blockers documented; commit pushed; no PR per user request
+- Folder-first route ordering is explicit and tested
+- All implemented deterministic states are Catalog-accessible
+- Only implemented Screen Map rows change
+- Commit pushed; no PR created
