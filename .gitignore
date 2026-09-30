@@ -39,3 +39,6 @@ yarn-error.*
 # generated native folders
 /ios
 /android
+
+# licensed third-party sample audio (not redistributable)
+/sound/
