@@ -17,7 +17,7 @@
 | Deterministic delay documented | PASS | `SPLASH_PRESENTATION_DELAY_MS = 600` in `splashTiming.ts` |
 | Timer clears on unmount | PASS | splash-route test |
 | No session restore invented | PASS | no auth/persistence wiring |
-| Dev UI Catalog preserved without Splash debug controls | PASS | `UiCatalog` route + `00-splash-default` catalog entry |
+| Dev UI Catalog preserved without Splash debug controls | PASS | `UiCatalog` route + `00-splash-default`; Auth dev entry `open-ui-catalog`; `resolveInitialRootRouteName()` + `EXPO_PUBLIC_DEV_INITIAL_ROUTE=UiCatalog` cold-start injection |
 | Screen Map 00 row updated | PASS | `agent/FIGMA_SCREEN_MAP.md` |
 
 **Presentation delay decision**
@@ -45,6 +45,13 @@
 - `__tests__/splash-screen.test.tsx`
 - `__tests__/splash-route.test.tsx`
 - `__tests__/splash-catalog.test.tsx`
+- `__tests__/dev-initial-route.test.ts` — env-based dev initial route injection
+- `__tests__/navigation-route-screens.test.tsx` — Auth dev catalog entry navigates to `UiCatalog`
+- `__tests__/root-stack-config.test.ts` — release ignores dev route injection
+
+**Dev UI Catalog reachability (no Splash debug controls)**
+- In-app: after cold launch `Splash → Auth`, press dev-only `UI Catalog` affordance (`testID="open-ui-catalog"`) on Auth route wrapper — not on Splash or canonical Login form
+- Cold-start injection: set `EXPO_PUBLIC_DEV_INITIAL_ROUTE=UiCatalog` in dev builds only; release always starts at `Splash`
 
 **NOT VERIFIED**
 - Device visual QA / Figma pixel comparison

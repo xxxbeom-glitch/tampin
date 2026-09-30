@@ -1,3 +1,4 @@
+import { resolveInitialRootRouteName } from './devInitialRoute';
 import type { RootStackParamList, RootStackRouteName } from './types';
 
 type StackScreenConfig = {
@@ -42,5 +43,5 @@ export function isUiCatalogRoute(
 }
 
 export function getInitialRootRouteName(): keyof RootStackParamList {
-  return 'Splash';
+  return resolveInitialRootRouteName();
 }
