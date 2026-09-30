@@ -1,11 +1,41 @@
 import { fireEvent, render } from '@testing-library/react-native';
+import { StyleSheet } from 'react-native';
 import {
+  ROUTINE_MAIN_LAYOUT,
   RoutineMainScreen,
   routineMainEmptyFixture,
   routineMainWithRoutinesFixture,
 } from '../src/features/routine';
 
 describe('DEV-010 RoutineMainScreen', () => {
+  it('uses Figma canonical inner content width geometry on a 360px viewport', async () => {
+    const { getByTestId } = await render(
+      <RoutineMainScreen
+        folders={routineMainEmptyFixture.folders}
+        readOnly
+        state="Empty"
+      />,
+    );
+
+    expect(ROUTINE_MAIN_LAYOUT.innerContentWidth).toBe(328);
+    expect(
+      ROUTINE_MAIN_LAYOUT.canonicalViewportWidth -
+        ROUTINE_MAIN_LAYOUT.horizontalInset * 2,
+    ).toBe(328);
+
+    const contentStyle = StyleSheet.flatten(
+      getByTestId('routine-main-content').props.style,
+    );
+    expect(contentStyle.paddingHorizontal).toBe(ROUTINE_MAIN_LAYOUT.horizontalInset);
+    expect(contentStyle.maxWidth).toBe(ROUTINE_MAIN_LAYOUT.canonicalViewportWidth);
+    expect(contentStyle.maxWidth).not.toBe(320);
+
+    const quickStartStyle = StyleSheet.flatten(
+      getByTestId('routine-quickstart-without-routine').props.style,
+    );
+    expect(quickStartStyle.width).toBe('100%');
+  });
+
   it('renders WithRoutines state with title, quick actions, folders, and bottom bar', async () => {
     const { getByRole, getByTestId, getByText } = await render(
       <RoutineMainScreen

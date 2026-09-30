@@ -27,6 +27,9 @@
 - Android dashed quick-action borders may render solid (RN platform limitation)
 - Collapsed folder headers are visual-only (no expand/collapse interaction in this Issue)
 
+**Layout QA fix (post-review)**
+- Content uses `16px` horizontal inset on `360px` viewport → `328px` inner width for quick actions/cards (removed `maxWidth: 320` + `paddingHorizontal: 20` double inset)
+
 ---
 
 ## Test

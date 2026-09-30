@@ -1,4 +1,5 @@
 export { RoutineMainScreen } from './RoutineMainScreen';
+export { ROUTINE_MAIN_LAYOUT } from './routineMainContent';
 export {
   routineMainEmptyFixture,
   routineMainWithRoutinesFixture,

@@ -8,6 +8,7 @@ import {
 import { colors } from '../../design-system/tokens';
 import {
   ROUTINE_MAIN_BOTTOM_TABS,
+  ROUTINE_MAIN_LAYOUT,
   ROUTINE_MAIN_TITLE,
   ROUTINE_QUICK_START_COPY,
 } from './routineMainContent';
@@ -242,7 +243,7 @@ export function RoutineMainScreen({
         showsVerticalScrollIndicator={false}
         testID="routine-main-scroll"
       >
-        <View style={styles.content}>
+        <View style={styles.content} testID="routine-main-content">
           <Text accessibilityRole="header" style={styles.title}>
             {ROUTINE_MAIN_TITLE}
           </Text>
@@ -300,9 +301,9 @@ const styles = StyleSheet.create({
   },
   content: {
     width: '100%',
-    maxWidth: 320,
+    maxWidth: ROUTINE_MAIN_LAYOUT.canonicalViewportWidth,
     alignSelf: 'center',
-    paddingHorizontal: 20,
+    paddingHorizontal: ROUTINE_MAIN_LAYOUT.horizontalInset,
     gap: 32,
   },
   title: {
@@ -315,6 +316,7 @@ const styles = StyleSheet.create({
     gap: 12,
   },
   quickStartCard: {
+    width: '100%',
     minHeight: 72,
     borderRadius: 20,
     borderWidth: 1,
@@ -371,6 +373,7 @@ const styles = StyleSheet.create({
     color: '#979DA9',
   },
   routineCard: {
+    width: '100%',
     minHeight: 108,
     borderRadius: 20,
     backgroundColor: colors.surface,
