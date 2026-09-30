@@ -1,5 +1,13 @@
 import { fireEvent, render } from '@testing-library/react-native';
-import { RoutineCreateScreen } from '../src/features/routine';
+import { exerciseCatalogFixture } from '../src/features/exercise';
+import { RoutineCreateScreen, toRoutineCreateDraftExercise } from '../src/features/routine';
+
+const bench = exerciseCatalogFixture.find((item) => item.id === 'bench-press');
+const latPulldown = exerciseCatalogFixture.find((item) => item.id === 'lat-pulldown');
+
+if (!bench || !latPulldown) {
+  throw new Error('expected catalog fixtures');
+}
 
 describe('DEV-013 RoutineCreateScreen', () => {
   it('renders the current Figma folder-first field order and disabled save', async () => {
@@ -40,15 +48,7 @@ describe('DEV-013 RoutineCreateScreen', () => {
   it('shows confirmed mock draft exercises without claiming persistence', async () => {
     const { getByTestId, getByText } = await render(
       <RoutineCreateScreen
-        exercises={[
-          {
-            id: 'bench-press',
-            name: '벤치프레스',
-            equipment: '바벨',
-            primaryMuscle: '대흉근',
-            thumbnailKey: 'smithBenchPress',
-          },
-        ]}
+        exercises={[toRoutineCreateDraftExercise(bench)]}
         folderName="PPL Routine"
         routineName=""
       />,
@@ -61,5 +61,17 @@ describe('DEV-013 RoutineCreateScreen', () => {
     expect(getByTestId('routine-create-save').props.accessibilityState).toMatchObject({
       disabled: true,
     });
+  });
+
+  it('reuses the existing draft meta line for a stored attachment', async () => {
+    const { getByText } = await render(
+      <RoutineCreateScreen
+        exercises={[toRoutineCreateDraftExercise(latPulldown, '스트레이트 바')]}
+        folderName="PPL Routine"
+        routineName=""
+      />,
+    );
+
+    expect(getByText('광배근 · 케이블 · 스트레이트 바')).toBeTruthy();
   });
 });

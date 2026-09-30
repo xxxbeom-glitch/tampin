@@ -27,8 +27,11 @@ import {
 } from '../../../features/exercise';
 import {
   getRoutineCreateDraftExercises,
+  getRoutineCreateSessionCatalog,
+  mergeRoutineCreateCatalog,
   setRoutineCreateDraftExercises,
   toRoutineCreateDraftExercise,
+  upsertRoutineCreateSessionCatalog,
 } from '../../../features/routine';
 import type { RootStackParamList } from '../types';
 
@@ -60,7 +63,21 @@ export function ExerciseSelectionRouteScreen() {
   const [selectedIds, setSelectedIds] = useState<string[]>(() =>
     getRoutineCreateDraftExercises().map((item) => item.id),
   );
-  const [catalog, setCatalog] = useState<ExerciseCatalogItem[]>(exerciseCatalogFixture);
+  const [attachments, setAttachments] = useState<Record<string, string>>(() => {
+    const next: Record<string, string> = {};
+    for (const item of getRoutineCreateDraftExercises()) {
+      if (item.attachment) {
+        next[item.id] = item.attachment;
+      }
+    }
+    return next;
+  });
+  const [catalog, setCatalog] = useState<ExerciseCatalogItem[]>(() =>
+    mergeRoutineCreateCatalog(exerciseCatalogFixture, [
+      ...getRoutineCreateSessionCatalog(),
+      ...getRoutineCreateDraftExercises().map((item) => item.catalogItem),
+    ]),
+  );
   const [detailId, setDetailId] = useState('bench-press');
   const [detailTab, setDetailTab] = useState<ExerciseDetailTab>('info');
   const [customDraft, setCustomDraft] = useState<CustomExerciseDraft>(emptyCustomDraftFixture);
@@ -101,6 +118,13 @@ export function ExerciseSelectionRouteScreen() {
       setSelectedIds((current) =>
         current.includes(id) ? current.filter((value) => value !== id) : [...current, id],
       );
+      if (selectedIds.includes(id)) {
+        setAttachments((current) => {
+          const next = { ...current };
+          delete next[id];
+          return next;
+        });
+      }
     },
     onOpenDetail: (id: string) => {
       setDetailId(id);
@@ -109,12 +133,20 @@ export function ExerciseSelectionRouteScreen() {
     },
     onRemoveSelected: (id: string) => {
       setSelectedIds((current) => current.filter((value) => value !== id));
+      setAttachments((current) => {
+        const next = { ...current };
+        delete next[id];
+        return next;
+      });
     },
     onConfirm: () => {
       const selected = selectedIds
         .map((id) => catalog.find((item) => item.id === id))
         .filter((item): item is ExerciseCatalogItem => Boolean(item))
-        .map(toRoutineCreateDraftExercise);
+        .map((item) => toRoutineCreateDraftExercise(item, attachments[item.id] ?? null));
+      upsertRoutineCreateSessionCatalog(
+        selected.map((item) => item.catalogItem).filter((item) => item.id.startsWith('custom-')),
+      );
       setRoutineCreateDraftExercises(selected);
       navigation.goBack();
     },
@@ -147,6 +179,7 @@ export function ExerciseSelectionRouteScreen() {
       thumbnailKey: 'romanianDeadlift',
     };
 
+    upsertRoutineCreateSessionCatalog([nextItem]);
     setCatalog((current) => {
       const without = current.filter((item) => item.id !== id);
       return [nextItem, ...without];
@@ -286,7 +319,9 @@ export function ExerciseSelectionRouteScreen() {
           exerciseName={attachmentExercise?.name ?? '운동'}
           mode={view === 'attachmentInput' ? 'input' : 'select'}
           onConfirmCustomAttachment={() => {
-            if (pendingAttachmentId) {
+            const name = customAttachment.trim();
+            if (pendingAttachmentId && name.length > 0) {
+              setAttachments((current) => ({ ...current, [pendingAttachmentId]: name }));
               setSelectedIds((current) =>
                 current.includes(pendingAttachmentId)
                   ? current
@@ -304,6 +339,7 @@ export function ExerciseSelectionRouteScreen() {
               return;
             }
             if (pendingAttachmentId) {
+              setAttachments((current) => ({ ...current, [pendingAttachmentId]: value }));
               setSelectedIds((current) =>
                 current.includes(pendingAttachmentId)
                   ? current

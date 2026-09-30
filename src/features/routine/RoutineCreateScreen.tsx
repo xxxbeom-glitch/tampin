@@ -109,7 +109,9 @@ export function RoutineCreateScreen({
                     {item.name}
                   </Text>
                   <Text numberOfLines={1} style={styles.draftMeta}>
-                    {item.primaryMuscle} · {item.equipment}
+                    {item.attachment
+                      ? `${item.primaryMuscle} · ${item.equipment} · ${item.attachment}`
+                      : `${item.primaryMuscle} · ${item.equipment}`}
                   </Text>
                 </View>
               </View>

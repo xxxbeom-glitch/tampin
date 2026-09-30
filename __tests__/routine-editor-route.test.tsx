@@ -1,18 +1,35 @@
-import { fireEvent, render } from '@testing-library/react-native';
+import { act, cleanup, fireEvent, render } from '@testing-library/react-native';
 import { RoutineEditorRouteScreen } from '../src/app/navigation/screens/RoutineEditorRouteScreen';
+import { exerciseCatalogFixture } from '../src/features/exercise';
 import {
   clearRoutineCreateDraftExercises,
+  getRoutineCreateDraftExercises,
   setRoutineCreateDraftExercises,
+  toRoutineCreateDraftExercise,
 } from '../src/features/routine';
 
 const mockGoBack = jest.fn();
 const mockNavigate = jest.fn();
-const mockAddListener = jest.fn(() => () => undefined);
+const listeners: Partial<Record<string, () => void>> = {};
+const mockAddListener = jest.fn((event: string, callback: () => void) => {
+  listeners[event] = callback;
+  return () => {
+    if (listeners[event] === callback) {
+      delete listeners[event];
+    }
+  };
+});
 const mockNavigation = {
   goBack: mockGoBack,
   navigate: mockNavigate,
   addListener: mockAddListener,
 };
+
+const bench = exerciseCatalogFixture.find((item) => item.id === 'bench-press');
+
+if (!bench) {
+  throw new Error('expected bench-press fixture');
+}
 
 jest.mock('@react-navigation/native', () => {
   const actual = jest.requireActual('@react-navigation/native');
@@ -22,12 +39,25 @@ jest.mock('@react-navigation/native', () => {
   };
 });
 
+async function enterCreate(view: Awaited<ReturnType<typeof render>>) {
+  await fireEvent.press(view.getByTestId('routine-folder-option-ppl-routine'));
+  await fireEvent.press(view.getByTestId('routine-folder-entry-continue'));
+}
+
 describe('DEV-013 RoutineEditorRouteScreen', () => {
   beforeEach(() => {
     mockGoBack.mockClear();
     mockNavigate.mockClear();
     mockAddListener.mockClear();
+    Object.keys(listeners).forEach((key) => {
+      delete listeners[key];
+    });
     clearRoutineCreateDraftExercises();
+    cleanup();
+  });
+
+  afterEach(() => {
+    cleanup();
   });
 
   it('moves from an existing folder selection directly into routine create', async () => {
@@ -70,33 +100,70 @@ describe('DEV-013 RoutineEditorRouteScreen', () => {
   });
 
   it('enters the Group 04 selection flow from routine-create 운동 추가', async () => {
-    const { getByTestId } = await render(<RoutineEditorRouteScreen />);
-
-    await fireEvent.press(getByTestId('routine-folder-option-ppl-routine'));
-    await fireEvent.press(getByTestId('routine-folder-entry-continue'));
-    await fireEvent.press(getByTestId('routine-create-add-exercise'));
+    const view = await render(<RoutineEditorRouteScreen />);
+    await enterCreate(view);
+    await fireEvent.press(view.getByTestId('routine-create-add-exercise'));
 
     expect(mockNavigate).toHaveBeenCalledWith('ExerciseSelection');
   });
 
-  it('shows confirmed ExerciseSelection results on the create draft', async () => {
-    setRoutineCreateDraftExercises([
-      {
-        id: 'bench-press',
-        name: '벤치프레스',
-        equipment: '바벨',
-        primaryMuscle: '대흉근',
-        thumbnailKey: 'smithBenchPress',
-      },
-    ]);
+  it('does not leak a leftover global draft into a newly started create session', async () => {
+    setRoutineCreateDraftExercises([toRoutineCreateDraftExercise(bench)]);
 
-    const { getByTestId, getByText } = await render(<RoutineEditorRouteScreen />);
+    const view = await render(<RoutineEditorRouteScreen />);
+    await enterCreate(view);
 
-    await fireEvent.press(getByTestId('routine-folder-option-ppl-routine'));
-    await fireEvent.press(getByTestId('routine-folder-entry-continue'));
+    expect(view.queryByTestId('routine-create-draft-exercises')).toBeNull();
+    expect(getRoutineCreateDraftExercises()).toEqual([]);
+  });
 
-    expect(getByTestId('routine-create-draft-exercises')).toBeTruthy();
-    expect(getByText('선택한 운동 (1개)')).toBeTruthy();
-    expect(getByText('벤치프레스')).toBeTruthy();
+  it('restores confirmed selections only when the real focus listener runs', async () => {
+    const view = await render(<RoutineEditorRouteScreen />);
+    await enterCreate(view);
+
+    expect(view.queryByTestId('routine-create-draft-exercises')).toBeNull();
+
+    setRoutineCreateDraftExercises([toRoutineCreateDraftExercise(bench)]);
+    await act(async () => {
+      listeners.focus?.();
+    });
+
+    expect(view.getByTestId('routine-create-draft-exercises')).toBeTruthy();
+    expect(view.getByText('선택한 운동 (1개)')).toBeTruthy();
+    expect(view.getByText('벤치프레스')).toBeTruthy();
+  });
+
+  it('clears the mock session when the create flow is removed, then starts empty', async () => {
+    const first = await render(<RoutineEditorRouteScreen />);
+    await enterCreate(first);
+    setRoutineCreateDraftExercises([toRoutineCreateDraftExercise(bench)]);
+    await act(async () => {
+      listeners.focus?.();
+    });
+    expect(first.getByText('벤치프레스')).toBeTruthy();
+
+    await fireEvent.press(first.getByTestId('routine-create-back'));
+    await fireEvent.press(first.getByTestId('routine-folder-entry-back'));
+    listeners.beforeRemove?.();
+
+    expect(getRoutineCreateDraftExercises()).toEqual([]);
+    expect(first.queryByText('벤치프레스')).toBeNull();
+  });
+
+  it('keeps the mock draft when create Back stays inside the same session', async () => {
+    const view = await render(<RoutineEditorRouteScreen />);
+    await enterCreate(view);
+    setRoutineCreateDraftExercises([toRoutineCreateDraftExercise(bench)]);
+    await act(async () => {
+      listeners.focus?.();
+    });
+    expect(view.getByText('벤치프레스')).toBeTruthy();
+
+    await fireEvent.press(view.getByTestId('routine-create-back'));
+    expect(view.getByTestId('routine-folder-entry-screen')).toBeTruthy();
+    expect(getRoutineCreateDraftExercises()).toHaveLength(1);
+
+    await enterCreate(view);
+    expect(view.getByText('벤치프레스')).toBeTruthy();
   });
 });

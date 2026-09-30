@@ -1,20 +1,80 @@
-# Issue #30 / DEV-014 Evidence — RETRY
+# Issue #30 / DEV-014 Evidence — RETRY 2
 
 ## Result
 - Branch: `cursor/dev-014-group04-figma-parity`
-- Commit: `f8862f2c412e1401eeec79b5d9050d6c9dd7dab0`
-- Status: Logic PASS · Visual **NOT VERIFIED** (no device/pixel compare)
+- Base reviewed: `92c6b76`
+- Status: Logic PASS · Visual **NOT VERIFIED** (no device/pixel compare; visual PASS 금지)
 - Runtime/Device: NOT VERIFIED
+- Next Owner: ChatGPT
+- PR / merge / Group 05: **대기**
+
+## RETRY 2 scope
+Confirmed bugs after independent review of `92c6b76`:
+
+1. **Session leak** — `clearRoutineCreateDraftExercises` was exported and unused. `RoutineEditor` hydrated from a process-global draft, so leaving create and starting again leaked prior exercises.
+2. **Custom catalog drop** — `ExerciseSelection` remounted `catalog` from `exerciseCatalogFixture` while `selectedIds` came from draft. Confirm `filter(Boolean)` dropped custom ids missing from fixture.
+3. **Focus tests were fake** — editor tests injected draft before mount and never fired the real `focus` listener.
+4. **Attachment discard** — preset / direct-input values were not written onto the mock draft.
+
+## Fixes
+- Session API: `beginRoutineCreateSession` / `endRoutineCreateSession` clear exercises **and** session catalog.
+- `RoutineEditor` `begin()` on mount only. `focus` hydrates display from draft (id + attachment compare). `beforeRemove` + folder Back `end()` the session. Create Back (`setStep('folder')`) stays in the same session. Focus never clears.
+- Session catalog extras + each draft row `catalogItem` merge ahead of `exerciseCatalogFixture`. Confirm writes `toRoutineCreateDraftExercise(item, attachments[id])` and upserts selected `custom-*` items.
+- Attachment preset / trimmed direct-input stored on the draft. Create screen reuses the existing meta `Text` (`근육 · 장비 · 손잡이`). No new chip / UI.
+- Tests fire the real `focus` listener via the registered navigation callback. Cover leftover-before-mount empty, focus restore, exit/end then empty, same-session create Back preserve, custom confirm + fresh-mount restore, preset/direct attachment persist.
+
+## Attachment policy (no new UI)
+- `docs/implementation/MVP_SCREEN_BEHAVIOR_MATRIX.md` `04H` — attachment/grip is independent of base exercise identity; preset or direct-input path.
+- `docs/ux-decisions/2026-09-03-cable-attachment-active-workout.md` — attachment text does not rewrite exercise identity.
+- Mock draft stores `attachment: string | null` only.
+
+## Canvas unresolved (not visual PASS)
+PO lock stays `#F6F7F7`. Current Figma `--fitness-colors-bg-default` is `#F7F8FA`. Approval locations:
+
+- `docs/CURRENT.md` — Light baseline, Canvas `#F6F7F7`
+- `docs/ux-decisions/2026-09-17-light-color-system-po-approval.md` — Canvas `#F6F7F7`
+
+Unresolved. Not claimed PASS.
+
+## Out of scope (unchanged)
+- SQLite / backend
+- 01–03 FIX 10
+- Group 05+
+- PR / merge
+
+## Verification
+- `npm run typecheck` — PASS
+- `npm run lint` — PASS
+- Related Jest — PASS 4 suites / 25 tests (`exercise-selection-route`, `routine-editor-route`, `routine-create-draft`, `routine-create-screen`)
+- `git diff --check` — PASS
+- Dual `render()` in one test poisons the RNTL host (`Cannot access .container on unmounted test renderer`). Re-entry is covered by session inject + single fresh mount, plus real `focus` / `beforeRemove` callbacks. Not claimed as a dual-renderer host PASS.
+- Visual vs Figma — **NOT VERIFIED / not claimed PASS**
+- Runtime/Device — NOT VERIFIED
+
+## Known unverified
+- Android device / pixel QA
+- Keyboard, chip-strip overflow, attachment-sheet gesture
+- 01–03 FIX 10
+- Canvas `#F6F7F7` vs Figma `#F7F8FA` remains unresolved
+
+---
+
+# RETRY 1 record (historical, `92c6b76`)
+
+## Result
+- Branch: `cursor/dev-014-group04-figma-parity`
+- Commit: `f8862f2c412e1401eeec79b5d9050d6c9dd7dab0` / evidence `92c6b76`
+- Status: Logic PASS · Visual **NOT VERIFIED**
 - Next Owner: ChatGPT
 - PR / merge / next group: **대기**
 
-## RETRY scope
+## RETRY 1 scope
 1. Remaining Group 04 states inspected with `get_design_context` + screenshot. Growth is a trend line chart + personal-best table, not a PR card. History Duration/Assisted fixtures now match the inspected Figma samples. Attachment input copy/layout matches `552:3356`.
 2. search / check / close / hint / trash / selected-add-toggle use Figma-exported PNGs.
 3. Confirming `N개 운동 추가` writes an in-memory RoutineCreate mock draft and the create screen shows those rows. No SQLite.
 4. 01–03 FIX 10 remain follow-up in `agent/FIGMA_RUNTIME_GAP_AUDIT_2026-09-30.md`.
 
-## Confirmed Figma nodes (RETRY pass)
+## Confirmed Figma nodes (RETRY 1)
 
 File: `W3lZurXCXbThP67rF2xk2b` · page `MVP_전체_와이어프레임` (`34:1076`)
 
@@ -94,20 +154,3 @@ File: `W3lZurXCXbThP67rF2xk2b` · page `MVP_전체_와이어프레임` (`34:1076
 - 01–03 FIX 10 unchanged / follow-up.
 - Filter chevrons reuse existing `icon-chevron-right` rotated; Figma uses ChevronDown rotated 90°. Pixel match NOT VERIFIED.
 - Attachment select sheet body still uses `{exerciseName}에서 사용할 손잡이를 선택하세요.` from the first-delivery select frame.
-
-## Verification
-- `npm run typecheck` — PASS
-- `npm run lint` — PASS
-- Focused Jest — PASS (`exercise-detail`, `exercise-selection-route`, `routine-create-*`, `routine-editor-route`)
-- Full Jest — 42/42 suites PASS when run **one file per process**. Single-process `npx jest --runInBand` hit heap OOM (exit 134) and is **not** claimed as a single-process PASS.
-- `npx expo config --type public` — PASS (`Tampin`, `com.lumian.tampin`)
-- `npx expo prebuild --platform android --no-install` — PASS (`android/` gitignored)
-- `git diff --check` — PASS
-- Visual vs Figma screenshots — **NOT VERIFIED / not claimed PASS**. Compared Figma design-context + screenshot to implementation structure/copy/fixtures only. No device or runtime screenshot overlay.
-
-## Known unverified
-- Android device / pixel QA
-- Keyboard, chip-strip overflow, attachment-sheet gesture
-- Growth line antialiasing vs Figma SVG path
-- Filter chevron glyph vs Figma ChevronDown
-- 01–03 FIX 10

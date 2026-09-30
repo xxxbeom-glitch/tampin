@@ -1,9 +1,14 @@
 export { RoutineCreateScreen } from './RoutineCreateScreen';
 export {
+  beginRoutineCreateSession,
   clearRoutineCreateDraftExercises,
+  endRoutineCreateSession,
   getRoutineCreateDraftExercises,
+  getRoutineCreateSessionCatalog,
+  mergeRoutineCreateCatalog,
   setRoutineCreateDraftExercises,
   toRoutineCreateDraftExercise,
+  upsertRoutineCreateSessionCatalog,
 } from './routineCreateDraft';
 export type { RoutineCreateDraftExercise } from './routineCreateDraft';
 export { RoutineDetailScreen } from './RoutineDetailScreen';

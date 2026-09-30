@@ -3,54 +3,46 @@
 ## Task / Issue
 - Issue #30 / DEV-014 — Figma parity audit and Group 04 exercise flow
 - Branch: `cursor/dev-014-group04-figma-parity`
-- Review: RETRY (first delivery `a60a537`)
+- Review: RETRY 2 (after `92c6b76`)
 
 ## Goal
-Keep the 01–03 FIX 10 audit as follow-up, then close the RETRY gaps:
-Growth chart/sparkline, Figma icon export/reuse, and RoutineCreate mock
-draft display of confirmed selection.
+Fix confirmed mock-session bugs: creation-session draft isolation,
+custom-exercise catalog restore, real focus/re-entry tests, and
+attachment value preservation on the in-memory draft.
 
 ## Required
-- Inspect remaining Group 04 states with `get_design_context` + screenshot
-- Implement Growth graph/sparkline to current Figma (no PR-card substitute)
-- Replace search/check/hint/trash/close/add-toggle stand-ins with Figma exports
-- Pass confirmed selected exercises into RoutineCreate mock draft (no SQLite)
-- Record per-screen token mapping, confirmed nodes, diffs, unverified
-- Keep 01–03 FIX 10 as follow-up only
-- Focused + full Jest, typecheck, lint, Expo config/prebuild, diff-check
+- Clear draft on create-session start/end only — not on every focus
+- Preserve ExerciseSelection round-trip inside the same session
+- Restore full custom-exercise catalog data for the same mock session
+- Persist selected/direct-input attachment on the mock draft
+- Regression tests: focus return, exit then new create, custom re-select
+- Keep 01–03 FIX 10 as follow-up
+- Canvas `#F6F7F7` vs Figma `#F7F8FA` stays unresolved (PO lock)
+- No visual PASS without device/pixel evidence
+- typecheck, lint, related Jest; commit/push; no PR
 
 ## Allowed Scope
-- `src/features/exercise/` presentation, fixtures, types
-- `src/features/routine/` create draft display + in-memory mock holder
+- `src/features/routine/routineCreateDraft.ts` and create-screen display
 - ExerciseSelection / RoutineEditor route orchestration
-- Dev-only Catalog descriptions/presets
-- `assets/figma/` exported icons + manifest
-- Implemented Screen Map rows, Issue evidence, TASK_CONTRACT
+- Related unit/route tests and Issue evidence / TASK_CONTRACT
 
 ## Forbidden
-- SQLite writes/persistence
-- Real Supabase/Auth/sync/storage/network/uploads/notifications
+- SQLite / real backend
 - New global design-system tokens
-- Implementing the 01–03 FIX 10 audit items
-- Group 05+ implementation
-- PR / merge / next group
+- Inventing new UI beyond existing draft-row copy
+- Implementing 01–03 FIX 10
+- Group 05+ / PR / merge
 
 ## Figma refs
 - File `W3lZurXCXbThP67rF2xk2b`
-- Page `MVP_전체_와이어프레임` — `34:1076`
-- Current Group 04 frames listed in `agent/FIGMA_SCREEN_MAP.md`
-
-## Affected invariants / regression packs
-- Canonical Figma is visual authority
-- Deterministic mock data; no backend from screens
-- Navigation routes, UI Catalog, Group 02 routine-create path
+- Attachment: `04H` + `docs/implementation/MVP_SCREEN_BEHAVIOR_MATRIX.md`
+- Attachment policy: `docs/ux-decisions/2026-09-03-cable-attachment-active-workout.md`
 
 ## Verification
-1. typecheck 2. lint 3. focused/full Jest 4. Expo config/prebuild
-5. diff-check
-6. Figma screenshot vs implementation structure — no visual PASS without evidence
+1. typecheck 2. lint 3. related Jest
+4. No visual PASS
 
 ## Done When
-- RETRY items 1–4 recorded honestly
+- RETRY 2 bugs 1–3 + attachment persist recorded honestly
 - Commit pushed; no PR created
 - Next Owner = ChatGPT

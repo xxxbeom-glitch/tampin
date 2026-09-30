@@ -5,6 +5,8 @@ import { View } from 'react-native';
 import {
   RoutineCreateScreen,
   RoutineFolderEntryScreen,
+  beginRoutineCreateSession,
+  endRoutineCreateSession,
   getRoutineCreateDraftExercises,
   routineFolderEntryDefaultFixture,
   type RoutineCreateDraftExercise,
@@ -24,7 +26,10 @@ function sameDraftExercises(
 ): boolean {
   return (
     current.length === next.length &&
-    current.every((item, index) => item.id === next[index]?.id)
+    current.every(
+      (item, index) =>
+        item.id === next[index]?.id && item.attachment === next[index]?.attachment,
+    )
   );
 }
 
@@ -36,13 +41,23 @@ export function RoutineEditorRouteScreen() {
   const [resolvedFolderName, setResolvedFolderName] = useState('');
   const [routineName, setRoutineName] = useState('');
   const [draftExercises, setDraftExercises] = useState<RoutineCreateDraftExercise[]>(
-    () => getRoutineCreateDraftExercises(),
+    [],
   );
+
+  useEffect(() => {
+    beginRoutineCreateSession();
+  }, []);
 
   useEffect(() => {
     return navigation.addListener('focus', () => {
       const next = getRoutineCreateDraftExercises();
       setDraftExercises((current) => (sameDraftExercises(current, next) ? current : next));
+    });
+  }, [navigation]);
+
+  useEffect(() => {
+    return navigation.addListener('beforeRemove', () => {
+      endRoutineCreateSession();
     });
   }, [navigation]);
 
@@ -66,7 +81,10 @@ export function RoutineEditorRouteScreen() {
         <RoutineFolderEntryScreen
           folders={routineFolderEntryDefaultFixture.folders}
           newFolderName={newFolderName}
-          onBack={() => navigation.goBack()}
+          onBack={() => {
+            endRoutineCreateSession();
+            navigation.goBack();
+          }}
           onContinue={handleContinue}
           onNewFolderNameChange={(name) => {
             setNewFolderName(name);
