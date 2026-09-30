@@ -2,11 +2,11 @@
 
 ## Current state
 
-- Current work: **Group 05 Active Workout mock Figma parity** (user-approved follow-up after Issue #30 FIX 10). **No new Issue number.**
-- Base: `b949c89` · Branch: `cursor/group05-figma-parity` · Commit: `fa179fe`
-- Visual/device PASS and merge for #30: **not granted**
-- Logic: type / lint / related Jest PASS · Visual/device: **NOT VERIFIED**
-- PR / merge / Group 06: **대기** (ChatGPT 검토 후)
+- Current work: **Group 05 mock parity follow-up** after `ce581d8` (button transitions + timer mock elapsed). **No new Issue.**
+- Base: `ce581d8` · Branch: `cursor/group05-figma-parity`
+- Visual/device PASS and merge: **not granted**
+- Logic: type / lint / related Jest · Visual/Runtime/Device: **NOT VERIFIED**
+- PR / merge / Group 06: **대기**
 - Next Owner: ChatGPT
 
 ## Group 05 — latest development handoff (2026-09-30)
@@ -19,9 +19,10 @@ In-scope completed:
 - 05A shell, 05I compact menu, 05F rest sheet, 05Q Idle→Running→Paused
 - 05G/H/G2 replace, 05J reorder (handle = move down), dialogs 05K/L/M/N/O/P
 - Catalog 18 entries; 02D / 빈 운동 / workoutAdd selection wired
-- Tests: workout-session, active-workout-screen, active-workout-route, catalog + related routes
+- Tests: workout-session, workout-timer-mock, active-workout-screen, active-workout-route, catalog + related routes
+- Follow-up: rest/manual remaining via `tickRest`/`tickManual`/`advanceTimerMock` only; header `displayElapsed` fixture (`Date.now` removed from route)
 
-NOT VERIFIED: pixel / device / live elapsed / notifications / exact-alarm / SQLite persistence
+NOT VERIFIED: pixel / device / live interval / notifications / exact-alarm / SQLite persistence
 
 Do not start Group 06 or open a PR until ChatGPT review.
 

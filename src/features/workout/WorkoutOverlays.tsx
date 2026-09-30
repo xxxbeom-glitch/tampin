@@ -177,7 +177,9 @@ export function WorkoutTimerSheet({
             ]}
           />
           <View style={styles.ringInner}>
-            <Text style={styles.timerValue}>{formatTimer(remaining)}</Text>
+            <Text style={styles.timerValue} testID="workout-timer-remaining">
+              {formatTimer(remaining)}
+            </Text>
             <View style={styles.adjustRow}>
               <Pressable
                 accessibilityRole="button"

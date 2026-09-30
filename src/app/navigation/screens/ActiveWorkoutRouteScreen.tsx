@@ -17,7 +17,7 @@ import {
   type WorkoutSession,
   type WorkoutSessionAction,
 } from '../../../features/workout';
-import { formatClock, elapsedSeconds } from '../../../features/workout';
+import { formatClock } from '../../../features/workout';
 import type { RootStackParamList } from '../types';
 
 type Navigation = NativeStackNavigationProp<RootStackParamList, 'ActiveWorkout'>;
@@ -63,8 +63,7 @@ export function ActiveWorkoutRouteScreen() {
     });
   };
 
-  const displayElapsed =
-    session.displayElapsed ?? formatClock(elapsedSeconds(session.startedAtMs, Date.now()));
+  const displayElapsed = session.displayElapsed ?? formatClock(0);
 
   return (
     <ActiveWorkoutScreen

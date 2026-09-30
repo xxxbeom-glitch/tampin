@@ -19,9 +19,10 @@ Implement current canonical Group 05 (18 frames) as screen / route / fixture-sep
 - Deterministic mock + Catalog for every Group 05 frame
 - 02D `운동 시작` → Active Workout
 - Every button has a defined mock state transition and a test
+- Rest / manual remaining time advances only via `tickRest` / `tickManual` / `advanceTimerMock` (deterministic). No interval / device clock
 - 04 custom-edit access/delete and other unconnected product links stay in backlog (not marked done)
 - Canvas `#F6F7F7` vs Figma `#F7F8FA` stays unresolved
-- type / lint / related Jest; commit / push; **no PR / no merge / no Group 06**
+- type / lint / related Jest; `git diff --check`; commit / push; **no PR / no merge / no Group 06**
 
 ## Allowed Scope
 - `src/features/workout/`
@@ -48,10 +49,14 @@ Implement current canonical Group 05 (18 frames) as screen / route / fixture-sep
 - Current Figma 05A/05F/05I/05Q supersede older WorkoutLiveBar / RestLiveBar visuals for this mock.
 - Behavior-matrix 05F still says RestLiveBar + no ±15. This task + current Figma lock the bottom-sheet + ±15 rest. Record as unresolved doc drift (not silently “fixed” in the matrix).
 
+## Follow-up after `ce581d8`
+Complement button-transition tests + rest/manual elapsed mock evidence. No new Issue / PR / Group 06. No SQLite / notification / backend / device install.
+
 ## Verification
-1. typecheck 2. lint 3. related Jest
-4. No visual / device PASS
-5. Runtime notifications / exact-alarm / persistence = NOT VERIFIED
+1. typecheck 2. lint 3. related Jest (include `workout-timer-mock`)
+4. `git diff --check` (no trailing whitespace)
+5. No visual / device PASS
+6. Runtime notifications / exact-alarm / interval / persistence = NOT VERIFIED
 
 ## Done When
 - 18 Group 05 frames have screen/state + Catalog + defined transitions

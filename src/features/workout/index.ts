@@ -11,6 +11,7 @@ export {
 } from './copy';
 export { elapsedSeconds, formatClock, formatTimer } from './formatTime';
 export {
+  advanceTimerMock,
   completedSetCount,
   plannedSetsComplete,
   reduceWorkoutSession,

@@ -24,6 +24,7 @@ Rule: unconnected or unverified items are **not** done.
 | B05-8 | SQLite session persistence | In-memory mock only. |
 | B05-9 | Duration / assisted / reps-only cards | Shell supports labels; 05A fixture is weight+reps only. |
 | B05-10 | Header elapsed “좌측” vs Figma center title | Implemented Figma Nav Header title slot. |
+| B05-11 | Rest / manual / header live clocks | Mock remainingSec + `displayElapsed` only. `tickRest`/`tickManual` are test/reducer actions. No interval, exact-alarm, or device runtime. NOT VERIFIED. |
 
 ## Unresolved token
 

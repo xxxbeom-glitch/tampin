@@ -174,6 +174,7 @@ export function reduceWorkoutSession(
     }
     case 'skipRest':
       return { ...session, overlay: 'none', rest: null };
+    // tickRest / tickManual: deterministic mock seconds only. No interval.
     case 'tickRest': {
       if (!session.rest) {
         return session;
@@ -328,5 +329,21 @@ export function reduceWorkoutSession(
     default:
       return session;
   }
+}
+
+/** Deterministic mock only. No interval / Date.now / device clock. */
+export function advanceTimerMock(session: WorkoutSession, ticks: number): WorkoutSession {
+  let next = session;
+  const count = Math.max(0, Math.floor(ticks));
+  for (let i = 0; i < count; i += 1) {
+    if (next.overlay === 'rest' && next.rest) {
+      next = reduceWorkoutSession(next, { type: 'tickRest' });
+    } else if (next.overlay === 'manualRunning' && next.manual) {
+      next = reduceWorkoutSession(next, { type: 'tickManual' });
+    } else {
+      break;
+    }
+  }
+  return next;
 }
 

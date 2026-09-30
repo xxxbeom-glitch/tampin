@@ -58,8 +58,19 @@ describe('Group 05 ActiveWorkout routes', () => {
     await fireEvent.press(getByTestId('active-workout-more'));
     await fireEvent.press(getByTestId('workout-menu-timer'));
     expect(getByText('타이머 시작')).toBeTruthy();
+    expect(getByTestId('workout-timer-remaining').props.children).toBe('01:30');
     await fireEvent.press(getByTestId('workout-manual-start'));
     expect(getByText('일시정지')).toBeTruthy();
+    expect(getByTestId('workout-timer-remaining').props.children).toBe('01:30');
+  });
+
+  it('starts rest at 01:30 and does not auto-tick remainingSec', async () => {
+    setActiveWorkoutSession(createWorkoutSession());
+    const { getByTestId } = await render(<ActiveWorkoutRouteScreen />);
+    await fireEvent.press(getByTestId('workout-set-done-chest-2'));
+    expect(getByTestId('workout-rest-sheet')).toBeTruthy();
+    expect(getByTestId('workout-timer-remaining').props.children).toBe('01:30');
+    expect(getActiveWorkoutSession()?.rest?.remainingSec).toBe(90);
   });
 
   it('navigates to ExerciseSelection for in-workout add', async () => {
