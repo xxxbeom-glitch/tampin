@@ -4,59 +4,76 @@
 새 Issue를 시작할 때 이전 내용을 교체한다.
 
 ## Task / Issue
-- Issue #8 / DEV-003 — Typed navigation + development UI Catalog foundation
-- Branch: `cursor/dev-003-typed-navigation-368a`
+- Issue #10 / DEV-004 — Local-first SQLite schema and repository foundation
+- Branch: `cursor/dev-004-sqlite-foundation-368a`
 
 ## Goal
-DEV-001 local state switch를 제거하고, MVP flow boundary typed React Navigation foundation + __DEV__ UI Catalog reachability를 확보한다.
+Routine/Workout UI가 real records를 persist하기 전에 필요한 local-first SQLite data layer foundation을 구현한다. 화면 구현이 아닌 schema/repository/transaction/migration 기반이다.
 
 ## Required
-- React Navigation native stack + NavigationContainer
-- Typed `RootStackParamList` for MVP flow boundaries
-- Bootstrap initial route preserved
-- UI Catalog __DEV__ only, excluded from release stack registration
-- UI Catalog → Bootstrap goBack component test (not device hardware back)
-- type/lint/test + expo config verification
-- Android prebuild/assembleDebug or blocker record
-- docs/CURRENT + handoff update (Figma parallel context preserved)
-- commit/push + Issue #8 evidence
+- `expo-sqlite` dependency + Expo plugin registration
+- Single database-open entry point (`openTampinDatabase`)
+- Explicit ordered add-only migrations + durable `schema_migrations` ledger
+- Foreign-key enforcement on every opened connection
+- Account-scoped, client-ID-first schema:
+  - routines / routine_exercises / routine_set_templates
+  - workout_sessions / session_exercises / set_records
+  - completed_workouts / completed_workout_exercises / completed_set_snapshots (immutable history)
+  - sync_outbox metadata (no transport worker)
+- Historical exercise labels/snapshots independent from mutable routine names
+- Narrow typed repository interfaces + transaction boundaries (no UI raw SQL)
+- Testable adapter (`better-sqlite3` in Jest) + deterministic migration/repository tests
+- type/lint/test + expo config + prebuild + diff-check; Android compile when SDK available
+- Production-readiness review in handoff/evidence
+- docs/CURRENT + TASK_CONTRACT + SESSION_HANDOFF update (Figma + DEV-002 NOT VERIFIED preserved)
+- commit/push + Issue #10 evidence
 
 ## Allowed Scope
-- `@react-navigation/*`, `react-native-screens`, `react-native-safe-area-context`
-- navigation modules, placeholder boundary screens, jest setup for nav tests
-- `@testing-library/react-native` dev dependency
-- TASK_CONTRACT / SESSION_HANDOFF / CURRENT updates
+- `src/data/contracts/` typed domain + repository interfaces
+- `src/data/sqlite/` connection adapters, migrations, repositories, factory
+- `__tests__/sqlite-*.test.ts`, `__tests__/helpers/sqlite-test-harness.ts`
+- `package.json` / `app.json` (`expo-sqlite` only)
+- agent/docs handoff updates for DEV-004
 
 ## Forbidden / Do Not Change
-- canonical Figma screens / design-token transcription
-- SQLite / Supabase / Auth / Sync / media / analytics / notifications
+- Product screen visual implementation / Figma transcription
+- UI wiring to SQLite (AppRoot/navigation/screens unchanged)
+- Supabase / Auth / sync transport / media / analytics / notifications / EAS
+- Exercise catalog seeding/import
+- Background sync execution / conflict UI / logout wipe behavior
 - DEV-002 `eas.json` / EAS NOT VERIFIED records
-- Figma redesign checkpoint deletion or canonical/detached relationship changes
-- cloud EAS build / production release / iOS
+- Figma detached redesign checkpoint deletion or canonical relationship changes
+- Destructive migrations or local-data clearing
 
 ## Figma refs
-- N/A (navigation foundation only; parallel version2 redesign unchanged)
+- N/A (data foundation only; parallel version2 redesign unchanged)
 
 ## Risk
-- Native stack jest mocking required for component tests
+- Migration ledger edge case on first open (handled: ledger table existence check)
+- `better-sqlite3` is dev/test-only; production uses expo-sqlite adapter
 - Expo Doctor / Android SDK blockers may remain NOT VERIFIED in cloud agent
 
 ## Affected invariants / regression packs
+- Local-first: SQLite durable storage, not cache
+- Stable client IDs + account scope on user-owned records
+- Completed workout snapshot immutability vs mutable routine labels
+- Multi-row writes in transaction boundaries
+- Sync outbox metadata preserved for future transport
 - `com.lumian.tampin` package identity
-- DEV-001 bootstrap shell + UI Catalog dev-only semantics
-- DEV-002 eas.json development profile
+- DEV-001/DEV-002/DEV-003 foundations unchanged
 
 ## Verification
 1. `npm run typecheck`
 2. `npm run lint`
-3. `npm test`
+3. `npm test -- --runInBand`
 4. `npx expo-doctor`
 5. `npx expo config --type public`
 6. `npx expo prebuild --platform android --no-install`
 7. `./gradlew assembleDebug` when SDK available
+8. `git diff --check`
 
 ## Done When
 - AC satisfied or blockers recorded NOT VERIFIED
 - commit/push complete
-- Issue #8 Result/Test/Commit/Risk/Not Verified recorded
+- Issue #10 Result/Test/Commit/Risk/Not Verified recorded
 - Next Owner = ChatGPT
