@@ -1,4 +1,5 @@
 import { type ReactNode } from 'react';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
 
 type AppProvidersProps = {
   children: ReactNode;
@@ -6,5 +7,5 @@ type AppProvidersProps = {
 
 /** Bootstrap providers shell — no auth/data SDKs in DEV-001. */
 export function AppProviders({ children }: AppProvidersProps) {
-  return <>{children}</>;
+  return <SafeAreaProvider>{children}</SafeAreaProvider>;
 }

@@ -2,14 +2,34 @@
 
 ## Current state
 
-- Current mode: **DEVELOPMENT ACTIVE** (Issue #6 / DEV-002 reactivated 2026-09-30) · **DESIGN / FIGMA redesign continues in parallel**
+- Current mode: **DEVELOPMENT ACTIVE** (Issue #8 / DEV-003) · **DESIGN / FIGMA redesign continues in parallel**
 - DEV-001: PASS · merged to main
-- DEV-002 Issue #6: Cursor implementation complete → **status:review**
-- Branch: `cursor/dev-002-eas-android-smoke-368a`
-- Latest commit: see DEV-002 section below
+- DEV-002 Issue #6: PASS · merged to main
+- DEV-003 Issue #8: Cursor implementation → **status:review**
+- Branch: `cursor/dev-003-typed-navigation-368a`
 - Next Owner: ChatGPT
 
-## DEV-002 — Issue #6 latest development handoff (2026-09-30)
+## DEV-003 — Issue #8 latest development handoff (2026-09-30)
+
+Goal: replace DEV-001 `RootShell` state switch with typed React Navigation native stack.
+
+In-scope completed:
+- `@react-navigation/native` + `@react-navigation/native-stack` foundation
+- Typed `RootStackParamList` covering Bootstrap, Auth, RoutineHome/Editor, ExerciseSelection, ActiveWorkout, RestTimer, Completion, Analysis, Settings, UiCatalog
+- `RootNavigator` + boundary placeholder screens; Bootstrap remains initial route
+- UI Catalog registered only when `__DEV__`; bootstrap catalog button preserved
+- Component tests for stack config + route-screen navigate/goBack wiring (not device stack integration)
+- Logic verification PASS: typecheck / lint / test (9 tests) / `expo config --type public`
+- `npx expo prebuild --platform android --no-install` — PASS
+
+NOT VERIFIED (unchanged from DEV-002 — do not erase):
+- EAS login / project link / identity read-back
+- Expo Doctor full PASS (19/21; pre-existing DEV-001 drift)
+- Android Gradle assembleDebug (no ANDROID_HOME / SDK in cloud agent)
+- Android device/emulator install+launch
+- Runtime/device visual verification of navigation on hardware
+
+## DEV-002 — Issue #6 development handoff (2026-09-30 · merged)
 
 Reactivation comment on Issue #6 is authoritative for DEV-002 execution scope.
 
@@ -98,8 +118,8 @@ Issue comment pending:
 ## Next
 
 Development track:
-- ChatGPT independent QA on branch `cursor/dev-002-eas-android-smoke-368a`
-- If PO completes EAS login + local Android smoke, record supplemental evidence on Issue #6
+- ChatGPT independent QA on branch `cursor/dev-003-typed-navigation-368a`
+- If PO completes EAS login + local Android smoke, record supplemental evidence on Issue #6 (DEV-002 NOT VERIFIED carryover)
 
 Design/Figma track — resume from:
 `PROJECT_INSTRUCTIONS.md → docs/CURRENT.md → docs/ux-decisions/2026-09-22-version2-detached-redesign-workspace.md → Figma version2 2237:7614 → NEXT OPEN ITEM`
