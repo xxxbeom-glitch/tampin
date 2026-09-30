@@ -38,7 +38,7 @@
 
 **Navigation tests (component level only)**
 - `__tests__/root-stack-config.test.ts` — route contracts + dev/release catalog registration
-- `__tests__/navigation-catalog-goback.test.tsx` — UI Catalog `← Back to bootstrap` triggers `goBack()` and restores Bootstrap
+- `__tests__/navigation-route-screens.test.tsx` — BootstrapRouteScreen `navigate('UiCatalog')`; UiCatalogRouteScreen in-app back calls `goBack()` (no Jest native-stack mock)
 
 **Expo Doctor — PARTIAL (pre-existing DEV-001 drift)**
 - 19/21 passed; `newArchEnabled` schema + dependency version mismatch (unchanged baseline)

@@ -14,7 +14,6 @@ module.exports = defineConfig([
       'tools/**',
       'data/**',
       'product/**',
-      'jest.setup.ts',
     ],
   },
 ]);

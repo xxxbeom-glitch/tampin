@@ -18,7 +18,7 @@ In-scope completed:
 - Typed `RootStackParamList` covering Bootstrap, Auth, RoutineHome/Editor, ExerciseSelection, ActiveWorkout, RestTimer, Completion, Analysis, Settings, UiCatalog
 - `RootNavigator` + boundary placeholder screens; Bootstrap remains initial route
 - UI Catalog registered only when `__DEV__`; bootstrap catalog button preserved
-- Component tests for stack config + UI Catalog in-app goBack → Bootstrap
+- Component tests for stack config + route-screen navigate/goBack wiring (not device stack integration)
 - Logic verification PASS: typecheck / lint / test (9 tests) / `expo config --type public`
 - `npx expo prebuild --platform android --no-install` — PASS
 
