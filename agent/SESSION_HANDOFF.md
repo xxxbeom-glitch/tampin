@@ -2,17 +2,35 @@
 
 ## Current state
 
-- Current mode: **DEVELOPMENT ACTIVE** (Issue #14 / DEV-006) · **DESIGN / FIGMA redesign continues in parallel**
+- Current mode: **DEVELOPMENT ACTIVE** (Issue #16 / DEV-007) · **DESIGN / FIGMA redesign continues in parallel**
 - DEV-001: PASS · merged to main
 - DEV-002 Issue #6: PASS · merged to main
 - DEV-003 Issue #8: PASS · merged to main
 - DEV-004 Issue #10: PASS · merged to main
 - DEV-005 Issue #12: PASS · merged to main
-- DEV-006 Issue #14: Cursor implementation → **status:review**
-- Branch: `cursor/dev-006-dev-auth-bypass-368a`
+- DEV-006 Issue #14: PASS · merged to main
+- DEV-007 Issue #16: Cursor implementation → **status:review**
+- Branch: `cursor/dev-007-onboarding-basic-info-368a`
 - Next Owner: ChatGPT
 
-## DEV-006 — Issue #14 latest development handoff (2026-09-30)
+## DEV-007 — Issue #16 latest development handoff (2026-09-30)
+
+Goal: Replace OnboardingBasicInfo placeholder with canonical Figma 01C Basic Info form (sex + YYYYMMDD DOB + Terms agreement).
+
+In-scope completed:
+- `BasicInfoFormScreen` (presentational) + `basicInfoValidation` + `OnboardingBasicInfoScreen` (state)
+- Route wiring: back → Auth (incomplete session); valid submit → `markProfileComplete` + `replace RoutineHome`
+- UI Catalog: default/error/focused/filled/disabled presets for 01C states
+- Tests: validation, CTA eligibility, submit/back, catalog presets, route auth wiring
+- Logic verification PASS: typecheck / lint / test (55 tests) / expo config / prebuild / diff-check
+
+Production Readiness Review (Basic Info UI scope):
+- No OAuth/persistence/network expansion; DEV-006 release gating unchanged
+- DOB/sex held in component memory only
+
+NOT VERIFIED: device visual QA · real profile persistence · Figma pixel parity
+
+## DEV-006 — Issue #14 development handoff (2026-09-30 · merged)
 
 Goal: __DEV__ Google/Kakao Login controls enter the same in-memory development local session with deterministic first-run routing; release builds fail closed.
 
