@@ -3,7 +3,7 @@
 ## Current state
 
 - Current work: **Group 05 Active Workout mock Figma parity** (user-approved follow-up after Issue #30 FIX 10). **No new Issue number.**
-- Base: `b949c89` · Branch: `cursor/group05-figma-parity`
+- Base: `b949c89` · Branch: `cursor/group05-figma-parity` · Commit: `fa179fe`
 - Visual/device PASS and merge for #30: **not granted**
 - Logic: type / lint / related Jest PASS · Visual/device: **NOT VERIFIED**
 - PR / merge / Group 06: **대기** (ChatGPT 검토 후)
