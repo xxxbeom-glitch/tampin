@@ -33,6 +33,12 @@ import {
   toRoutineCreateDraftExercise,
   upsertRoutineCreateSessionCatalog,
 } from '../../../features/routine';
+import {
+  appendWorkoutExercises,
+  catalogItemToWorkoutExercise,
+  getExerciseSelectionPurpose,
+  setExerciseSelectionPurpose,
+} from '../../../features/workout';
 import type { RootStackParamList } from '../types';
 
 type ExerciseSelectionNavigation = NativeStackNavigationProp<
@@ -60,8 +66,9 @@ export function ExerciseSelectionRouteScreen() {
   const [query, setQuery] = useState('');
   const [equipmentFilter, setEquipmentFilter] = useState('전체');
   const [bodyPartFilter, setBodyPartFilter] = useState('전체');
+  const workoutAdd = getExerciseSelectionPurpose() === 'workoutAdd';
   const [selectedIds, setSelectedIds] = useState<string[]>(() =>
-    getRoutineCreateDraftExercises().map((item) => item.id),
+    workoutAdd ? [] : getRoutineCreateDraftExercises().map((item) => item.id),
   );
   const [attachments, setAttachments] = useState<Record<string, string>>(() => {
     const next: Record<string, string> = {};
@@ -140,6 +147,17 @@ export function ExerciseSelectionRouteScreen() {
       });
     },
     onConfirm: () => {
+      const purpose = getExerciseSelectionPurpose();
+      if (purpose === 'workoutAdd') {
+        const added = selectedIds
+          .map((id) => catalog.find((item) => item.id === id))
+          .filter((item): item is ExerciseCatalogItem => Boolean(item))
+          .map((item) => catalogItemToWorkoutExercise(item, attachments[item.id] ?? null));
+        appendWorkoutExercises(added);
+        setExerciseSelectionPurpose('routineCreate');
+        navigation.goBack();
+        return;
+      }
       const selected = selectedIds
         .map((id) => catalog.find((item) => item.id === id))
         .filter((item): item is ExerciseCatalogItem => Boolean(item))

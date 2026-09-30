@@ -1,61 +1,61 @@
 # Active Task Contract
 
 ## Task / Issue
-- Issue #30 / DEV-014 — Figma parity audit and Group 04 exercise flow
-- Branch: `cursor/dev-014-group04-figma-parity`
-- Review: FIX 10 implementation (after RETRY 2 `3b7882e`)
+- **No new GitHub Issue number.** User-approved follow-up after Issue #30 FIX 10.
+- Prerequisite: Issue #30 / DEV-014 commit `b949c89` (FIX 10 source). Visual/device PASS and merge for #30 are **not** granted.
+- Branch: `cursor/group05-figma-parity` (from `b949c89`)
+- Scope: Group 05 Active Workout Figma parity (mock / deterministic UI)
 
 ## Goal
-Implement the 10 FIX rows in `agent/FIGMA_RUNTIME_GAP_AUDIT_2026-09-30.md`
-against current canonical Figma. Do not treat ACCEPT rows as done.
+Implement current canonical Group 05 (18 frames) as screen / route / fixture-separated mock UI, wired from 02D `운동 시작`, registered in Debug UI Catalog. Do not invent styles or start Group 06.
 
 ## Required
-- Reconfirm then fix:
-  1–2. 00/01 wordmark **139×28**
-  3. 01A login error card Elevation/Card
-  4. 01C disabled DOB whole-field opacity 0.3
-  5–7. 02 plus / chevron / folder-chevron **16×16**
-  8. bottom-tab original active/inactive asset colors (no runtime tint)
-  9–10. 02A/02D card shadow vs current Figma Elevation/Card
-- Record Figma blur ≠ RN `shadowRadius` platform mapping (do not equate)
-- Reuse existing shared tokens/components and already-exported assets
-- Character icons stay out of this FIX set; do not invent UI
-- ACCEPT / unverified / unimplemented product links → separate backlog
-- Canvas `#F6F7F7` vs Figma `#F7F8FA` stays unresolved (PO lock)
-- No visual PASS without device/pixel evidence
-- No device install
-- typecheck, lint, related Jest; commit/push; no PR
+- Read current Figma Group 05 nodes + `docs/implementation/MVP_SCREEN_BEHAVIOR_MATRIX.md` before coding
+- Header: opaque canvas (`colors.canvas`); elapsed in Nav Header title slot; **no pause/play**; paused elapsed opacity **0.5**
+- Header right action = `icon/more-horizontal`; 05I = icon-free compact anchored menu (`운동 종료` / `운동 추가` / `타이머`)
+- Automatic rest: existing bottom-sheet pattern; circular progress + time; `(-) 15초 (+)`; **no rest pause**; overlay tap = `휴식 건너뛰기`; 16px gap above CTA
+- 05Q Manual Timer: Idle `타이머 시작` → Running `일시정지` → Paused `초기화` / `계속 진행` against current Figma + 05Q docs
+- Figma assets / tokens / Korean copy only; report missing exports
+- Deterministic mock + Catalog for every Group 05 frame
+- 02D `운동 시작` → Active Workout
+- Every button has a defined mock state transition and a test
+- 04 custom-edit access/delete and other unconnected product links stay in backlog (not marked done)
+- Canvas `#F6F7F7` vs Figma `#F7F8FA` stays unresolved
+- type / lint / related Jest; commit / push; **no PR / no merge / no Group 06**
 
 ## Allowed Scope
-- Splash / Login / Basic Info / Routine Main / Routine Detail presentation
-- `figmaAssets` + `assets/figma` for bottom-tab state rasters already in Figma
-- Related tests, TASK_CONTRACT, audit/backlog/evidence
+- `src/features/workout/`
+- ActiveWorkout route + ExerciseSelection purpose flag for in-workout add
+- Catalog / tests / TASK_CONTRACT / Group 05 evidence / screen-map 05 rows / backlog
+- Already-exported Figma assets + newly downloaded Group 05 icons (more-horizontal / more-vertical / drag-handle)
 
 ## Forbidden
-- SQLite / real backend
+- New GitHub Issue number
+- SQLite / real backend / Auth / OAuth / device install
 - New global design-system tokens
 - Canvas color change
-- Implementing ACCEPT rows as if they were FIX
-- Group 05+ / PR / merge / device install
+- Invented UI / copy
+- Treating matrix RestLiveBar / WorkoutLiveBar as current visual when current Figma + this task lock differ
+- PR / merge / Group 06
+- Marking 04 customEdit access/delete as connected
 
 ## Figma refs
 - File `W3lZurXCXbThP67rF2xk2b`
-- `00_Splash` `1961:8909` · `TampinLogo_White` `1961:8910`
-- `01A_Login` `40:2075` · `AppLogo` `43:3053`
-- `01A1` DialogCard `1296:667`
-- `01C4` InputBox `1314:708`
-- `02A` `2483:8317` · plus / chevron / folder chevron / BottomAppBar `2078:2208`
-- `02D` ExerciseCard `2333:7846`
-- Elevation/Card: DROP_SHADOW offset (0,0) radius 8 spread 0 color `#0000000d`
+- 18 canonical frames listed in `agent/FIGMA_SCREEN_MAP.md` Group 05
+
+## Dependency / conflict notes
+- #30 `b949c89` is the base. Do not rewrite FIX 10.
+- Current Figma 05A/05F/05I/05Q supersede older WorkoutLiveBar / RestLiveBar visuals for this mock.
+- Behavior-matrix 05F still says RestLiveBar + no ±15. This task + current Figma lock the bottom-sheet + ±15 rest. Record as unresolved doc drift (not silently “fixed” in the matrix).
 
 ## Verification
 1. typecheck 2. lint 3. related Jest
-4. Render screenshot compare if possible; else record the constraint
-5. No visual PASS
+4. No visual / device PASS
+5. Runtime notifications / exact-alarm / persistence = NOT VERIFIED
 
 ## Done When
-- FIX 1–10 source values match the reconfirmed Figma numbers above
-- Shadow mapping documented
-- ACCEPT backlog separated
-- Commit pushed; no PR created
+- 18 Group 05 frames have screen/state + Catalog + defined transitions
+- 02D start → 05
+- Backlog lists unconnected 04 customEdit and other gaps
+- Commit pushed; no PR
 - Next Owner = ChatGPT

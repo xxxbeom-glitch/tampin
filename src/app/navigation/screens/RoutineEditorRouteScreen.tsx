@@ -11,6 +11,7 @@ import {
   routineFolderEntryDefaultFixture,
   type RoutineCreateDraftExercise,
 } from '../../../features/routine';
+import { setExerciseSelectionPurpose } from '../../../features/workout';
 import type { RootStackParamList } from '../types';
 
 type RoutineEditorNavigation = NativeStackNavigationProp<
@@ -100,7 +101,10 @@ export function RoutineEditorRouteScreen() {
         <RoutineCreateScreen
           exercises={draftExercises}
           folderName={resolvedFolderName}
-          onAddExercise={() => navigation.navigate('ExerciseSelection')}
+          onAddExercise={() => {
+            setExerciseSelectionPurpose('routineCreate');
+            navigation.navigate('ExerciseSelection');
+          }}
           onBack={() => setStep('folder')}
           onRoutineNameChange={setRoutineName}
           routineName={routineName}

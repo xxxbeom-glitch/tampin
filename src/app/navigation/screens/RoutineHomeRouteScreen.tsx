@@ -4,6 +4,8 @@ import {
   RoutineMainScreen,
   routineMainWithRoutinesFixture,
 } from '../../../features/routine';
+import { startBlankWorkout } from '../../../features/workout';
+import { prepareOtherRoutineHandoff } from './ActiveWorkoutRouteScreen';
 import type { RootStackParamList } from '../types';
 
 type RoutineHomeNavigation = NativeStackNavigationProp<
@@ -31,6 +33,9 @@ export function RoutineHomeRouteScreen() {
         navigation.navigate('Settings');
       }}
       onQuickStartWithoutRoutine={() => {
+        if (!prepareOtherRoutineHandoff('blank')) {
+          startBlankWorkout();
+        }
         navigation.navigate('ActiveWorkout');
       }}
       state="WithRoutines"

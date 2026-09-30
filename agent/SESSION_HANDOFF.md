@@ -2,6 +2,33 @@
 
 ## Current state
 
+- Current work: **Group 05 Active Workout mock Figma parity** (user-approved follow-up after Issue #30 FIX 10). **No new Issue number.**
+- Base: `b949c89` · Branch: `cursor/group05-figma-parity`
+- Visual/device PASS and merge for #30: **not granted**
+- Logic: type / lint / related Jest PASS · Visual/device: **NOT VERIFIED**
+- PR / merge / Group 06: **대기** (ChatGPT 검토 후)
+- Next Owner: ChatGPT
+
+## Group 05 — latest development handoff (2026-09-30)
+
+Goal: 18 canonical Group 05 frames as screen / route / fixture-separated mock UI, 02D `운동 시작` → Active Workout, Debug UI Catalog.
+
+In-scope completed:
+- Inventory + backlog + TASK_CONTRACT (depends on #30 / `b949c89`)
+- In-memory workout session reducer / fixtures / draft (no SQLite)
+- 05A shell, 05I compact menu, 05F rest sheet, 05Q Idle→Running→Paused
+- 05G/H/G2 replace, 05J reorder (handle = move down), dialogs 05K/L/M/N/O/P
+- Catalog 18 entries; 02D / 빈 운동 / workoutAdd selection wired
+- Tests: workout-session, active-workout-screen, active-workout-route, catalog + related routes
+
+NOT VERIFIED: pixel / device / live elapsed / notifications / exact-alarm / SQLite persistence
+
+Do not start Group 06 or open a PR until ChatGPT review.
+
+---
+
+## Prior CURRENT snapshot (DEV-009 era — not this branch)
+
 - Current mode: **DEVELOPMENT ACTIVE** (Issue #20 / DEV-009) · **DESIGN / FIGMA redesign continues in parallel**
 - DEV-001: PASS · merged to main
 - DEV-002 Issue #6: PASS · merged to main

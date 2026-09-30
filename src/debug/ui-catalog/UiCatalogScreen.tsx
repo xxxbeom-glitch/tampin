@@ -7,6 +7,7 @@ import { DataLayerHealthDetail } from './components/DataLayerHealthDetail';
 import { LoginCatalogDetail } from './components/LoginCatalogDetail';
 import { RoutineDetailCatalogDetail } from './components/RoutineDetailCatalogDetail';
 import { ExerciseCatalogDetail } from './components/ExerciseCatalogDetail';
+import { WorkoutCatalogDetail } from './components/WorkoutCatalogDetail';
 import { RoutineCreationCatalogDetail } from './components/RoutineCreationCatalogDetail';
 import { RoutineMainCatalogDetail } from './components/RoutineMainCatalogDetail';
 import { SplashCatalogDetail } from './components/SplashCatalogDetail';
@@ -15,6 +16,7 @@ import { basicInfoCatalogPresets } from './fake/basicInfoFake';
 import { loginCatalogPresets } from './fake/loginFake';
 import { routineDetailCatalogPresets } from './fake/routineDetailFake';
 import { isExerciseCatalogEntryId } from './fake/exerciseFake';
+import { isWorkoutCatalogEntryId } from './fake/workoutFake';
 import { isRoutineCreationCatalogEntryId } from './fake/routineCreationFake';
 import { routineMainCatalogPresets } from './fake/routineMainFake';
 import type { CatalogEntry } from './registry';
@@ -73,6 +75,12 @@ export function UiCatalogScreen({ onBack }: UiCatalogScreenProps) {
           />
         ) : isExerciseCatalogEntryId(selected.id) ? (
           <ExerciseCatalogDetail
+            entryId={selected.id}
+            frameName={selected.frameName}
+            stateLabel={selected.stateLabel}
+          />
+        ) : isWorkoutCatalogEntryId(selected.id) ? (
+          <WorkoutCatalogDetail
             entryId={selected.id}
             frameName={selected.frameName}
             stateLabel={selected.stateLabel}

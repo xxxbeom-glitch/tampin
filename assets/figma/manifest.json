@@ -136,6 +136,27 @@
       "usedBy": ["04B Search selected add toggle"]
     },
     {
+      "id": "icon-more-horizontal",
+      "figmaNodeId": "148:1981",
+      "figmaName": "icon/more-horizontal",
+      "path": "assets/figma/icons/icon-more-horizontal.png",
+      "usedBy": ["05A/05I Active Workout header"]
+    },
+    {
+      "id": "icon-more-vertical",
+      "figmaNodeId": "148:1979",
+      "figmaName": "icon/more-vertical",
+      "path": "assets/figma/icons/icon-more-vertical.png",
+      "usedBy": ["05A ExerciseCard more"]
+    },
+    {
+      "id": "icon-drag-handle",
+      "figmaNodeId": "36:3613",
+      "figmaName": "icon/drag-handle",
+      "path": "assets/figma/icons/icon-drag-handle.png",
+      "usedBy": ["05J Reorder"]
+    },
+    {
       "id": "exercise-smith-bench-press",
       "figmaNodeId": "2333:7848",
       "figmaName": "exercise-thumbnail",

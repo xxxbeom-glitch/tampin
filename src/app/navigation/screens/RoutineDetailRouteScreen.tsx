@@ -7,6 +7,8 @@ import {
   RoutineDetailScreen,
   resolveRoutineDetailFixture,
 } from '../../../features/routine';
+import { startWorkoutFromRoutine } from '../../../features/workout';
+import { prepareOtherRoutineHandoff } from './ActiveWorkoutRouteScreen';
 import type { RootStackParamList } from '../types';
 
 type RoutineDetailNavigation = NativeStackNavigationProp<
@@ -47,6 +49,9 @@ export function RoutineDetailRouteScreen() {
         navigation.goBack();
       }}
       onStartWorkout={() => {
+        if (!prepareOtherRoutineHandoff(detail.routineId)) {
+          startWorkoutFromRoutine(detail.routineId);
+        }
         navigation.navigate('ActiveWorkout');
       }}
     />

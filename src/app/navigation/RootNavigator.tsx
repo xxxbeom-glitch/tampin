@@ -14,6 +14,7 @@ import { ExerciseSelectionRouteScreen } from './screens/ExerciseSelectionRouteSc
 import { RoutineEditorRouteScreen } from './screens/RoutineEditorRouteScreen';
 import { RoutineHomeRouteScreen } from './screens/RoutineHomeRouteScreen';
 import { UiCatalogRouteScreen } from './screens/UiCatalogRouteScreen';
+import { ActiveWorkoutRouteScreen } from './screens/ActiveWorkoutRouteScreen';
 import type { RootStackParamList } from './types';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
@@ -49,6 +50,10 @@ function renderRootScreen(name: keyof RootStackParamList) {
 
   if (name === 'UiCatalog') {
     return UiCatalogRouteScreen;
+  }
+
+  if (name === 'ActiveWorkout') {
+    return ActiveWorkoutRouteScreen;
   }
 
   return FlowBoundaryPlaceholderScreen;
