@@ -102,4 +102,20 @@ export const catalogEntries: CatalogEntry[] = [
     stateLabel: 'Disabled',
     description: 'DOB input disabled representative state at 30% opacity.',
   },
+  {
+    id: '02a-routine-main-with-routines',
+    group: '02 루틴',
+    frameName: '02A_Routine_Main',
+    stateLabel: 'WithRoutines',
+    description:
+      'Routine main with quick actions, PPL folder/cards, and floating bottom app bar.',
+  },
+  {
+    id: '02b-routine-main-empty',
+    group: '02 루틴',
+    frameName: '02B_Routine_Main_Empty',
+    stateLabel: 'Empty',
+    description:
+      'Routine main empty state: identical quick actions with no routine folders.',
+  },
 ];

@@ -4,37 +4,37 @@
 새 Issue를 시작할 때 이전 내용을 교체한다.
 
 ## Task / Issue
-- Issue #20 / DEV-009 — Canonical Splash launch and Login transition
-- Branch: `cursor/dev-009-splash-launch-368a`
+- Issue #22 / DEV-010 — Current Routine Main component states
+- Branch: `cursor/dev-010-routine-main-368a`
 
 ## Goal
-Replace DEV bootstrap landing with canonical 00 Splash and connect cold launch flow `Splash → Auth (Login)`.
+Replace RoutineHome placeholder with canonical Routine Main WithRoutines/Empty states and wire non-ambiguous first actions.
 
 ## Required
-- Visual only: brand-primary blue `#2563D6` + white Tampin wordmark; no spinner/loading/debug/CTA/tab bar
-- Deterministic presentation delay (document chosen ms); timer clears on unmount; exactly one `replace` to Auth
-- No session restore invented; UI Catalog remains registered in dev infrastructure without Splash debug controls
-- Catalog splash state; tests for visual, one transition, unmount cancellation
-- type/lint/test/expo config/prebuild/diff-check; Screen Map 00 row only
+- Presentational RoutineMainScreen with deterministic WithRoutines/Empty matching Figma `2483:8317` / `2483:8418`
+- Quick actions: `루틴 없이 시작` → ActiveWorkout; `새 루틴 만들기` → RoutineEditor; bottom Analysis/Settings → existing boundaries
+- Routine cards visual only; no 02D detail routing
+- Local fixtures only; catalog WithRoutines/Empty; tests for rendering/routes/catalog/a11y
+- type/lint/full jest/expo config/prebuild/diff-check; update relevant 02 rows in Screen Map + evidence
 
 ## Allowed Scope
-- `src/features/startup/SplashScreen.tsx`, `splashTiming.ts`
-- `src/app/navigation/screens/SplashRouteScreen.tsx`, root stack Bootstrap→Splash
-- `src/debug/ui-catalog/*` splash entry
-- Remove user-facing Bootstrap landing route/screen
-- `__tests__/splash-*`, navigation/root-stack/ui-catalog test updates
+- `src/features/routine/*`
+- `RoutineHomeRouteScreen`, RootNavigator wiring
+- `src/debug/ui-catalog/*` routine entries
+- `__tests__/routine-*`, `agent/FIGMA_SCREEN_MAP.md` 02 rows, `agent/ISSUE_22_EVIDENCE.md`
 
 ## Forbidden / Do Not Change
-- Auth/OAuth/persistence/SQLite/Supabase/session restore
-- Animation assets, device QA claims
-- Unrelated screens/colors/tokens beyond splash usage
+- SQLite/Supabase/persistence/media/network
+- Routine detail 02D routing, active workout implementation, folder creation form
+- Unrelated screens/tokens/global DS components
 
 ## Figma refs
-- `00_Splash` — `1961:8909`
+- `02A_Routine_Main` — `2483:8317` (WithRoutines)
+- `02B_Routine_Main_Empty` — `2483:8418` (Empty)
 
 ## Risk
-- Duplicate navigation if timer not guarded/cleared
-- Accidental dev controls on Splash
+- Android dashed border rendering differs from Figma
+- Bottom bar icon placeholders vs Iconly Pro assets
 
 ## Verification
 1. `npm run typecheck`
