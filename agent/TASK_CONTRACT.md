@@ -4,52 +4,55 @@
 새 Issue를 시작할 때 이전 내용을 교체한다.
 
 ## Task / Issue
-- Issue #14 / DEV-006 — Development-only Google/Kakao login bypass
-- Branch: `cursor/dev-006-dev-auth-bypass-368a`
+- Issue #16 / DEV-007 — Canonical Basic Info onboarding form
+- Branch: `cursor/dev-007-onboarding-basic-info-368a`
 
 ## Goal
-Google/Kakao credentials 없이 development를 계속하기 위해, __DEV__에서 두 Login provider 버튼이 동일한 local development session으로 진입하고 first-run/complete profile에 따라 deterministic routing 한다.
+Replace the `OnboardingBasicInfo` placeholder with the canonical Figma 01C Basic Info form so the DEV-006 development-only auth bypass has a complete first-run path.
 
 ## Required
-- Typed auth contract + development-only in-memory adapter (no OAuth/keys/tokens/network/persistence)
-- Google/Kakao parity → same local account session
-- First-run → OnboardingBasicInfo boundary; completed profile → RoutineHome boundary
-- Release fail-closed gating (bypass unavailable, no silent auth)
-- Minimal Login UI wiring only (01A boundary); dev Bootstrap entry to Auth
-- Tests: provider parity, routing, reset, release gating
-- docs/handoff/evidence + production readiness review
-- type/lint/test/expo config/prebuild/diff-check; commit/push
+- Sex selection, numeric YYYYMMDD DOB with true calendar-date validation
+- Exact invalid DOB error: `올바른 생년월일 8자리를 입력해주세요.`
+- Explicit Terms agreement row; `시작하기` disabled until sex + valid DOB + Terms all valid
+- Back → Login retaining incomplete dev session; valid submit → mark in-memory profile complete → RoutineHome
+- Screen rendering separated from auth/session/navigation orchestration
+- Register default/error/focused/filled/disabled catalog states
+- Focused unit tests; type/lint/test/expo config/prebuild/diff-check; commit/push
 
 ## Allowed Scope
-- `src/auth/*`, `src/app/providers/auth/*`
-- `src/features/auth/LoginScreen`, `OnboardingBasicInfoScreen`
-- navigation route wiring for Auth + OnboardingBasicInfo
-- Bootstrap dev-only Login entry
-- `__tests__/development-auth-*`, `login-screen.test.tsx`
+- `src/features/auth/*` Basic Info screen/form/validation
+- `src/app/navigation/screens/OnboardingBasicInfoRouteScreen.tsx`
+- `src/debug/ui-catalog/*` for 01C catalog entries
+- `src/design-system/tokens/colors.ts` (minimal canonical token additions only)
+- `__tests__/basic-info-*`, `onboarding-basic-info-*`
+- `agent/FIGMA_SCREEN_MAP.md` 01C rows only
 
 ## Forbidden / Do Not Change
-- Real Google/Kakao OAuth, SDKs, credentials, Supabase Auth, tokens, persistence
-- Figma visual redesign beyond attaching provider button behavior
-- SQLite schema, EAS, sync/media, routine/workout product UI
-- DEV-002 NOT VERIFIED records, Figma version2 context
+- Real OAuth/SDK/keys/network/Supabase/SQLite persistence/legal URL hosting
+- Expanding DEV-006 production bypass or release auth behavior
+- Unrelated screens, EAS, sync, routine/workout UI
+- Global design-system components unless no existing fit
 
 ## Figma refs
-- `01A_Login` — minimal boundary wiring only (not full transcription)
-- `01C_Basic_Info` — placeholder boundary screen
+- `01C_Basic_Info` — `40:2138`
+- `01C1_Basic_Info_Error` — `1292:1183`
+- `01C2_Basic_Info_Focused` — `1314:645`
+- `01C3_Basic_Info_Filled` — `1314:670`
+- `01C4_Basic_Info_Disabled` — `1314:695`
 
 ## Risk
-- Release gating must never create session on provider tap
-- In-memory session must not be mistaken for production auth
+- Form validity must not enable CTA on partial/invalid state
+- Back must not mark profile complete or destroy incomplete dev session
+- Release auth must remain fail-closed (no bypass expansion)
 
 ## Verification
-1. `npm ci`
-2. `npm run typecheck`
-3. `npm run lint`
-4. `npm test -- --runInBand`
-5. `npx expo config --type public`
-6. `npx expo prebuild --platform android --no-install`
-7. `git diff --check`
+1. `npm run typecheck`
+2. `npm run lint`
+3. `npm test -- --runInBand`
+4. `npx expo config --type public`
+5. `npx expo prebuild --platform android --no-install`
+6. `git diff --check`
 
 ## Done When
-- AC satisfied; real provider integration NOT VERIFIED/deferred
-- Issue #14 evidence recorded; Next Owner = ChatGPT
+- AC satisfied; device visual QA NOT VERIFIED unless run
+- Evidence recorded; Next Owner = ChatGPT

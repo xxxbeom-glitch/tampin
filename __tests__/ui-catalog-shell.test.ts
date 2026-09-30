@@ -1,12 +1,12 @@
 import { catalogEntries } from '../src/debug/ui-catalog/registry/catalogEntries';
 
 describe('DEV-001 debug UI catalog shell', () => {
-  it('exposes bootstrap and read-only data-layer health entries without MVP screens', () => {
-    expect(catalogEntries).toHaveLength(2);
+  it('exposes bootstrap, data-layer health, and registered 01C Basic Info entries', () => {
+    expect(catalogEntries).toHaveLength(7);
     expect(catalogEntries[0]?.id).toBe('bootstrap-shell');
     expect(catalogEntries.some((entry) => entry.id === 'data-layer-health')).toBe(true);
-    expect(catalogEntries.some((entry) => entry.frameName.startsWith('0'))).toBe(
-      false,
-    );
+    expect(
+      catalogEntries.filter((entry) => entry.group === '01 로그인'),
+    ).toHaveLength(5);
   });
 });

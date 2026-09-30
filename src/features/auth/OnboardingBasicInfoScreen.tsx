@@ -1,35 +1,88 @@
-import { StyleSheet, Text, View } from 'react-native';
-import { colors } from '../../design-system/tokens';
+import { useCallback, useState } from 'react';
+import { View } from 'react-native';
+import {
+  BasicInfoFormScreen,
+  type BasicInfoFormValues,
+} from './BasicInfoFormScreen';
+import {
+  getDobErrorMessage,
+  isBasicInfoSubmitEnabled,
+  sanitizeDobInput,
+  type BasicInfoSex,
+} from './basicInfoValidation';
 
-/** 01C_Basic_Info flow boundary placeholder — profile UI arrives in a later Issue. */
-export function OnboardingBasicInfoScreen() {
+export type OnboardingBasicInfoScreenProps = {
+  onBack: () => void;
+  onComplete: () => void;
+};
+
+const initialValues: BasicInfoFormValues = {
+  sex: null,
+  dob: '',
+  termsAgreed: false,
+};
+
+export function OnboardingBasicInfoScreen({
+  onBack,
+  onComplete,
+}: OnboardingBasicInfoScreenProps) {
+  const [values, setValues] = useState<BasicInfoFormValues>(initialValues);
+  const [dobFocused, setDobFocused] = useState(false);
+  const [dobTouched, setDobTouched] = useState(false);
+
+  const handleSexSelect = useCallback((sex: BasicInfoSex) => {
+    setValues((current) => ({ ...current, sex }));
+  }, []);
+
+  const handleDobChange = useCallback((nextValue: string) => {
+    setValues((current) => ({
+      ...current,
+      dob: sanitizeDobInput(nextValue),
+    }));
+  }, []);
+
+  const handleDobFocus = useCallback(() => {
+    setDobFocused(true);
+  }, []);
+
+  const handleDobBlur = useCallback(() => {
+    setDobFocused(false);
+    setDobTouched(true);
+  }, []);
+
+  const handleTermsToggle = useCallback(() => {
+    setValues((current) => ({
+      ...current,
+      termsAgreed: !current.termsAgreed,
+    }));
+  }, []);
+
+  const dobErrorMessage = getDobErrorMessage(values.dob, { dobTouched });
+
+  const handleSubmit = useCallback(() => {
+    if (!isBasicInfoSubmitEnabled(values)) {
+      return;
+    }
+
+    onComplete();
+  }, [onComplete, values]);
+
   return (
-    <View style={styles.root} testID="flow-boundary-OnboardingBasicInfo">
-      <Text style={styles.title}>OnboardingBasicInfo</Text>
-      <Text style={styles.body}>
-        Basic Info / first-run boundary placeholder after development local sign-in.
-      </Text>
+    <View style={{ flex: 1 }} testID="flow-boundary-OnboardingBasicInfo">
+      <BasicInfoFormScreen
+        onBack={onBack}
+        onDobBlur={handleDobBlur}
+        onDobChange={handleDobChange}
+        onDobFocus={handleDobFocus}
+        onSexSelect={handleSexSelect}
+        onSubmit={handleSubmit}
+        onTermsToggle={handleTermsToggle}
+        presentation={{
+          dobFocused,
+          dobErrorMessage,
+        }}
+        values={values}
+      />
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  root: {
-    flex: 1,
-    backgroundColor: colors.canvas,
-    alignItems: 'center',
-    justifyContent: 'center',
-    paddingHorizontal: 24,
-    gap: 8,
-  },
-  title: {
-    fontSize: 20,
-    fontWeight: '700',
-    color: colors.textPrimary,
-  },
-  body: {
-    fontSize: 14,
-    color: colors.textSecondary,
-    textAlign: 'center',
-  },
-});
