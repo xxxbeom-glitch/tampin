@@ -13,6 +13,13 @@ export function BootstrapRouteScreen() {
 
   return (
     <BootstrapHomeScreen
+      onOpenLogin={
+        __DEV__
+          ? () => {
+              navigation.navigate('Auth');
+            }
+          : undefined
+      }
       onOpenCatalog={
         __DEV__
           ? () => {

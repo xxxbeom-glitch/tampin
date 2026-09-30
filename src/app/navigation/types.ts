@@ -7,6 +7,8 @@ export type RootStackParamList = {
   Bootstrap: undefined;
   /** Group 01 — auth / first-run boundary */
   Auth: undefined;
+  /** Group 01 — basic info / onboarding boundary */
+  OnboardingBasicInfo: undefined;
   /** Group 02 — routine list / home boundary */
   RoutineHome: undefined;
   /** Group 02 — routine create/edit boundary */
@@ -33,6 +35,7 @@ export type ProductFlowRouteName = Exclude<keyof RootStackParamList, 'UiCatalog'
 export const PRODUCT_FLOW_ROUTE_NAMES = [
   'Bootstrap',
   'Auth',
+  'OnboardingBasicInfo',
   'RoutineHome',
   'RoutineEditor',
   'ExerciseSelection',

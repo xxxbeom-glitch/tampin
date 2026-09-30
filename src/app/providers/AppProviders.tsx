@@ -1,5 +1,6 @@
 import { type ReactNode } from 'react';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
+import { AuthProvider } from './auth';
 import { DataLayerProvider } from './data-layer';
 
 type AppProvidersProps = {
@@ -10,7 +11,9 @@ type AppProvidersProps = {
 export function AppProviders({ children }: AppProvidersProps) {
   return (
     <SafeAreaProvider>
-      <DataLayerProvider>{children}</DataLayerProvider>
+      <DataLayerProvider>
+        <AuthProvider>{children}</AuthProvider>
+      </DataLayerProvider>
     </SafeAreaProvider>
   );
 }
