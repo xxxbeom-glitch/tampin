@@ -3,7 +3,7 @@
 **Status:** `status:review`
 **Next Owner:** ChatGPT
 **Branch:** `cursor/dev-004-sqlite-foundation-368a`
-**Commit:** (see latest push)
+**Commit:** `9881b4f`
 
 ---
 
