@@ -4,8 +4,10 @@ import { colors } from '../../design-system/tokens';
 import { CatalogList } from './components/CatalogList';
 import { BasicInfoCatalogDetail } from './components/BasicInfoCatalogDetail';
 import { DataLayerHealthDetail } from './components/DataLayerHealthDetail';
+import { LoginCatalogDetail } from './components/LoginCatalogDetail';
 import { bootstrapFake } from './fake/bootstrapFake';
 import { basicInfoCatalogPresets } from './fake/basicInfoFake';
+import { loginCatalogPresets } from './fake/loginFake';
 import type { CatalogEntry } from './registry';
 
 type UiCatalogScreenProps = {
@@ -24,6 +26,12 @@ export function UiCatalogScreen({ onBack }: UiCatalogScreenProps) {
         <Text style={styles.title}>{selected.frameName}</Text>
         {selected.id === 'data-layer-health' ? (
           <DataLayerHealthDetail />
+        ) : selected.id in loginCatalogPresets ? (
+          <LoginCatalogDetail
+            entryId={selected.id}
+            frameName={selected.frameName}
+            stateLabel={selected.stateLabel}
+          />
         ) : selected.id in basicInfoCatalogPresets ? (
           <BasicInfoCatalogDetail
             entryId={selected.id}

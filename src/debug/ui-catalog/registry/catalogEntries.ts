@@ -25,6 +25,38 @@ export const catalogEntries: CatalogEntry[] = [
       'Read-only SQLite initialization status and schema version observability.',
   },
   {
+    id: '01a-login-ready',
+    group: '01 로그인',
+    frameName: '01A_Login',
+    stateLabel: 'Ready',
+    description:
+      'Canonical Login with stacked provider CTAs ready for development bypass sign-in.',
+  },
+  {
+    id: '01a-login-unavailable',
+    group: '01 로그인',
+    frameName: '01A_Login',
+    stateLabel: 'Unavailable',
+    description:
+      'Release/non-dev provider CTAs visibly unavailable and fail closed.',
+  },
+  {
+    id: '01a-login-busy',
+    group: '01 로그인',
+    frameName: '01A_Login',
+    stateLabel: 'Busy',
+    description:
+      'Provider CTAs disabled while sign-in is in progress to prevent double press.',
+  },
+  {
+    id: '01a1-login-error-dialog-reference',
+    group: '01 로그인',
+    frameName: '01A1_Login_Error_Overlay_Cases',
+    stateLabel: 'ErrorDialogReference',
+    description:
+      'Component-state reference overlay; not a navigation route. General failure dialog shown.',
+  },
+  {
     id: '01c-basic-info-default',
     group: '01 로그인',
     frameName: '01C_Basic_Info',

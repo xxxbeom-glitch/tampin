@@ -26,7 +26,7 @@
 - SUIT font not bundled; system sans-serif used
 - Back arrow, Terms checkmark, error hint use text glyphs instead of Figma SVG assets
 - Status spacer uses fixed 48px vs dynamic safe-area inset
-- CTA/selected tiles use Tampin canonical tokens (`brandAction` / `brandPrimary`) rather than Figma export blue
+- Post–design-QA: `brandPrimary` / `brandAction` aligned to Figma `#2563D6` (see Issue #18 evidence token alignment note)
 
 ---
 
