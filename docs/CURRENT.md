@@ -1,12 +1,12 @@
 # CURRENT — Tampin
 
-**Updated:** 2026-09-22
+**Updated:** 2026-09-30
 
 Canonical GitHub repository: `xxxbeom-glitch/tampin`
 
-## Cursor execution harness — prepared 2026-09-22
+## Cursor execution harness — prepared 2026-09-22 · Development reactivated 2026-09-30
 
-Product Owner paused Development mode on 2026-09-22 to reopen a major Design/Figma revision. DEV-001 bootstrap remains PASS and merged to `main`; no rollback. DEV-002 is paused before execution. Android compile evidence exists; Runtime/Device launch remains NOT VERIFIED.
+Product Owner paused Development on 2026-09-22 for a major Design/Figma revision, then **explicitly reactivated Development on 2026-09-30** for Issue #6 / DEV-002 (see Issue #6 Reactivation comment). DEV-001 bootstrap remains PASS and merged to `main`; no rollback. **Active development Issue: #6 / DEV-002 — Expo/EAS link + Android runtime smoke.** Design/Figma redesign on detached `version2` may continue in parallel; canonical `MVP_전체_와이어프레임` remains authoritative until explicit PO promotion. Android compile evidence exists from DEV-001; DEV-002 Runtime/Device launch remains NOT VERIFIED until local smoke completes.
 
 Prepared in GitHub:
 - `.cursor/rules/`
@@ -26,23 +26,26 @@ Implementation staging:
 - SQLite, Supabase/Auth/Storage/Sync remain separate later Issues
 - persistence/recovery claims remain NOT VERIFIED until their real architecture layer is connected
 
-NEXT: continue Design/Figma work from the detached `version2` page (`2237:7614`) using `docs/ux-decisions/2026-09-22-version2-detached-redesign-workspace.md`; keep `MVP_전체_와이어프레임` canonical and untouched until explicit PO promotion approval. Do not execute DEV-002 until Design/Figma is re-closed and PO explicitly resumes Development.
+NEXT (development): execute / complete Issue #6 / DEV-002 per GitHub Issue Reactivation comment (2026-09-30); record EAS/runtime NOT VERIFIED items honestly and do not block remaining in-scope work.
+
+NEXT (design, parallel): continue Design/Figma work from the detached `version2` page (`2237:7614`) using `docs/ux-decisions/2026-09-22-version2-detached-redesign-workspace.md`; keep `MVP_전체_와이어프레임` canonical and untouched until explicit PO promotion approval.
 
 ---
 
 ## Current mode
 
-`DESIGN / FIGMA MODE REOPENED BY PO · MAJOR VISUAL REVISION IN PROGRESS · DEV-001 BOOTSTRAP PASS/MERGED · DEV-002 ISSUE #6 PAUSED BEFORE EXECUTION · PLATFORM/STACK/ARCHITECTURE LOCKS REMAIN · PACKAGE = com.lumian.tampin · ANDROID COMPILE PASS · RUNTIME/DEVICE NOT VERIFIED · NEXT = FIGMA REDESIGN / RE-CLOSE DESIGN BEFORE DEV RESUME`
+`DEVELOPMENT ACTIVE · ISSUE #6 / DEV-002 REACTIVATED 2026-09-30 · DEV-001 BOOTSTRAP PASS/MERGED · DESIGN/FIGMA REDESIGN CONTINUES IN PARALLEL ON version2 · PLATFORM/STACK/ARCHITECTURE LOCKS REMAIN · PACKAGE = com.lumian.tampin · ANDROID COMPILE PASS · RUNTIME/DEVICE NOT VERIFIED · NEXT DEV = DEV-002 QA/CLOSEOUT · NEXT DESIGN = version2 REDESIGN`
 
-## Development pause / active design revision
+## Active development + parallel design revision
 
 - Completed: Issue #5 / DEV-001 — **PASS · merged to main**
-- Paused: Issue #6 / DEV-002 — **PAUSED BEFORE EXECUTION**
-- Current mode: **DESIGN / FIGMA**
-- Reason: Product Owner explicitly requested a substantial redesign before continuing development
+- Active: Issue #6 / DEV-002 — **REACTIVATED 2026-09-30 · IN REVIEW** (Expo/EAS link + Android runtime smoke)
+- Parallel: **DESIGN / FIGMA** on detached `version2` — not canonical until PO promotion
+- Reason for 2026-09-22 pause: Product Owner requested a substantial redesign before broader development
+- Reason for 2026-09-30 resume: Product Owner explicitly reactivated Development for DEV-002 only (Issue #6 Reactivation comment supersedes pause for that Issue)
 - Existing DEV-001 runtime scaffold remains accepted and is not rolled back
-- Do not execute DEV-002 or create a new implementation Issue until the revised canonical Figma is approved/QA-closed and Product Owner explicitly resumes Development
-- Current next action: continue the broad visual redesign on detached Figma page `version2` / `2237:7614`; preserve the canonical `MVP_전체_와이어프레임` baseline until explicit PO promotion approval, then reconcile only approved affected scope and re-run focused design QA
+- Do not start canonical-screen or out-of-scope implementation beyond the current scoped GitHub Issue
+- Design next action: continue the broad visual redesign on detached Figma page `version2` / `2237:7614`; preserve the canonical `MVP_전체_와이어프레임` baseline until explicit PO promotion approval, then reconcile only approved affected scope and re-run focused design QA
 
 ---
 

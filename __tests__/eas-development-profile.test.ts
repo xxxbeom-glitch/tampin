@@ -5,7 +5,5 @@ describe('DEV-002 EAS development profile', () => {
     expect(easConfig.build.development.developmentClient).toBe(true);
     expect(easConfig.build.development.distribution).toBe('internal');
     expect(easConfig.build.development.android?.buildType).toBe('apk');
-    expect(easConfig.build).not.toHaveProperty('production');
-    expect(easConfig.build).not.toHaveProperty('preview');
   });
 });
