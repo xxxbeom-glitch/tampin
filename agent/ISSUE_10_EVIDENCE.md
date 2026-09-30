@@ -3,7 +3,7 @@
 **Status:** `status:review`
 **Next Owner:** ChatGPT
 **Branch:** `cursor/dev-004-sqlite-foundation-368a`
-**Commit:** `9881b4f`
+**Commit:** (see latest push on branch)
 
 ---
 
@@ -13,7 +13,8 @@
 |---|---|---|
 | Fresh DB reaches current schema version deterministically | PASS | `__tests__/sqlite-migrations.test.ts` — migration 001 applies once; version = `CURRENT_SCHEMA_VERSION` |
 | Re-open/upgrade records migrations exactly once; FK enabled | PASS | Re-run migration returns 0; `assertForeignKeysEnabled`; FK violation test on orphan insert |
-| Account-scoped client-ID schema (routines/workouts/outbox) | PASS | `001_initial_schema.ts` + repository tests |
+| Account-scoped client-ID schema (routines/workouts/outbox) | PASS | `001_initial_schema.ts` composite `(account_id, id)` unique/FK + repository tests |
+| DB invariants (one active workout / unique set_index) | PASS | Partial unique indexes on `workout_sessions`, `set_records`, `routine_set_templates`; integrity tests |
 | Completed-workout snapshot preserved vs mutable labels | PASS | Repository test: routine rename after complete does not alter snapshot exercise name/set values |
 | Sync outbox metadata only (no transport) | PASS | `sync_outbox` table + `SqliteSyncOutboxRepository`; enqueue/markSent test |
 | Repository contracts hide raw screen-level SQL | PASS | UI/navigation do not import SQLite; typed interfaces in `src/data/contracts/repositories/` |
@@ -36,14 +37,15 @@
 **Logic PASS**
 - `npm run typecheck` — PASS
 - `npm run lint` — PASS
-- `npm test -- --runInBand` — PASS (8 suites, 15 tests)
+- `npm test -- --runInBand` — PASS (10 suites, 24 tests)
 - `npx expo config --type public` — PASS (`com.lumian.tampin`, `expo-sqlite` plugin)
 - `git diff --check` — PASS
 
 **SQLite-specific tests**
 - `__tests__/sqlite-migrations.test.ts` — deterministic migration, idempotent re-open, FK enforcement
 - `__tests__/sqlite-schema-integrity.test.ts` — required tables/indexes present after migration
-- `__tests__/sqlite-repositories.test.ts` — routines, workout complete+snapshot, sync outbox metadata
+- `__tests__/sqlite-repositories.test.ts` — routines, workout complete+snapshot, duplicate active session rejection, sync outbox metadata
+- `__tests__/sqlite-account-scope-integrity.test.ts` — cross-account FK rejection, one active workout, duplicate set_index (`set_records`, `routine_set_templates`)
 
 **Expo Doctor — PARTIAL (pre-existing DEV-001 drift)**
 - 19/21 passed; `newArchEnabled` schema + dependency version mismatch (unchanged baseline)
