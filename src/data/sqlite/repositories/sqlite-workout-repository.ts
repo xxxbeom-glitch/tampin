@@ -158,6 +158,11 @@ export class SqliteWorkoutRepository implements WorkoutRepository {
   constructor(private readonly connection: SqliteConnection) {}
 
   async startSession(input: StartWorkoutSessionInput): Promise<WorkoutSessionRecord> {
+    const existingActive = await this.getActiveSession(input.accountId);
+    if (existingActive) {
+      throw new Error('An active workout session already exists for this account.');
+    }
+
     const id = createId<WorkoutSessionId>();
     const timestamp = nowIso();
 

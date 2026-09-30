@@ -15,7 +15,8 @@ CREATE TABLE IF NOT EXISTS routines (
   updated_at TEXT NOT NULL,
   sync_state TEXT NOT NULL DEFAULT 'dirty',
   server_version INTEGER,
-  deleted_at TEXT
+  deleted_at TEXT,
+  UNIQUE (account_id, id)
 );
 
 CREATE TABLE IF NOT EXISTS routine_exercises (
@@ -31,7 +32,8 @@ CREATE TABLE IF NOT EXISTS routine_exercises (
   sync_state TEXT NOT NULL DEFAULT 'dirty',
   server_version INTEGER,
   deleted_at TEXT,
-  FOREIGN KEY (routine_id) REFERENCES routines(id)
+  UNIQUE (account_id, id),
+  FOREIGN KEY (account_id, routine_id) REFERENCES routines(account_id, id)
 );
 
 CREATE TABLE IF NOT EXISTS routine_set_templates (
@@ -48,7 +50,8 @@ CREATE TABLE IF NOT EXISTS routine_set_templates (
   sync_state TEXT NOT NULL DEFAULT 'dirty',
   server_version INTEGER,
   deleted_at TEXT,
-  FOREIGN KEY (routine_exercise_id) REFERENCES routine_exercises(id)
+  UNIQUE (account_id, id),
+  FOREIGN KEY (account_id, routine_exercise_id) REFERENCES routine_exercises(account_id, id)
 );
 
 CREATE TABLE IF NOT EXISTS workout_sessions (
@@ -63,7 +66,8 @@ CREATE TABLE IF NOT EXISTS workout_sessions (
   sync_state TEXT NOT NULL DEFAULT 'dirty',
   server_version INTEGER,
   deleted_at TEXT,
-  FOREIGN KEY (source_routine_id) REFERENCES routines(id)
+  UNIQUE (account_id, id),
+  FOREIGN KEY (account_id, source_routine_id) REFERENCES routines(account_id, id)
 );
 
 CREATE TABLE IF NOT EXISTS session_exercises (
@@ -79,7 +83,8 @@ CREATE TABLE IF NOT EXISTS session_exercises (
   sync_state TEXT NOT NULL DEFAULT 'dirty',
   server_version INTEGER,
   deleted_at TEXT,
-  FOREIGN KEY (session_id) REFERENCES workout_sessions(id)
+  UNIQUE (account_id, id),
+  FOREIGN KEY (account_id, session_id) REFERENCES workout_sessions(account_id, id)
 );
 
 CREATE TABLE IF NOT EXISTS set_records (
@@ -98,13 +103,14 @@ CREATE TABLE IF NOT EXISTS set_records (
   sync_state TEXT NOT NULL DEFAULT 'dirty',
   server_version INTEGER,
   deleted_at TEXT,
-  FOREIGN KEY (session_exercise_id) REFERENCES session_exercises(id)
+  UNIQUE (account_id, id),
+  FOREIGN KEY (account_id, session_exercise_id) REFERENCES session_exercises(account_id, id)
 );
 
 CREATE TABLE IF NOT EXISTS completed_workouts (
   id TEXT PRIMARY KEY NOT NULL,
   account_id TEXT NOT NULL,
-  session_id TEXT NOT NULL UNIQUE,
+  session_id TEXT NOT NULL,
   completed_at TEXT NOT NULL,
   title_snapshot TEXT,
   source_routine_id_snapshot TEXT,
@@ -114,7 +120,9 @@ CREATE TABLE IF NOT EXISTS completed_workouts (
   sync_state TEXT NOT NULL DEFAULT 'dirty',
   server_version INTEGER,
   deleted_at TEXT,
-  FOREIGN KEY (session_id) REFERENCES workout_sessions(id)
+  UNIQUE (account_id, id),
+  UNIQUE (account_id, session_id),
+  FOREIGN KEY (account_id, session_id) REFERENCES workout_sessions(account_id, id)
 );
 
 CREATE TABLE IF NOT EXISTS completed_workout_exercises (
@@ -127,8 +135,9 @@ CREATE TABLE IF NOT EXISTS completed_workout_exercises (
   recording_type_snapshot TEXT NOT NULL,
   sort_order INTEGER NOT NULL,
   created_at TEXT NOT NULL,
-  FOREIGN KEY (completed_workout_id) REFERENCES completed_workouts(id),
-  FOREIGN KEY (session_exercise_id) REFERENCES session_exercises(id)
+  UNIQUE (account_id, id),
+  FOREIGN KEY (account_id, completed_workout_id) REFERENCES completed_workouts(account_id, id),
+  FOREIGN KEY (account_id, session_exercise_id) REFERENCES session_exercises(account_id, id)
 );
 
 CREATE TABLE IF NOT EXISTS completed_set_snapshots (
@@ -144,8 +153,9 @@ CREATE TABLE IF NOT EXISTS completed_set_snapshots (
   is_completed INTEGER NOT NULL,
   note TEXT,
   created_at TEXT NOT NULL,
-  FOREIGN KEY (completed_workout_exercise_id) REFERENCES completed_workout_exercises(id),
-  FOREIGN KEY (set_record_id) REFERENCES set_records(id)
+  UNIQUE (account_id, id),
+  FOREIGN KEY (account_id, completed_workout_exercise_id) REFERENCES completed_workout_exercises(account_id, id),
+  FOREIGN KEY (account_id, set_record_id) REFERENCES set_records(account_id, id)
 );
 
 CREATE TABLE IF NOT EXISTS sync_outbox (
@@ -162,9 +172,17 @@ CREATE TABLE IF NOT EXISTS sync_outbox (
 );
 
 CREATE INDEX IF NOT EXISTS idx_routines_account ON routines(account_id);
-CREATE INDEX IF NOT EXISTS idx_routine_exercises_routine ON routine_exercises(routine_id);
+CREATE INDEX IF NOT EXISTS idx_routine_exercises_routine ON routine_exercises(account_id, routine_id);
 CREATE INDEX IF NOT EXISTS idx_workout_sessions_account_status ON workout_sessions(account_id, status);
-CREATE INDEX IF NOT EXISTS idx_session_exercises_session ON session_exercises(session_id);
-CREATE INDEX IF NOT EXISTS idx_set_records_session_exercise ON set_records(session_exercise_id);
+CREATE INDEX IF NOT EXISTS idx_session_exercises_session ON session_exercises(account_id, session_id);
+CREATE INDEX IF NOT EXISTS idx_set_records_session_exercise ON set_records(account_id, session_exercise_id);
 CREATE INDEX IF NOT EXISTS idx_sync_outbox_account_status ON sync_outbox(account_id, status);
+
+CREATE UNIQUE INDEX IF NOT EXISTS idx_workout_sessions_one_active_per_account
+ON workout_sessions(account_id)
+WHERE status = 'active' AND deleted_at IS NULL;
+
+CREATE UNIQUE INDEX IF NOT EXISTS idx_set_records_unique_active_set_index
+ON set_records(session_exercise_id, set_index)
+WHERE deleted_at IS NULL;
 `.trim();

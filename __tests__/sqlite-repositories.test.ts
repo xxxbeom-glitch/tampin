@@ -105,6 +105,23 @@ describe('DEV-004 SQLite repositories', () => {
     expect(active).toBeNull();
   });
 
+  it('rejects starting a second active workout for the same account', async () => {
+    const accountId = createTestAccountId();
+    const { workoutRepository } = createTestDataLayer();
+
+    await workoutRepository.startSession({
+      accountId,
+      startedAt: '2026-09-30T10:00:00.000Z',
+    });
+
+    await expect(
+      workoutRepository.startSession({
+        accountId,
+        startedAt: '2026-09-30T10:05:00.000Z',
+      }),
+    ).rejects.toThrow('An active workout session already exists for this account.');
+  });
+
   it('stores durable sync outbox metadata without executing transport', async () => {
     const accountId = createTestAccountId();
     const { syncOutboxRepository } = createTestDataLayer();
