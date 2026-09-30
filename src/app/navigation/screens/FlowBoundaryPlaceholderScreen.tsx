@@ -5,7 +5,13 @@ import type { RootStackParamList } from '../types';
 
 type PlaceholderRouteName = Exclude<
   keyof RootStackParamList,
-  'Splash' | 'Auth' | 'OnboardingBasicInfo' | 'RoutineHome' | 'RoutineDetail' | 'UiCatalog'
+  | 'Splash'
+  | 'Auth'
+  | 'OnboardingBasicInfo'
+  | 'RoutineHome'
+  | 'RoutineDetail'
+  | 'RoutineEditor'
+  | 'UiCatalog'
 >;
 
 export function FlowBoundaryPlaceholderScreen() {

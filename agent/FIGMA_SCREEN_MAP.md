@@ -30,7 +30,7 @@ Status values:
 | 03 | `03A_Routine_List` | `34:1401` | 360×780 | `src/features/routine/` | NOT_STARTED | NOT_REGISTERED | NOT_VERIFIED |
 | 03 | `03B_Routine_Empty` | `34:1438` | 360×780 | `src/features/routine/` | NOT_STARTED | NOT_REGISTERED | NOT_VERIFIED |
 | 03 | `03D_Routine_Detail` | `34:1447` | 360×1516 | `src/features/routine/` | NOT_STARTED | NOT_REGISTERED | NOT_VERIFIED |
-| 03 | `03E_Routine_Create` | `34:1457` | 360×780 | `src/features/routine/` | NOT_STARTED | NOT_REGISTERED | NOT_VERIFIED |
+| 02 | `02E_Routine_Create` | `34:1457` | 360×780 | `src/features/routine/` | IMPLEMENTED | REGISTERED | LOGIC_PASS |
 | 03 | `03F_Routine_Edit` | `34:1477` | 360×2518 | `src/features/routine/` | NOT_STARTED | NOT_REGISTERED | NOT_VERIFIED |
 | 03 | `03E2_Routine_Create_WithExercises` | `352:896` | 360×2518 | `src/features/routine/` | NOT_STARTED | NOT_REGISTERED | NOT_VERIFIED |
 | 03 | `03A_Routine_List_Menu` | `706:5023` | 360×780 | `src/features/routine/` | NOT_STARTED | NOT_REGISTERED | NOT_VERIFIED |

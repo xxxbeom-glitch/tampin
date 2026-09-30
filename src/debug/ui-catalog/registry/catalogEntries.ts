@@ -126,4 +126,28 @@ export const catalogEntries: CatalogEntry[] = [
     description:
       'Scrollable routine detail with summary strip, four exercise set cards, and start CTA.',
   },
+  {
+    id: '02e-folder-entry-selected',
+    group: '02 루틴',
+    frameName: 'DEV_Routine_Folder_Entry',
+    stateLabel: 'ExistingFolderSelected',
+    description:
+      'Mock-phase folder-first entry with an existing folder selected before routine creation.',
+  },
+  {
+    id: '02e-folder-entry-new-name',
+    group: '02 루틴',
+    frameName: 'DEV_Routine_Folder_Entry',
+    stateLabel: 'NewFolderNamed',
+    description:
+      'Mock-phase folder-first entry with a deterministic new folder name.',
+  },
+  {
+    id: '02e-routine-create-folder-prefilled',
+    group: '02 루틴',
+    frameName: '02E_Routine_Create',
+    stateLabel: 'FolderPrefilled',
+    description:
+      'Current Figma routine-create state reached immediately after folder selection.',
+  },
 ];
