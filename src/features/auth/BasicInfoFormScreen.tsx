@@ -203,7 +203,7 @@ export function BasicInfoFormScreen({
 
         <Pressable
           accessibilityRole="button"
-          accessibilityState={{ disabled: !submitEnabled }}
+          accessibilityState={{ disabled: !interactive || !submitEnabled }}
           disabled={!interactive || !submitEnabled}
           onPress={onSubmit}
           style={[
