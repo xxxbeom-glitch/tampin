@@ -13,5 +13,15 @@ export {
   sanitizeDobInput,
 } from './basicInfoValidation';
 export type { BasicInfoSex } from './basicInfoValidation';
+export { LoginFormScreen } from './LoginFormScreen';
+export type {
+  LoginErrorDialogCase,
+  LoginFormScreenProps,
+  LoginProviderState,
+} from './LoginFormScreen';
+export {
+  LOGIN_ERROR_DIALOG_COPY,
+  LOGIN_PROVIDER_LABELS,
+} from './loginFormContent';
 export { LoginScreen } from './LoginScreen';
 export { OnboardingBasicInfoScreen } from './OnboardingBasicInfoScreen';

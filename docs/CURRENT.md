@@ -6,7 +6,7 @@ Canonical GitHub repository: `xxxbeom-glitch/tampin`
 
 ## Cursor execution harness — prepared 2026-09-22 · Development reactivated 2026-09-30
 
-Product Owner paused Development on 2026-09-22 for a major Design/Figma revision, then **explicitly reactivated Development on 2026-09-30** (Issue #6 Reactivation comment). DEV-001 bootstrap through DEV-006 dev auth bypass are PASS/merged to `main`. **Active development Issue: #16 / DEV-007 — canonical 01C Basic Info onboarding form.** Design/Figma redesign on detached `version2` continues in parallel; canonical `MVP_전체_와이어프레임` remains authoritative until explicit PO promotion. DEV-002 EAS login/project link and Runtime/Device launch remain NOT VERIFIED until PO local smoke completes.
+Product Owner paused Development on 2026-09-22 for a major Design/Figma revision, then **explicitly reactivated Development on 2026-09-30** (Issue #6 Reactivation comment). DEV-001 bootstrap through DEV-007 Basic Info onboarding are PASS/merged to `main`. **Active development Issue: #18 / DEV-008 — canonical 01A Login screen.** Design/Figma redesign on detached `version2` continues in parallel; canonical `MVP_전체_와이어프레임` remains authoritative until explicit PO promotion. DEV-002 EAS login/project link and Runtime/Device launch remain NOT VERIFIED until PO local smoke completes.
 
 Prepared in GitHub:
 - `.cursor/rules/`
@@ -26,7 +26,7 @@ Implementation staging:
 - SQLite, Supabase/Auth/Storage/Sync remain separate later Issues
 - persistence/recovery claims remain NOT VERIFIED until their real architecture layer is connected
 
-NEXT (development): execute / complete Issue #16 / DEV-007 canonical Basic Info onboarding form; preserve DEV-002 NOT VERIFIED EAS/device records without reopening them.
+NEXT (development): execute / complete Issue #18 / DEV-008 canonical Login screen; preserve DEV-002 NOT VERIFIED EAS/device records without reopening them.
 
 NEXT (design, parallel): continue Design/Figma work from the detached `version2` page (`2237:7614`) using `docs/ux-decisions/2026-09-22-version2-detached-redesign-workspace.md`; keep `MVP_전체_와이어프레임` canonical and untouched until explicit PO promotion approval.
 
@@ -34,7 +34,7 @@ NEXT (design, parallel): continue Design/Figma work from the detached `version2`
 
 ## Current mode
 
-`DEVELOPMENT ACTIVE · ISSUE #16 / DEV-007 · DEV-001–006 PASS/MERGED · DESIGN/FIGMA REDESIGN CONTINUES IN PARALLEL ON version2 · PLATFORM/STACK/ARCHITECTURE LOCKS REMAIN · PACKAGE = com.lumian.tampin · ANDROID COMPILE NOT VERIFIED (NO SDK) · EAS LOGIN/DEVICE SMOKE NOT VERIFIED · REAL OAUTH NOT VERIFIED · NEXT DEV = DEV-007 · NEXT DESIGN = version2 REDESIGN`
+`DEVELOPMENT ACTIVE · ISSUE #18 / DEV-008 · DEV-001–007 PASS/MERGED · DESIGN/FIGMA REDESIGN CONTINUES IN PARALLEL ON version2 · PLATFORM/STACK/ARCHITECTURE LOCKS REMAIN · PACKAGE = com.lumian.tampin · ANDROID COMPILE NOT VERIFIED (NO SDK) · EAS LOGIN/DEVICE SMOKE NOT VERIFIED · REAL OAUTH NOT VERIFIED · NEXT DEV = DEV-008 · NEXT DESIGN = version2 REDESIGN`
 
 ## Active development + parallel design revision
 
@@ -44,7 +44,8 @@ NEXT (design, parallel): continue Design/Figma work from the detached `version2`
 - Completed: Issue #10 / DEV-004 — **PASS · merged to main** (local-first SQLite schema and repository foundation)
 - Completed: Issue #12 / DEV-005 — **PASS · merged to main** (SQLite app lifecycle wiring)
 - Completed: Issue #14 / DEV-006 — **PASS · merged to main** (development-only Google/Kakao login bypass)
-- Active: Issue #16 / DEV-007 — **canonical 01C Basic Info onboarding form**
+- Completed: Issue #16 / DEV-007 — **PASS · merged to main** (canonical 01C Basic Info onboarding form)
+- Active: Issue #18 / DEV-008 — **canonical 01A Login screen**
 - Parallel: **DESIGN / FIGMA** on detached `version2` — not canonical until PO promotion
 - Reason for 2026-09-22 pause: Product Owner requested a substantial redesign before broader development
 - Reason for 2026-09-30 resume: Product Owner explicitly reactivated Development for DEV-002 only (Issue #6 Reactivation comment supersedes pause for that Issue)

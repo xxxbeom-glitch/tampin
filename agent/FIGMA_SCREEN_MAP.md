@@ -16,10 +16,10 @@ Status values:
 | Group | Canonical frame | Figma node | Authored size | Planned feature area | Implementation | Catalog | QA |
 |---|---|---|---:|---|---|---|---|
 | 00 | `00_Splash` | `1961:8909` | 360×780 | `src/features/startup/` | NOT_STARTED | NOT_REGISTERED | NOT_VERIFIED |
-| 01 | `01A_Login` | `40:2075` | 360×780 | `src/features/auth/` | NOT_STARTED | NOT_REGISTERED | NOT_VERIFIED |
+| 01 | `01A_Login` | `40:2075` | 360×780 | `src/features/auth/` | IMPLEMENTED | REGISTERED | LOGIC_PASS |
 | 01 | `01C_Basic_Info` | `40:2138` | 360×780 | `src/features/auth/` | IMPLEMENTED | REGISTERED | LOGIC_PASS |
 | 01 | `01C1_Basic_Info_Error` | `1292:1183` | 360×780 | `src/features/auth/` | IMPLEMENTED | REGISTERED | LOGIC_PASS |
-| 01 | `01A1_Login_Error_Overlay_Cases` | `1296:643` | 1160×780 | `src/features/auth/` | NOT_STARTED | NOT_REGISTERED | NOT_VERIFIED |
+| 01 | `01A1_Login_Error_Overlay_Cases` | `1296:643` | 1160×780 | `src/features/auth/` | IMPLEMENTED | REGISTERED | LOGIC_PASS |
 | 01 | `01C2_Basic_Info_Focused` | `1314:645` | 360×780 | `src/features/auth/` | IMPLEMENTED | REGISTERED | LOGIC_PASS |
 | 01 | `01C3_Basic_Info_Filled` | `1314:670` | 360×780 | `src/features/auth/` | IMPLEMENTED | REGISTERED | LOGIC_PASS |
 | 01 | `01C4_Basic_Info_Disabled` | `1314:695` | 360×780 | `src/features/auth/` | IMPLEMENTED | REGISTERED | LOGIC_PASS |
